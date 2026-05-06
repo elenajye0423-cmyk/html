@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 관리</title>
+    <meta name="description" content="(주)비에이텍 관리 지침서를 모아둔 페이지입니다.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+            <ul class="nav-links">
+                <li><a href="intro.html">기업소개</a></li>
+                <li><a href="product.html">주요제품</a></li>
+                <li><a href="management.html">관리</a></li>
+                <li><a href="equipment.html">장비</a></li>
+                <li><a href="sales_history.html">업력</a></li>
+                <li><a href="map.html">찾아오는 길</a></li>
+                <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+    </nav>
+    <header class="page-hero">
+        <h1 class="title">관리</h1>
+        <p class="description">관리 지침서와 운영 매뉴얼을 한눈에 확인하세요.</p>
+    </header>
+    <section class="expertise">
+        <div class="container">
+            <div class="section-header text-center">
+                <h3 class="section-subtitle">관리</h3>
+                <h2 class="section-title">운영 지침서 페이지</h2>
+                <p class="section-description">여기에 지침서 파일 링크를 추가하면 관리 항목에서 바로 연결됩니다.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card glass-card">
+                    <div class="card-icon">📄</div>
+                    <h4 class="card-title">운영 매뉴얼</h4>
+                    <p class="card-text">업무 지침서, 점검 리스트, 안전 규정 등 필요한 문서를 연결할 수 있습니다.</p>
+                </div>
+                <div class="card glass-card">
+                    <div class="card-icon">🛠️</div>
+                    <h4 class="card-title">정비 지침</h4>
+                    <p class="card-text">정기 점검과 예방 정비를 위한 안내서를 빠르게 접근할 수 있습니다.</p>
+                </div>
+                <div class="card glass-card">
+                    <div class="card-icon">📌</div>
+                    <h4 class="card-title">정책 안내</h4>
+                    <p class="card-text">관리 기준과 내부 정책을 정리한 문서로 운영 품질을 높일 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는 워터펌프 시스템 전문 기업입니다.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="product.html">주요제품</a></li>
+                    <li><a href="management.html">관리</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="equipment.html">장비</a></li>
+                    <li><a href="map.html">찾아오는 길</a></li>
+                    <li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
