@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 주요제품</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition-normal); border: 1px solid #f3f4f6; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: var(--secondary-color); }
+        .product-img { height: 220px; background: #e0f2fe; display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; overflow: hidden; }
+        .product-img::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 30%; background: linear-gradient(to top, rgba(0,102,204,0.1), transparent); }
+        .product-info { padding: 1.5rem 2rem; }
+        .product-title { font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+        .product-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+            <ul class="nav-links">
+                <li><a href="intro.html">기업소개</a></li>
+                <li><a href="product.html">주요제품</a></li>
+                <li><a href="equipment.html">장비</a></li>
+                <li><a href="sales_history.html">업력</a></li>
+                <li><a href="map.html">찾아오시는 길</a></li>
+                <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <h1 class="title">주요제품</h1>
+        <p class="description">다양한 산업 현장에 최적화된 고품질 워터펌프</p>
+    </header>
+
+    <section class="container">
+        <div class="section-header text-center">
+            <h2 class="section-title">Products</h2>
+            <p class="section-description">엄격한 품질 관리로 완성된 비에이텍의 주요 제품군을 소개합니다.</p>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-card fade-in-up">
+                <div class="product-img"><img src="assets/booster_pump.png" alt="부스터펌프" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;"></div>
+                <div class="product-info">
+                    <h3 class="product-title">부스터펌프</h3>
+                    <p class="product-desc">급수 라인의 일정한 압력을 유지시켜 안정적인 물 공급이 가능하며 고층 건물 및 산업 단지에 적합합니다.</p>
+                </div>
+            </div>
+            
+            <div class="product-card fade-in-up delay-1">
+                <div class="product-img"><img src="assets/submersible_pump.png" alt="수중펌프" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;"></div>
+                <div class="product-info">
+                    <h3 class="product-title">수중펌프</h3>
+                    <p class="product-desc">완전 방수 모터가 장착되어 물 속에서 직접 작동하며, 배수 및 상하수도 시스템에 탁월한 성능을 발휘합니다.</p>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up delay-2">
+                <div class="product-img"><img src="assets/sludge_pump.png" alt="슬러지펌프" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;"></div>
+                <div class="product-info">
+                    <h3 class="product-title">슬러지펌프</h3>
+                    <p class="product-desc">점성이 높거나 고형물이 섞인 유체를 막힘 없이 이송할 수 있어 오폐수 처리 및 산업용 슬러지 처리에 특화되어 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up">
+                <div class="product-img"><img src="assets/mono_pump.png" alt="일축나사식 모노펌프" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;"></div>
+                <div class="product-info">
+                    <h3 class="product-title">일축나사식 모노펌프</h3>
+                    <p class="product-desc">일정한 유량 공급이 필요한 정밀 공정에 유리하며 진동과 소음이 적은 고효율 펌프입니다.</p>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up delay-1">
+                <div class="product-img"><img src="assets/volute_pump.png" alt="편흡입볼류트펌프" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;"></div>
+                <div class="product-info">
+                    <h3 class="product-title">편흡입볼류트펌프</h3>
+                    <p class="product-desc">구조가 단순하고 견고하여 유지보수가 용이하며, 일반적인 급수 및 배수 용도로 널리 사용됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>워터펌프 시스템 전문 기업입니다.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="product.html">주요제품</a></li>
+                    <li><a href="sales_history.html">업력</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="equipment.html">보유 장비</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                    <li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
+    </footer>
+    <script>
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

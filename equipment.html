@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 장비</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+        
+
+        
+        .equip-container { margin-top: 3rem; }
+        
+        /* Grid-based layout for precise 3-2 distribution on PC */
+        .equip-row { 
+            display: flex; 
+            justify-content: center; 
+            gap: 2.5rem; 
+            margin-bottom: 2.5rem; 
+        }
+        
+        .equip-card { 
+            flex: 0 1 380px; /* Slightly reduced width to ensure 3 items fit in standard containers */
+            background: white; 
+            border-radius: 24px; 
+            overflow: hidden; 
+            box-shadow: var(--shadow-md); 
+            transition: var(--transition-normal); 
+            border: 1px solid #f3f4f6; 
+            text-align: center; 
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .equip-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-lg); border-color: var(--primary-color); }
+        .equip-img { height: 240px; background: #f8fafc; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+        .equip-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+        .equip-info { padding: 2.5rem 2rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+        .equip-title { font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem; }
+        .equip-desc { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+        
+        @media (max-width: 1200px) {
+            .equip-card { flex: 0 1 340px; }
+            .equip-row { gap: 1.5rem; }
+        }
+        
+        @media (max-width: 1024px) {
+            .equip-row { flex-wrap: wrap; }
+            .equip-card { flex: 0 1 45%; }
+        }
+        
+        @media (max-width: 768px) {
+            section.container { padding-top: 6rem; }
+            .equip-row { gap: 2rem; }
+            .equip-card { flex: 0 1 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+            <ul class="nav-links">
+                <li><a href="intro.html">기업소개</a></li>
+                <li><a href="product.html">주요제품</a></li>
+                <li><a href="equipment.html">장비</a></li>
+                <li><a href="sales_history.html">업력</a></li>
+                <li><a href="map.html">찾아오시는 길</a></li>
+                <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <h1 class="title">보유 장비</h1>
+        <p class="description">정밀한 제작과 완벽한 테스트를 위한 최첨단 설비 인프라</p>
+    </header>
+
+    <section class="container">
+        <div class="section-header text-center">
+            <h2 class="section-subtitle">Equipment & Facilities</h2>
+            <h1 class="section-title">최고의 품질을 위한 기술 인프라</h1>
+            <p class="section-description">비에이텍은 세계 수준의 펌프 제작 및 품질 관리를 위해 최신 정밀 설비를 운용하고 있습니다.</p>
+        </div>
+        
+        <div class="equip-container">
+            <!-- Row 1: Exactly 3 Items -->
+            <div class="equip-row">
+                <div class="equip-card fade-in-up">
+                    <div class="equip-img"><img src="assets/cnc_machine.png" alt="CNC 선반 및 밀링 머신"></div>
+                    <div class="equip-info">
+                        <h3 class="equip-title">CNC 선반 및 밀링 머신</h3>
+                        <p class="equip-desc">정밀한 펌프 부품 가공을 위한 고성능 자동화 공작 기계로 미세 오차 없는 완벽한 부품을 생산합니다.</p>
+                    </div>
+                </div>
+                <div class="equip-card fade-in-up delay-1">
+                    <div class="equip-img"><img src="assets/pump_test_rig.png" alt="펌프 성능 시험 설비"></div>
+                    <div class="equip-info">
+                        <h3 class="equip-title">펌프 성능 시험 설비</h3>
+                        <p class="equip-desc">유량, 양정, 소비전력 등 펌프의 실제 가동 성능을 정확하게 측정하여 출고 전 전수 검사를 실시합니다.</p>
+                    </div>
+                </div>
+                <div class="equip-card fade-in-up delay-2">
+                    <div class="equip-img"><img src="assets/laser_alignment.png" alt="레이저 얼라인먼트"></div>
+                    <div class="equip-info">
+                        <h3 class="equip-title">레이저 얼라인먼트</h3>
+                        <p class="equip-desc">모터와 펌프 축의 정밀한 수평 정렬을 맞추어 소음과 진동을 최소화하고 장비의 수명을 획기적으로 연장합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Exactly 2 Items -->
+            <div class="equip-row">
+                <div class="equip-card fade-in-up">
+                    <div class="equip-img"><img src="assets/hoist_crane.png" alt="대형 호이스트 크레인"></div>
+                    <div class="equip-info">
+                        <h3 class="equip-title">대형 호이스트 크레인</h3>
+                        <p class="equip-desc">대용량 산업용 펌프 및 중량물의 안전한 이동과 조립을 담당하는 대형 물류 인프라를 보유하고 있습니다.</p>
+                    </div>
+                </div>
+                <div class="equip-card fade-in-up delay-1">
+                    <div class="equip-img"><img src="assets/vibration_analyzer.png" alt="진동/소음 분석기"></div>
+                    <div class="equip-info">
+                        <h3 class="equip-title">진동/소음 분석기</h3>
+                        <p class="equip-desc">가동 중인 펌프의 미세한 파동과 소음을 과학적으로 분석하여 이상 유무를 사전 진단하고 품질을 보증합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>워터펌프 시스템 전문 기업입니다.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="product.html">주요제품</a></li>
+                    <li><a href="sales_history.html">업력</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="equipment.html">보유 장비</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                    <li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
+    </footer>
+    <script>
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Intersection Observer for animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

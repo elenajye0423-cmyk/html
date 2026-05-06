@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 찾아오시는 길</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+        .map-container { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); height: 500px; margin-top: 2rem; border: 5px solid white; }
+        .map-container iframe { width: 100%; height: 100%; border: 0; }
+        .map-info { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+        .info-box { background: white; padding: 2rem; border-radius: 15px; box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: 1.5rem; }
+        .info-icon { font-size: 2.5rem; color: var(--primary-color); background: #f0f8ff; padding: 1rem; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; }
+        .info-text h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .info-text p { color: var(--text-muted); line-height: 1.6; }
+        @media (max-width: 768px) { .map-info { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+            <ul class="nav-links">
+                <li><a href="intro.html">기업소개</a></li>
+                <li><a href="product.html">주요제품</a></li>
+                <li><a href="equipment.html">장비</a></li>
+                <li><a href="sales_history.html">업력</a></li>
+                <li><a href="map.html">찾아오시는 길</a></li>
+                <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <h1 class="title">찾아오시는 길</h1>
+        <p class="description">비에이텍 본사 및 공장 오시는 길을 안내해 드립니다.</p>
+    </header>
+
+    <section class="container">
+        <div class="map-container fade-in-up">
+            <!-- Google Maps iframe centered at 강원특별자치도 춘천시 퇴계공단2길 64 -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3159.2065842823653!2d127.7248!3d37.8322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3562e123456789%3A0x0!2z6rCV7JuQ7Yq567OE7J6Q7LmY64-EIOy2mOyynOyLnCDtHLOqsOqzteuLqDLL길IDY0!5e0!3m2!1sko!2skr!4v1680000000000!5m2!1sko!2skr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="map-info">
+            <div class="info-box fade-in-up delay-1">
+                <div class="info-icon">📍</div>
+                <div class="info-text">
+                    <h3>주소</h3>
+                    <p>강원특별자치도 춘천시 퇴계공단2길 64<br>(주)비에이텍 본사</p>
+                </div>
+            </div>
+            <div class="info-box fade-in-up delay-2">
+                <div class="info-icon">📞</div>
+                <div class="info-text">
+                    <h3>연락처</h3>
+                    <p><strong>Tel:</strong> 033-264-9243<br><strong>Fax:</strong> 033-251-5747</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>워터펌프 시스템 전문 기업입니다.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="product.html">주요제품</a></li>
+                    <li><a href="sales_history.html">업력</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="equipment.html">보유 장비</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                    <li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
+    </footer>
+    <script>
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

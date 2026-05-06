@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 기업소개</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+        .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 4rem; }
+        .vision-box { background: white; padding: 3rem; border-radius: 20px; box-shadow: var(--shadow-md); border-top: 5px solid var(--primary-color); }
+        @media (max-width: 768px) { .intro-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+            <ul class="nav-links">
+                <li><a href="intro.html">기업소개</a></li>
+                <li><a href="product.html">주요제품</a></li>
+                <li><a href="equipment.html">장비</a></li>
+                <li><a href="sales_history.html">업력</a></li>
+                <li><a href="map.html">찾아오시는 길</a></li>
+                <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <h1 class="title">기업소개</h1>
+        <p class="description">대한민국의 수처리 산업을 선도하는 신뢰할 수 있는 기업</p>
+    </header>
+
+    <section class="container">
+        <div class="intro-grid">
+            <div>
+                <h2 class="section-title">최고의 품질과 서비스로<br>보답합니다.</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
+                    비에이텍 주식회사는 2010년 설립 이래, 산업용 워터 펌프 분야에서 축적된 노하우와 우수한 기술력을 바탕으로 고객에게 최적의 솔루션을 제공하고 있습니다.
+                </p>
+                <ul style="list-style:none; line-height: 2; font-size: 1.1rem;">
+                    <li><strong>상호:</strong> 비에이텍 주식회사</li>
+                    <li><strong>대표이사:</strong> 조세연</li>
+                    <li><strong>설립일:</strong> 2010년 11월 1일</li>
+                    <li><strong>주요사업:</strong> 산업용 워터 펌프 제작, 설치, 수리</li>
+                </ul>
+            </div>
+            <div class="vision-box fade-in-up">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--primary-color);">Our Vision</h3>
+                <p style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 1rem;">
+                    <strong>"혁신적인 기술력으로 지속 가능한 물 환경 조성"</strong>
+                </p>
+                <p style="color: var(--text-muted);">
+                    당사는 철저한 품질 관리와 지속적인 연구개발을 통해 고객 만족을 최우선으로 하며, ISO 9001 및 Main-Biz 인증을 받은 공신력 있는 워터펌프 전문 기업으로 성장하고 있습니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>워터펌프 시스템 전문 기업입니다.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="product.html">주요제품</a></li>
+                    <li><a href="sales_history.html">업력</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="equipment.html">보유 장비</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                    <li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
+    </footer>
+    <script>
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
