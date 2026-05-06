@@ -92,6 +92,7 @@ ul { list-style: none; }
 
 /* Sections */
 section { padding: 8rem 0; } /* Increased vertical spacing for better flow */
+header.page-hero + section { padding-top: 4rem; }
 .section-header { margin-top: 2rem; margin-bottom: 4rem; } /* More breathing room */
 .section-subtitle { color: var(--primary-color); font-size: clamp(0.95rem, 1vw + 0.4rem, 1.1rem); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; display: block; font-weight: bold; }
 .section-title { font-size: clamp(2.2rem, 2.5vw + 1.2rem, 3rem); color: var(--text-main); margin-bottom: 1.5rem; letter-spacing: -1px; word-break: keep-all; overflow-wrap: break-word; }
