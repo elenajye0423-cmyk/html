@@ -115,16 +115,15 @@
                 return;
             }
             results.forEach((pump) => {
-                const item = document.createElement('button');
-                item.type = 'button';
+                const url = new URL('management-viewer.html', window.location.href);
+                url.searchParams.set('pdf', pump.pdf);
+                url.searchParams.set('name', pump.name);
+
+                const item = document.createElement('a');
                 item.className = 'search-item';
+                item.href = url.toString();
                 item.innerHTML = `<span>${pump.name}</span><strong>뷰어로 이동</strong>`;
-                item.addEventListener('click', () => {
-                    const url = new URL('management-viewer.html', window.location.href);
-                    url.searchParams.set('pdf', pump.pdf);
-                    url.searchParams.set('name', pump.name);
-                    window.location.href = url.toString();
-                });
+                item.title = `${pump.name} 지침서 보기`;
                 searchResults.appendChild(item);
             });
         }

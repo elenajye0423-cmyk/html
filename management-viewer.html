@@ -92,14 +92,29 @@
         let totalPages = 0;
         const canvas = document.createElement('canvas');
         const canvasCtx = canvas.getContext('2d');
-        viewer.appendChild(canvas);
-        canvas.style.width = '100%';
-        canvas.style.height = 'auto';
-
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.min.js';
+        const directPdfLink = document.createElement('a');
+        directPdfLink.className = 'btn-primary';
+        directPdfLink.target = '_blank';
+        directPdfLink.rel = 'noopener noreferrer';
+        directPdfLink.style.display = 'none';
+        directPdfLink.style.marginTop = '1rem';
 
         function getQueryParam(name) {
             return new URLSearchParams(window.location.search).get(name);
+        }
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.min.js';
+
+        function showViewerElements() {
+            viewer.innerHTML = '';
+            viewer.appendChild(canvas);
+            const note = document.createElement('div');
+            note.className = 'viewer-note';
+            note.textContent = '좌클릭은 이전 페이지, 우클릭은 다음 페이지로 이동합니다.';
+            viewer.appendChild(note);
+            viewer.appendChild(directPdfLink);
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
         }
 
         function renderPage(pageNumber) {
@@ -122,22 +137,29 @@
             });
         }
 
+        function showError(pdfUrl, message) {
+            viewer.innerHTML = `<div class="viewer-empty">PDF를 불러올 수 없습니다.<br>${message}</div>`;
+            directPdfLink.href = pdfUrl;
+            directPdfLink.textContent = 'PDF 새 창에서 열기';
+            directPdfLink.style.display = 'inline-flex';
+            viewer.appendChild(directPdfLink);
+        }
+
         function loadPdf(pdfUrl, name) {
             selectedPumpLabel.textContent = `${name} 지침서`;
             pageInfo.textContent = '불러오는 중...';
-            viewer.innerHTML = '';
-            viewer.appendChild(canvas);
-            const note = document.createElement('div');
-            note.className = 'viewer-note';
-            note.textContent = '좌클릭은 이전 페이지, 우클릭은 다음 페이지로 이동합니다.';
-            viewer.appendChild(note);
-            pdfjsLib.getDocument(pdfUrl).promise.then(doc => {
+            directPdfLink.href = pdfUrl;
+            directPdfLink.textContent = 'PDF 새 창에서 열기';
+            directPdfLink.style.display = 'inline-flex';
+            showViewerElements();
+
+            pdfjsLib.getDocument({ url: pdfUrl }).promise.then(doc => {
                 pdfDoc = doc;
                 totalPages = doc.numPages;
                 currentPage = 1;
                 renderPage(currentPage);
             }).catch(error => {
-                viewer.innerHTML = `<div class="viewer-empty">PDF를 불러올 수 없습니다.<br>${error.message}</div>`;
+                showError(pdfUrl, error.message);
                 pageInfo.textContent = '페이지 0 / 0';
             });
         }
@@ -172,8 +194,8 @@
 
         const pdfUrl = getQueryParam('pdf');
         const pumpName = getQueryParam('name');
-        if (pdfUrl && pumpName) {
-            loadPdf(decodeURIComponent(pdfUrl), decodeURIComponent(pumpName));
+        if (pdfUrl) {
+            loadPdf(decodeURIComponent(pdfUrl), decodeURIComponent(pumpName || '선택한 펌프'));
         } else {
             selectedPumpLabel.textContent = '유효한 지침서가 없습니다.';
             viewer.innerHTML = '<div class="viewer-empty">검색 페이지에서 펌프를 선택하여 지침서를 열어주세요.</div>';
