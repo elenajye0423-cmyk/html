@@ -119,9 +119,9 @@
             results.forEach((pump) => {
                 const item = document.createElement('div');
                 item.className = 'search-item';
-                item.innerHTML = `<div>
-                        <strong>${pump.name}</strong>
-                        <p>${pump.description}</p>
+                item.innerHTML = `<div class="pump-item-content">
+                        <strong class="pump-title">${pump.name}</strong>
+                        <p class="pump-description">${pump.description}</p>
                     </div>`;
                 searchResults.appendChild(item);
             });
