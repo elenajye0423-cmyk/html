@@ -1,13 +1,53 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>(주)비에이텍 - 관리</title>
     <meta name="description" content="(주)비에이텍 관리 지침서를 모아둔 페이지입니다.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .management-search { padding: 4rem 0; min-height: 800px; background: #f8fafc; }
+        .management-wrapper { max-width: 1200px; margin: 0 auto; }
+        .search-panel { padding: 3rem; background: white; border-radius: 30px; box-shadow: var(--shadow-lg); }
+        .search-input-wrap { margin-top: 2rem; margin-bottom: 3rem; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
+        #pump-search { width: 100%; padding: 1.2rem 2rem; border-radius: 50px; border: 2px solid #e2e8f0; font-size: 1.1rem; transition: var(--transition-normal); outline: none; box-shadow: var(--shadow-sm); }
+        #pump-search:focus { border-color: var(--primary-color); box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1); }
+        
+        .search-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+        .pump-card { background: white; border: 1px solid #f1f5f9; border-radius: 24px; overflow: hidden; transition: var(--transition-normal); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; height: 100%; cursor: pointer; }
+        .pump-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: var(--primary-color); }
+        .pump-card-img { height: 200px; background: #f8fafc; display: flex; align-items: center; justify-content: center; padding: 1.5rem; overflow: hidden; }
+        .pump-card-img img { width: 100%; height: 100%; object-fit: contain; transition: var(--transition-normal); }
+        .pump-card:hover .pump-card-img img { transform: scale(1.05); }
+        .pump-card-info { padding: 2rem; flex-grow: 1; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .pump-card-title { font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; }
+        .btn-view-manual { 
+            width: 100%; 
+            padding: 0.8rem; 
+            background: #f0f9ff; 
+            color: var(--primary-color); 
+            border-radius: 12px; 
+            font-weight: 700; 
+            font-size: 0.95rem; 
+            transition: var(--transition-fast); 
+            border: 1px solid transparent;
+            margin-top: auto;
+        }
+        .pump-card:hover .btn-view-manual { background: var(--primary-color); color: white; }
+        
+        .search-empty { grid-column: 1 / -1; text-align: center; padding: 5rem 0; color: #94a3b8; font-size: 1.1rem; }
+        
+        @media (max-width: 768px) {
+            .search-results { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
+
 <body>
     <nav id="navbar" class="scrolled">
         <div class="nav-container">
@@ -21,63 +61,26 @@
                 <li><a href="map.html">찾아오는 길</a></li>
                 <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
             </ul>
-            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span
+                    class="bar"></span></div>
         </div>
     </nav>
     <header class="page-hero">
         <h1 class="title">관리</h1>
-        <p class="description">펌프 별로의 관리 유지 지침서 검색</p>
+        <p class="description">제품별 상세 유지관리 지침서를 확인하실 수 있습니다.</p>
     </header>
     <section class="management-search">
-        <div class=\"container\">
-            <div class=\"section-header text-center\">
-                <h2 class=\"section-subtitle\">유지관리 지침서</h2>
-                <h1 class=\"section-title\">펌프别 유지관리 가이드</h1>
-                <p class=\"section-description\">각 펌프 제품의 유지관리 방법과 주요 특징을 확인하세요.</p>
-            </div>
-            <div class=\"maintenance-grid\">
-                <div class=\"maintenance-card fade-in-up\">
-                    <div class=\"maintenance-img\"><img src=\"assets/booster_pump.png\" alt=\"부스터펌프\"></div>
-                    <div class=\"maintenance-info\">
-                        <h3 class=\"maintenance-title\">부스터펌프 유지관리지침서</h3>
-                        <p class=\"maintenance-desc\">급수 라인의 일정한 압력을 유지시켜 안정적인 물 공급이 가능하며 고층 건물 및 산업 단지에 적합합니다. 정기적인 압력 점검과 필터 교체가 필요합니다.</p>
-                    </div>
+        <div class="container management-wrapper">
+            <div class="search-panel glass-card">
+                <div class="section-header text-center">
+                    <h3 class="section-subtitle">Management Guides</h3>
+                    <h2 class="section-title">펌프 유지관리 지침서</h2>
+                    <p class="section-description">제품 모델명을 검색하거나 아래 목록에서 지침서를 선택하세요.</p>
                 </div>
-                <div class=\"maintenance-card fade-in-up delay-1\">
-                    <div class=\"maintenance-img\"><img src=\"assets/submersible_pump.png\" alt=\"수중펌프\"></div>
-                    <div class=\"maintenance-info\">
-                        <h3 class=\"maintenance-title\">수중펌프 유지관리지침서</h3>
-                        <p class=\"maintenance-desc\">완전 방수 모터가 장착되어 물 속에서 직접 작동하며, 배수 및 상하수도 시스템에 탁월한 성능을 발휘합니다. 침식 방지 및 모터 냉각 상태를 주기적으로 확인하세요.</p>
-                    </div>
+                <div class="search-input-wrap">
+                    <input id="pump-search" type="search" placeholder="펌프 모델명 검색..." autocomplete="off" />
                 </div>
-                <div class=\"maintenance-card fade-in-up delay-2\">
-                    <div class=\"maintenance-img\"><img src=\"assets/sludge_pump.png\" alt=\"슬러지펌프\"></div>
-                    <div class=\"maintenance-info\">
-                        <h3 class=\"maintenance-title\">슬러지펌프 유지관리지침서</h3>
-                        <p class=\"maintenance-desc\">점성이 높거나 고형물이 섞인 유체를 막힘 없이 이송할 수 있어 오폐수 처리 및 산업용 슬러지 처리에 특화되어 있습니다. 임펠러의 마모 상태를 수시로 점검하세요.</p>
-                    </div>
-                </div>
-                <div class=\"maintenance-card fade-in-up\">
-                    <div class=\"maintenance-img placeholder\"><div style=\"font-size: 3.5rem;\">💧</div></div>
-                    <div class=\"maintenance-info\">
-                        <h3 class=\"maintenance-title\">정량펌프 유지관리지침서</h3>
-                        <p class=\"maintenance-desc\">정밀한 유량 제어가 필요한 공정에 적합한 정량펌프입니다. 유량 설정값의 정확성을 주기적으로 검수하고 배관 내 공기 제거에 주의하세요.</p>
-                    </div>
-                </div>
-                <div class=\"maintenance-card fade-in-up delay-1\">
-                    <div class=\"maintenance-img\"><img src=\"assets/mono_pump.png\" alt=\"일축나사식 모노펌프\"></div>
-                    <div class=\"maintenance-info\">
-                        <h3 class=\"maintenance-title\">일축나사식 모노펌프 유지관리지침서</h3>
-                        <p class=\"maintenance-desc\">일정한 유량 공급이 필요한 정밀 공정에 유리하며 진동과 소음이 적은 고효율 펌프입니다. 실(Seal) 부분의 누유 여부를 수시로 확인하고 주기적으로 교체하세요.</p>
-                    </div>
-                </div>
-                <div class=\"maintenance-card fade-in-up delay-2\">
-                    <div class=\"maintenance-img\"><img src=\"assets/volute_pump.png\" alt=\"편흡입볼류트펌프\"></div>
-                    <div class=\"maintenance-info\">
-                        <h3 class=\"maintenance-title\">편흡입볼류트펌프 유지관리지침서</h3>
-                        <p class=\"maintenance-desc\">구조가 단순하고 견고하여 유지보수가 용이하며, 일반적인 급수 및 배수 용도로 널리 사용됩니다. 베어링 윤활 상태와 임펠러 간극을 정기적으로 점검하세요.</p>
-                    </div>
-                </div>
+                <div class="search-results" id="search-results"></div>
             </div>
         </div>
     </section>
@@ -135,40 +138,53 @@
         const searchResults = document.getElementById('search-results');
 
         const pumps = [
-            { name: '부스터펌프', description: '급수 라인의 일정한 압력을 유지시켜 안정적인 물 공급이 가능하며 고층 건물 및 산업 단지에 적합합니다.' },
-            { name: '수중펌프', description: '완전 방수 모터가 장착되어 물 속에서 직접 작동하며, 배수 및 상하수도 시스템에 탁월한 성능을 발휘합니다.' },
-            { name: '슬러지펌프', description: '점성이 높거나 고형물이 섞인 유체를 막힘 없이 이송할 수 있어 오폐수 처리 및 산업용 슬러지 처리에 특화되어 있습니다.' },
-            { name: '정량펌프', description: '정밀한 유량 제어가 필요한 공정에 적합한 정량펌프로 안정적인 성능을 제공합니다.' },
-            { name: '일축나사식 모노펌프', description: '일정한 유량 공급이 필요한 정밀 공정에 유리하며 진동과 소음이 적은 고효율 펌프입니다.' },
-            { name: '편흡입볼류트펌프', description: '구조가 단순하고 견고하여 유지보수가 용이하며, 일반적인 급수 및 배수 용도로 널리 사용됩니다.' }
+            { name: '부스터펌프', pdf: 'assets/manuals/부스터펌프 유지관리지침서.pdf', img: 'assets/booster_pump_pro.png' },
+            { name: '수중펌프', pdf: 'assets/manuals/수중펌프 유지관리지침서.pdf', img: 'assets/submersible_pump_pro.png' },
+            { name: '슬러지펌프', pdf: 'assets/manuals/슬러지펌프 유지관리지침서.pdf', img: 'assets/sludge_pump_pro.png' },
+            { name: '일축나사식 모노펌프', pdf: 'assets/manuals/일축나사식 모노펌프 유지관리지침서.pdf', img: 'assets/mono_pump_pro.png' },
+            { name: '편흡입볼류트펌프', pdf: 'assets/manuals/편흡입볼류트펌프 유지관리지침서.pdf', img: 'assets/volute_pump_pro.png' },
+            { name: '정량펌프', pdf: 'assets/manuals/정량펌프 유지관리지침서.pdf', img: 'assets/metering_pump_pro.png' }
         ];
 
         function filterPumps() {
             const query = searchInput.value.trim().toLowerCase();
-            const filtered = pumps.filter(pump => pump.name.toLowerCase().includes(query) || pump.description.toLowerCase().includes(query));
+            const filtered = pumps.filter(pump => pump.name.toLowerCase().includes(query));
             renderResults(filtered);
         }
 
         function renderResults(results) {
             searchResults.innerHTML = '';
             if (!results.length) {
-                searchResults.innerHTML = '<div class="search-empty">검색어에 해당하는 펌프가 없습니다.</div>';
+                searchResults.innerHTML = '<div class="search-empty">검색 결과가 없습니다.</div>';
                 return;
             }
             results.forEach((pump) => {
-                const item = document.createElement('div');
-                item.className = 'search-item';
-                item.innerHTML = `<div class="pump-item-content">
-                        <strong class="pump-title">${pump.name}</strong>
-                        <p class="pump-description">${pump.description}</p>
-                    </div>`;
-                searchResults.appendChild(item);
+                const card = document.createElement('div');
+                card.className = 'pump-card';
+                card.innerHTML = `
+                    <div class="pump-card-img">
+                        <img src="${pump.img}" alt="${pump.name}">
+                    </div>
+                    <div class="pump-card-info">
+                        <h3 class="pump-card-title">${pump.name}</h3>
+                        <button class="btn-view-manual">지침서 보기</button>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    const url = new URL('management-viewer.html', window.location.href);
+                    url.searchParams.set('pdf', pump.pdf);
+                    url.searchParams.set('name', pump.name);
+                    window.location.href = url.toString();
+                });
+                searchResults.appendChild(card);
             });
         }
 
-        });
-
+        searchInput.addEventListener('input', filterPumps);
+        
+        // Initialize
         filterPumps();
     </script>
 </body>
+
 </html>

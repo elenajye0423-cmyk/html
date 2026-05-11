@@ -7,6 +7,89 @@
     <meta name="description" content="관리 지침서 PDF를 열람하는 전용 페이지입니다.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .management-viewer-section { padding: 2rem 0 6rem; background: #f1f5f9; min-height: 100vh; }
+        .compact-hero { padding: 120px 2rem 60px !important; min-height: 250px !important; background: linear-gradient(135deg, #1e293b, #334155) !important; }
+        
+        /* Mini Webpage Design */
+        .viewer-window { 
+            background: white; 
+            border-radius: 20px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); 
+            overflow: hidden; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 1200px;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Browser Header */
+        .browser-header {
+            background: #f8fafc;
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .window-controls { display: flex; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+        
+        .browser-address-bar {
+            flex-grow: 1;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .lock-icon { font-size: 0.8rem; }
+
+        .viewer-header-info {
+            padding: 1.5rem 2rem;
+            background: white;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #selected-pump { font-size: 1.25rem; font-weight: 800; color: #1e293b; }
+        .viewer-badge { font-size: 0.75rem; font-weight: 700; color: #3b82f6; background: #eff6ff; padding: 0.3rem 0.8rem; border-radius: 50px; text-transform: uppercase; }
+        
+        .pdf-content-area { flex-grow: 1; background: #525659; position: relative; }
+        #pdf-frame { width: 100%; height: 100%; border: none; }
+        
+        .viewer-footer { padding: 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: center; }
+        .btn-back { padding: 0.8rem 2.5rem; border-radius: 50px; background: white; border: 1px solid #cbd5e1; font-weight: 600; color: #475569; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .btn-back:hover { background: #1e293b; color: white; border-color: #1e293b; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        
+        .viewer-empty { padding: 10rem 2rem; text-align: center; color: #94a3b8; }
+        
+        @media (max-width: 768px) {
+            .viewer-window { height: 80vh; margin: 0 1rem; }
+            .browser-header { padding: 0.6rem 1rem; gap: 0.8rem; }
+            .browser-address-bar { display: none; }
+            #selected-pump { font-size: 1rem; }
+        }
+    </style>
 </head>
 <body>
     <nav id="navbar" class="scrolled">
@@ -24,49 +107,51 @@
             <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
         </div>
     </nav>
-    <header class="page-hero">
-        <h1 class="title">관리 지침서 뷰어</h1>
-        <p class="description">검색한 펌프의 PDF 지침서를 새 페이지에서 열람합니다.</p>
+
+    <header class="page-hero compact-hero">
+        <h1 class="title" id="viewer-title">지침서 뷰어</h1>
+        <p class="description" id="viewer-desc">비에이텍 제품의 안전한 관리를 위한 통합 가이드라인입니다.</p>
     </header>
-    <section class="management-search">
-        <div class="container management-wrapper">
-            <div class="viewer-panel glass-card">
-                <div class="viewer-header">
-                    <span id="selected-pump">지침서를 불러오는 중...</span>
-                    <span id="page-info">페이지 0 / 0</span>
+
+    <section class="management-viewer-section">
+        <div class="container">
+            <div class="viewer-window" id="viewer-window">
+                <!-- Browser Header Decor -->
+                <div class="browser-header">
+                    <div class="window-controls">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="browser-address-bar">
+                        <span class="lock-icon">🔒</span>
+                        <span id="address-url">batech.co.kr/manuals/viewer.html?pump=...</span>
+                    </div>
                 </div>
-                <div class="pdf-viewer" id="pdf-viewer" title="왼쪽 클릭: 이전 페이지 / 오른쪽 클릭: 다음 페이지">
-                    <div class="viewer-empty">PDF가 표시되지 않습니다. 펌프 검색 페이지에서 펌프를 선택해 주세요.</div>
-                    <div class="viewer-note">좌클릭은 이전 페이지, 우클릭은 다음 페이지로 이동합니다.</div>
+
+                <div class="viewer-header-info">
+                    <span id="selected-pump">지침서 불러오는 중...</span>
+                    <span class="viewer-badge">Official Manual</span>
                 </div>
-                <div class="viewer-controls">
-                    <button id="prev-page" type="button">이전 페이지</button>
-                    <button id="next-page" type="button">다음 페이지</button>
+
+                <div class="pdf-content-area" id="pdf-wrap">
+                    <iframe id="pdf-frame" src="" type="application/pdf"></iframe>
+                </div>
+
+                <div class="viewer-footer">
+                    <a href="management.html" class="btn-back">
+                        <span>←</span> 목록으로 돌아가기
+                    </a>
                 </div>
             </div>
         </div>
     </section>
+
     <footer>
         <div class="container footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
                 <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는 워터펌프 시스템 전문 기업입니다.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="intro.html">기업소개</a></li>
-                    <li><a href="product.html">주요제품</a></li>
-                    <li><a href="management.html">관리</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Customer Support</h4>
-                <ul>
-                    <li><a href="equipment.html">장비</a></li>
-                    <li><a href="map.html">찾아오는 길</a></li>
-                    <li><a href="inquiry.html">온라인 문의</a></li>
-                </ul>
             </div>
             <div class="footer-contact">
                 <h4>Contact Us</h4>
@@ -75,132 +160,42 @@
                 <p>전화: 033-264-9243</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p>
-        </div>
+        <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.min.js"></script>
+
     <script>
-        const viewer = document.getElementById('pdf-viewer');
-        const selectedPumpLabel = document.getElementById('selected-pump');
-        const pageInfo = document.getElementById('page-info');
-        const prevButton = document.getElementById('prev-page');
-        const nextButton = document.getElementById('next-page');
-
-        let pdfDoc = null;
-        let currentPage = 1;
-        let totalPages = 0;
-        const canvas = document.createElement('canvas');
-        const canvasCtx = canvas.getContext('2d');
-        const directPdfLink = document.createElement('a');
-        directPdfLink.className = 'btn-primary';
-        directPdfLink.target = '_blank';
-        directPdfLink.rel = 'noopener noreferrer';
-        directPdfLink.style.display = 'none';
-        directPdfLink.style.marginTop = '1rem';
-
         function getQueryParam(name) {
             return new URLSearchParams(window.location.search).get(name);
         }
 
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.min.js';
-
-        function showViewerElements() {
-            viewer.innerHTML = '';
-            viewer.appendChild(canvas);
-            const note = document.createElement('div');
-            note.className = 'viewer-note';
-            note.textContent = '좌클릭은 이전 페이지, 우클릭은 다음 페이지로 이동합니다.';
-            viewer.appendChild(note);
-            viewer.appendChild(directPdfLink);
-            canvas.style.width = '100%';
-            canvas.style.height = 'auto';
-        }
-
-        function renderPage(pageNumber) {
-            if (!pdfDoc) return;
-            pdfDoc.getPage(pageNumber).then(page => {
-                const viewport = page.getViewport({ scale: 1.5 });
-                const outputScale = window.devicePixelRatio || 1;
-                canvas.width = Math.floor(viewport.width * outputScale);
-                canvas.height = Math.floor(viewport.height * outputScale);
-                canvas.style.width = `${viewport.width}px`;
-                canvas.style.height = `${viewport.height}px`;
-                const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-                const renderContext = {
-                    canvasContext: canvasCtx,
-                    viewport,
-                    transform
-                };
-                page.render(renderContext);
-                pageInfo.textContent = `페이지 ${currentPage} / ${totalPages}`;
-            });
-        }
-
-        function showError(pdfUrl, message) {
-            viewer.innerHTML = `<div class="viewer-empty">PDF를 불러올 수 없습니다.<br>${message}</div>`;
-            directPdfLink.href = pdfUrl;
-            directPdfLink.textContent = 'PDF 새 창에서 열기';
-            directPdfLink.style.display = 'inline-flex';
-            viewer.appendChild(directPdfLink);
-        }
-
-        function loadPdf(pdfUrl, name) {
-            selectedPumpLabel.textContent = `${name} 지침서`;
-            pageInfo.textContent = '불러오는 중...';
-            directPdfLink.href = pdfUrl;
-            directPdfLink.textContent = 'PDF 새 창에서 열기';
-            directPdfLink.style.display = 'inline-flex';
-            showViewerElements();
-
-            pdfjsLib.getDocument({ url: pdfUrl }).promise.then(doc => {
-                pdfDoc = doc;
-                totalPages = doc.numPages;
-                currentPage = 1;
-                renderPage(currentPage);
-            }).catch(error => {
-                showError(pdfUrl, error.message);
-                pageInfo.textContent = '페이지 0 / 0';
-            });
-        }
-
-        function nextPage() {
-            if (!pdfDoc || currentPage >= totalPages) return;
-            currentPage += 1;
-            renderPage(currentPage);
-        }
-
-        function prevPage() {
-            if (!pdfDoc || currentPage <= 1) return;
-            currentPage -= 1;
-            renderPage(currentPage);
-        }
-
-        viewer.addEventListener('click', event => {
-            if (event.button === 0 && pdfDoc) {
-                prevPage();
-            }
-        });
-
-        viewer.addEventListener('contextmenu', event => {
-            event.preventDefault();
-            if (pdfDoc) {
-                nextPage();
-            }
-        });
-
-        prevButton.addEventListener('click', prevPage);
-        nextButton.addEventListener('click', nextPage);
-
         const pdfUrl = getQueryParam('pdf');
         const pumpName = getQueryParam('name');
-        if (pdfUrl) {
-            loadPdf(decodeURIComponent(pdfUrl), decodeURIComponent(pumpName || '선택한 펌프'));
+        const iframe = document.getElementById('pdf-frame');
+        const label = document.getElementById('selected-pump');
+        const addressUrl = document.getElementById('address-url');
+        const heroTitle = document.getElementById('viewer-title');
+        const heroDesc = document.getElementById('viewer-desc');
+
+        if (pdfUrl && pumpName) {
+            const decodedName = decodeURIComponent(pumpName);
+            const decodedUrl = decodeURIComponent(pdfUrl);
+            
+            label.textContent = `${decodedName} 유지관리지침서`;
+            heroTitle.textContent = `${decodedName} 관리 지침`;
+            heroDesc.textContent = `비에이텍 ${decodedName}의 공식 유지보수 가이드라인입니다.`;
+            addressUrl.textContent = `batech.co.kr/assets/manuals/${decodedUrl.split('/').pop()}`;
+            
+            iframe.src = decodedUrl;
         } else {
-            selectedPumpLabel.textContent = '유효한 지침서가 없습니다.';
-            viewer.innerHTML = '<div class="viewer-empty">검색 페이지에서 펌프를 선택하여 지침서를 열어주세요.</div>';
-            pageInfo.textContent = '페이지 0 / 0';
+            label.textContent = '지침서를 찾을 수 없습니다.';
+            document.getElementById('pdf-wrap').innerHTML = '<div class="viewer-empty"><h3>지침서를 불러올 수 없습니다.</h3><p>목록 페이지에서 펌프를 다시 선택해 주세요.</p></div>';
         }
+
+        // Mobile menu
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
     </script>
 </body>
 </html>
