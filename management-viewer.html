@@ -7,6 +7,10 @@
     <meta name="description" content="관리 지침서 PDF를 열람하는 전용 페이지입니다.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- PageFlip -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
     <style>
         .management-viewer-section { padding: 2rem 0 6rem; background: #f1f5f9; min-height: 100vh; }
         .compact-hero { padding: 120px 2rem 60px !important; min-height: 250px !important; background: linear-gradient(135deg, #1e293b, #334155) !important; }
@@ -22,7 +26,7 @@
             border: 1px solid #e2e8f0;
             display: flex;
             flex-direction: column;
-            height: 1200px;
+            min-height: 800px;
             animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
@@ -61,7 +65,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .lock-icon { font-size: 0.8rem; }
 
         .viewer-header-info {
             padding: 1.5rem 2rem;
@@ -74,20 +77,30 @@
         #selected-pump { font-size: 1.25rem; font-weight: 800; color: #1e293b; }
         .viewer-badge { font-size: 0.75rem; font-weight: 700; color: #3b82f6; background: #eff6ff; padding: 0.3rem 0.8rem; border-radius: 50px; text-transform: uppercase; }
         
-        .pdf-content-area { flex-grow: 1; background: #525659; position: relative; }
-        #pdf-frame { width: 100%; height: 100%; border: none; }
+        /* E-Book Specific Styles */
+        .book-content-area { flex-grow: 1; background: #e2e8f0; position: relative; padding: 2rem; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+        .book-wrapper { width: 100%; max-width: 900px; height: 600px; margin: 0 auto; }
+        #book { width: 100%; height: 100%; }
+        .page { background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        
+        .book-controls { margin-top: 2rem; display: flex; align-items: center; gap: 2rem; background: white; padding: 0.8rem 2rem; border-radius: 50px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .control-btn { background: none; border: none; cursor: pointer; color: #64748b; transition: color 0.2s; display: flex; align-items: center; }
+        .control-btn:hover { color: #3b82f6; }
+        .page-info { font-weight: 600; color: #1e293b; min-width: 120px; text-align: center; }
+
+        .loading-overlay { position: absolute; inset: 0; background: white; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
         .viewer-footer { padding: 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: center; }
-        .btn-back { padding: 0.8rem 2.5rem; border-radius: 50px; background: white; border: 1px solid #cbd5e1; font-weight: 600; color: #475569; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .btn-back:hover { background: #1e293b; color: white; border-color: #1e293b; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-        
-        .viewer-empty { padding: 10rem 2rem; text-align: center; color: #94a3b8; }
+        .btn-back { padding: 0.8rem 2.5rem; border-radius: 50px; background: white; border: 1px solid #cbd5e1; font-weight: 600; color: #475569; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; }
+        .btn-back:hover { background: #1e293b; color: white; border-color: #1e293b; transform: translateY(-2px); }
         
         @media (max-width: 768px) {
-            .viewer-window { height: 80vh; margin: 0 1rem; }
-            .browser-header { padding: 0.6rem 1rem; gap: 0.8rem; }
+            .viewer-window { height: auto; margin: 0 1rem; }
             .browser-address-bar { display: none; }
-            #selected-pump { font-size: 1rem; }
+            .book-wrapper { height: 400px; }
+            .book-controls { gap: 1rem; padding: 0.5rem 1rem; }
         }
     </style>
 </head>
@@ -115,8 +128,7 @@
 
     <section class="management-viewer-section">
         <div class="container">
-            <div class="viewer-window" id="viewer-window">
-                <!-- Browser Header Decor -->
+            <div class="viewer-window">
                 <div class="browser-header">
                     <div class="window-controls">
                         <div class="dot red"></div>
@@ -124,18 +136,36 @@
                         <div class="dot green"></div>
                     </div>
                     <div class="browser-address-bar">
-                        <span class="lock-icon">🔒</span>
-                        <span id="address-url">batech.co.kr/manuals/viewer.html?pump=...</span>
+                        <span>🔒</span> <span id="address-url">batech.co.kr/manuals/viewer.html</span>
                     </div>
                 </div>
 
                 <div class="viewer-header-info">
                     <span id="selected-pump">지침서 불러오는 중...</span>
-                    <span class="viewer-badge">Official Manual</span>
+                    <span class="viewer-badge">E-Book Style</span>
                 </div>
 
-                <div class="pdf-content-area" id="pdf-wrap">
-                    <iframe id="pdf-frame" src="" type="application/pdf"></iframe>
+                <div class="book-content-area">
+                    <div id="loading-overlay" class="loading-overlay">
+                        <div class="spinner"></div>
+                        <p id="loading-text">지침서를 렌더링하고 있습니다...</p>
+                    </div>
+                    
+                    <div class="book-wrapper">
+                        <div id="book">
+                            <!-- Pages will be injected here -->
+                        </div>
+                    </div>
+
+                    <div class="book-controls">
+                        <button id="prev-btn" class="control-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <span id="page-info" class="page-info">로딩 중...</span>
+                        <button id="next-btn" class="control-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="viewer-footer">
@@ -151,7 +181,7 @@
         <div class="container footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
-                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는 워터펌프 시스템 전문 기업입니다.</p>
+                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>워터펌프 시스템 전문 기업입니다.</p>
             </div>
             <div class="footer-contact">
                 <h4>Contact Us</h4>
@@ -163,35 +193,23 @@
         <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
     </footer>
 
+    <script src="script.js"></script>
     <script>
-        function getQueryParam(name) {
-            return new URLSearchParams(window.location.search).get(name);
-        }
+        // Update header and address bar based on query params
+        const urlParams = new URLSearchParams(window.location.search);
+        const pumpName = urlParams.get('name');
+        const pdfUrl = urlParams.get('pdf');
 
-        const pdfUrl = getQueryParam('pdf');
-        const pumpName = getQueryParam('name');
-        const iframe = document.getElementById('pdf-frame');
-        const label = document.getElementById('selected-pump');
-        const addressUrl = document.getElementById('address-url');
-        const heroTitle = document.getElementById('viewer-title');
-        const heroDesc = document.getElementById('viewer-desc');
-
-        if (pdfUrl && pumpName) {
+        if (pumpName) {
             const decodedName = decodeURIComponent(pumpName);
+            document.getElementById('selected-pump').textContent = `${decodedName} 유지관리지침서`;
+            document.getElementById('viewer-title').textContent = `${decodedName} 관리 지침`;
+        }
+        if (pdfUrl) {
             const decodedUrl = decodeURIComponent(pdfUrl);
-            
-            label.textContent = `${decodedName} 유지관리지침서`;
-            heroTitle.textContent = `${decodedName} 관리 지침`;
-            heroDesc.textContent = `비에이텍 ${decodedName}의 공식 유지보수 가이드라인입니다.`;
-            addressUrl.textContent = `batech.co.kr/assets/manuals/${decodedUrl.split('/').pop()}`;
-            
-            iframe.src = decodedUrl;
-        } else {
-            label.textContent = '지침서를 찾을 수 없습니다.';
-            document.getElementById('pdf-wrap').innerHTML = '<div class="viewer-empty"><h3>지침서를 불러올 수 없습니다.</h3><p>목록 페이지에서 펌프를 다시 선택해 주세요.</p></div>';
+            document.getElementById('address-url').textContent = `batech.co.kr/assets/manuals/${decodedUrl.split('/').pop()}`;
         }
 
-        // Mobile menu
         document.getElementById('mobile-menu').addEventListener('click', function() {
             this.classList.toggle('active');
             document.querySelector('.nav-links').classList.toggle('active');
