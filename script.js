@@ -121,4 +121,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initLibrary();
+
+    // Handle direct links from management.html
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialPdf = urlParams.get('pdf');
+    if (initialPdf) {
+        const manual = manuals.find(m => m.pdf === initialPdf);
+        if (manual) {
+            openViewer(manual);
+        } else {
+            // Fallback for direct path
+            openViewer({ pdf: initialPdf });
+        }
+    }
 });
