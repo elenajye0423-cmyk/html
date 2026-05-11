@@ -37,6 +37,8 @@
         .equip-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-lg); border-color: var(--primary-color); }
         .equip-img { height: 240px; background: #f8fafc; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
         .equip-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+        .equip-img.placeholder { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-radius: 20px; }
+        .placeholder-icon { font-size: 4rem; }
         .equip-info { padding: 2.5rem 2rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
         .equip-title { font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem; }
         .equip-desc { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
@@ -113,7 +115,7 @@
                 </div>
             </div>
 
-            <!-- Row 2: Exactly 2 Items -->
+            <!-- Row 2: 3 Items -->
             <div class="equip-row">
                 <div class="equip-card fade-in-up">
                     <div class="equip-img"><img src="assets/hoist_crane.png" alt="대형 호이스트 크레인"></div>
@@ -127,6 +129,15 @@
                     <div class="equip-info">
                         <h3 class="equip-title">진동/소음 분석기</h3>
                         <p class="equip-desc">가동 중인 펌프의 미세한 파동과 소음을 과학적으로 분석하여 이상 유무를 사전 진단하고 품질을 보증합니다.</p>
+                    </div>
+                </div>
+                <div class="equip-card fade-in-up delay-2">
+                    <div class="equip-img placeholder">
+                        <div class="placeholder-icon">🛠️</div>
+                    </div>
+                    <div class="equip-info">
+                        <h3 class="equip-title">기타 정밀 설비</h3>
+                        <p class="equip-desc">다양한 생산 환경에서 고객 맞춤형 솔루션을 지원하는 보조 장비로 품질과 효율성을 향상시킵니다.</p>
                     </div>
                 </div>
             </div>
