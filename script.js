@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const pdfUpload = document.getElementById('pdf-upload');
-    const fileName = document.getElementById('file-name');
-    const loading = document.getElementById('loading');
-    const progress = document.getElementById('progress');
-    const loadingText = document.getElementById('loading-text');
-    const bookArea = document.getElementById('book-area');
+    const librarySection = document.getElementById('library-section');
+    const viewerSection = document.getElementById('viewer-section');
     const bookContainer = document.getElementById('book');
+    const loading = document.getElementById('loading');
+    const loadingText = document.getElementById('loading-text');
+    const closeViewerBtn = document.getElementById('close-viewer');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const pageInfo = document.getElementById('page-info');
@@ -13,29 +12,48 @@ document.addEventListener('DOMContentLoaded', () => {
     let pageFlip = null;
     let pdfDoc = null;
 
-    // Load PDF from URL if provided (for management viewer)
-    const urlParams = new URLSearchParams(window.location.search);
-    const pdfUrl = urlParams.get('pdf');
+    const manuals = [
+        { name: '부스터펌프', pdf: 'assets/manuals/부스터펌프 유지관리지침서.pdf', img: 'assets/booster_pump_pro.png' },
+        { name: '수중펌프', pdf: 'assets/manuals/수중펌프 유지관리지침서.pdf', img: 'assets/submersible_pump_pro.png' },
+        { name: '슬러지펌프', pdf: 'assets/manuals/슬러지펌프 유지관리지침서.pdf', img: 'assets/sludge_pump_pro.png' },
+        { name: '일축나사식 모노펌프', pdf: 'assets/manuals/일축나사식 모노펌프 유지관리지침서.pdf', img: 'assets/mono_pump_pro.png' },
+        { name: '편흡입볼류트펌프', pdf: 'assets/manuals/편흡입볼류트펌프 유지관리지침서.pdf', img: 'assets/volute_pump_pro.png' },
+        { name: '정량펌프', pdf: 'assets/manuals/정량펌프 유지관리지침서.pdf', img: 'assets/metering_pump_pro.png' }
+    ];
 
-    if (pdfUrl) {
-        loadPdf(pdfUrl);
-    }
-
-    if (pdfUpload) {
-        pdfUpload.addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                fileName.textContent = file.name;
-                const fileUrl = URL.createObjectURL(file);
-                loadPdf(fileUrl);
-            }
+    // Initialize Library Grid
+    function initLibrary() {
+        librarySection.innerHTML = '';
+        manuals.forEach(manual => {
+            const card = document.createElement('div');
+            card.className = 'manual-card';
+            card.innerHTML = `
+                <img src="${manual.img}" alt="${manual.name}">
+                <h3>${manual.name}</h3>
+                <span class="read-btn">지침서 읽기</span>
+            `;
+            card.onclick = () => openViewer(manual);
+            librarySection.appendChild(card);
         });
     }
 
+    async function openViewer(manual) {
+        librarySection.style.display = 'none';
+        viewerSection.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        await loadPdf(manual.pdf);
+    }
+
+    closeViewerBtn.onclick = () => {
+        viewerSection.style.display = 'none';
+        librarySection.style.display = 'grid';
+        if (pageFlip) pageFlip.destroy();
+        bookContainer.innerHTML = '';
+    };
+
     async function loadPdf(url) {
-        if (loading) loading.style.display = 'block';
-        if (bookArea) bookArea.style.display = 'none';
-        if (bookContainer) bookContainer.innerHTML = '';
+        loading.style.display = 'block';
+        bookContainer.innerHTML = '';
         
         try {
             const loadingTask = pdfjsLib.getDocument(url);
@@ -46,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             for (let i = 1; i <= totalPages; i++) {
                 const page = await pdfDoc.getPage(i);
-                const viewport = page.getViewport({ scale: 1.5 });
+                const viewport = page.getViewport({ scale: 2 }); // Higher scale for better quality
                 
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
@@ -58,41 +76,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pageDiv = document.createElement('div');
                 pageDiv.className = 'page';
                 const img = document.createElement('img');
-                img.src = canvas.toDataURL();
+                img.src = canvas.toDataURL('image/jpeg', 0.9);
                 img.style.width = '100%';
                 img.style.height = '100%';
                 img.style.objectFit = 'contain';
                 pageDiv.appendChild(img);
                 bookContainer.appendChild(pageDiv);
-                
-                if (progress) progress.style.width = `${(i / totalPages) * 100}%`;
             }
             
             initPageFlip();
-            
-            if (loading) loading.style.display = 'none';
-            if (bookArea) bookArea.style.display = 'block';
+            loading.style.display = 'none';
             
         } catch (error) {
             console.error('Error loading PDF:', error);
-            if (loadingText) loadingText.textContent = 'Error loading PDF. Please try again.';
+            loadingText.textContent = '지침서를 불러오는 데 실패했습니다.';
         }
     }
 
     function initPageFlip() {
-        if (pageFlip) {
-            pageFlip.destroy();
-        }
+        if (pageFlip) pageFlip.destroy();
 
         pageFlip = new St.PageFlip(bookContainer, {
-            width: 550, // base page width
-            height: 733, // base page height
+            width: 550,
+            height: 733,
             size: "stretch",
             minWidth: 315,
             maxWidth: 1000,
             minHeight: 420,
             maxHeight: 1350,
-            maxShadowOpacity: 0.5,
             showCover: true,
             mobileScrollSupport: false
         });
@@ -103,9 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
             pageInfo.textContent = `Page ${e.data + 1} of ${pdfDoc.numPages}`;
         });
 
-        if (prevBtn) prevBtn.onclick = () => pageFlip.flipPrev();
-        if (nextBtn) nextBtn.onclick = () => pageFlip.flipNext();
+        prevBtn.onclick = () => pageFlip.flipPrev();
+        nextBtn.onclick = () => pageFlip.flipNext();
         
         pageInfo.textContent = `Page 1 of ${pdfDoc.numPages}`;
     }
+
+    initLibrary();
 });

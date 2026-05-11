@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 전자 지침서 도서관</title>
+    <meta name="description" content="비에이텍의 모든 펌프 유지관리 지침서를 인터랙티브 E-Book으로 열람하세요.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- PageFlip -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-light: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Outfit', 'Noto Sans KR', sans-serif; 
+            background: var(--bg-gradient); 
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-elements { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3; }
+        .orb-1 { width: 500px; height: 500px; background: #3b82f6; top: -100px; right: -100px; }
+        .orb-2 { width: 400px; height: 400px; background: #8b5cf6; bottom: -50px; left: -50px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        header { text-align: center; margin-bottom: 4rem; padding: 3rem; background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 30px; }
+        .gradient-text { font-size: 3rem; font-weight: 800; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; }
+        .subtitle { font-size: 1.2rem; color: var(--text-dim); }
+
+        /* Library Grid */
+        #library-section { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        .manual-card { 
+            background: var(--glass); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 24px; 
+            padding: 2rem; 
+            text-align: center; 
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        .manual-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.1); border-color: var(--primary); }
+        .manual-card img { width: 150px; height: 150px; object-fit: contain; margin-bottom: 1.5rem; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); }
+        .manual-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
+        .read-btn { 
+            display: inline-block; 
+            padding: 0.8rem 2rem; 
+            background: var(--primary); 
+            color: white; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .manual-card:hover .read-btn { background: white; color: var(--primary); }
+
+        /* Viewer Mode */
+        #viewer-section { display: none; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .viewer-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: var(--glass); padding: 1rem 2rem; border-radius: 20px; border: 1px solid var(--glass-border); }
+        .back-btn { background: none; border: 1px solid var(--glass-border); color: var(--text-light); padding: 0.6rem 1.5rem; border-radius: 50px; cursor: pointer; transition: all 0.3s; }
+        .back-btn:hover { background: white; color: black; }
+
+        #loading { text-align: center; padding: 5rem; }
+        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1.5rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .book-wrapper { 
+            width: 100%; 
+            max-width: 1000px; 
+            height: 700px; 
+            margin: 0 auto; 
+            perspective: 2000px;
+        }
+        #book { width: 100%; height: 100%; }
+        .page { background: white; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        
+        .nav-controls { display: flex; align-items: center; gap: 1.5rem; background: rgba(255,255,255,0.1); padding: 0.8rem 1.5rem; border-radius: 50px; }
+        .control-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; opacity: 0.7; transition: opacity 0.3s; }
+        .control-btn:hover { opacity: 1; }
+        .page-info { font-weight: 600; min-width: 100px; text-align: center; }
+
+        @media (max-width: 768px) {
+            .gradient-text { font-size: 2rem; }
+            .book-wrapper { height: 500px; }
+            .nav-controls { scale: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-elements">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <nav style="position: absolute; top: 2rem; left: 2rem; z-index: 100;">
+        <a href="management.html" style="color: white; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+            <span>←</span> 목록으로 돌아가기
+        </a>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1 class="gradient-text">Manual Library</h1>
+            <p class="subtitle">비에이텍 제품의 상세 지침서를 인터랙티브 E-Book으로 경험해 보세요.</p>
+        </header>
+
+        <!-- Library Section -->
+        <section id="library-section">
+            <!-- Cards will be injected by JS -->
+        </section>
+
+        <!-- Viewer Section -->
+        <section id="viewer-section">
+            <div class="viewer-controls">
+                <button class="back-btn" id="close-viewer">지침서 목록으로</button>
+                <div class="nav-controls">
+                    <button id="prev-btn" class="control-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <span id="page-info" class="page-info">Page 1 of ?</span>
+                    <button id="next-btn" class="control-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+                <div style="width: 100px;"></div> <!-- Spacer -->
+            </div>
+
+            <div id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p id="loading-text">지침서를 렌더링하고 있습니다...</p>
+            </div>
+
+            <div class="book-wrapper">
+                <div id="book">
+                    <!-- Pages will be injected here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
