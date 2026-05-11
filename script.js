@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Library Grid
     function initLibrary() {
+        if (!librarySection) return;
         librarySection.innerHTML = '';
         manuals.forEach(manual => {
             const card = document.createElement('div');
@@ -38,20 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function openViewer(manual) {
-        librarySection.style.display = 'none';
-        viewerSection.style.display = 'block';
+        if (librarySection) librarySection.style.display = 'none';
+        if (viewerSection) viewerSection.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        await loadPdf(manual.pdf);
+        await loadPdf(manual.pdf, manual.name);
     }
 
-    closeViewerBtn.onclick = () => {
-        viewerSection.style.display = 'none';
-        librarySection.style.display = 'grid';
-        if (pageFlip) pageFlip.destroy();
-        bookContainer.innerHTML = '';
-    };
+    if (closeViewerBtn) {
+        closeViewerBtn.onclick = () => {
+            viewerSection.style.display = 'none';
+            librarySection.style.display = 'grid';
+            if (pageFlip) pageFlip.destroy();
+            bookContainer.innerHTML = '';
+        };
+    }
 
-    async function loadPdf(url) {
+    async function loadPdf(url, manualName) {
         loading.style.display = 'block';
         bookContainer.innerHTML = '';
         
@@ -62,9 +65,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalPages = pdfDoc.numPages;
             loadingText.textContent = `Rendering ${totalPages} pages...`;
             
+            const htmlPages = [];
+
+            // 1. Add Hard Front Cover
+            htmlPages.push(`
+                <div class="page hard" data-density="hard">
+                    <div class="page-content" style="background:#1e293b; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; padding: 2rem; text-align:center; height:100%;">
+                        <h2 style="font-size:1.8rem; margin-bottom:1rem; color: #60a5fa;">${manualName}</h2>
+                        <h3 style="font-size:1.2rem; opacity:0.8;">유지관리지침서</h3>
+                        <p style="margin-top:2rem; font-size:0.9rem; opacity:0.6;">(주)비에이텍</p>
+                    </div>
+                </div>
+                <div class="page hard" data-density="hard">
+                    <div class="page-content" style="background-color:#f8fafc; height:100%;"></div>
+                </div>
+            `);
+
+            // 2. Render PDF Pages
             for (let i = 1; i <= totalPages; i++) {
                 const page = await pdfDoc.getPage(i);
-                const viewport = page.getViewport({ scale: 2 }); // Higher scale for better quality
+                const viewport = page.getViewport({ scale: 2 });
                 
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
@@ -73,18 +93,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 await page.render({ canvasContext: context, viewport: viewport }).promise;
                 
-                const pageDiv = document.createElement('div');
-                pageDiv.className = 'page';
-                const img = document.createElement('img');
-                img.src = canvas.toDataURL('image/jpeg', 0.9);
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'contain';
-                pageDiv.appendChild(img);
-                bookContainer.appendChild(pageDiv);
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
+                htmlPages.push(`
+                    <div class="page">
+                        <div class="page-content" style="background-image: url('${imgData}'); background-size: contain; background-repeat: no-repeat; background-position: center; height:100%; background-color:white;"></div>
+                    </div>
+                `);
             }
+
+            // 3. Add Blank Page if total inner pages are odd
+            if (totalPages % 2 !== 0) {
+                htmlPages.push(`
+                    <div class="page">
+                        <div class="page-content" style="background-color:#ffffff; height:100%;"></div>
+                    </div>
+                `);
+            }
+
+            // 4. Add Hard Back Cover
+            htmlPages.push(`
+                <div class="page hard" data-density="hard">
+                    <div class="page-content" style="background-color:#f8fafc; height:100%;"></div>
+                </div>
+                <div class="page hard" data-density="hard">
+                    <div class="page-content" style="background:#1e293b; display:flex; align-items:center; justify-content:center; color:white; height:100%;">
+                        <h2 style="opacity:0.5;">THE END</h2>
+                    </div>
+                </div>
+            `);
+
+            bookContainer.innerHTML = htmlPages.join('');
             
-            initPageFlip();
+            // Render first page to determine dimensions
+            const firstPage = await pdfDoc.getPage(1);
+            const firstViewport = firstPage.getViewport({ scale: 1 });
+            const bookWidth = firstViewport.width;
+            const bookHeight = firstViewport.height;
+
+            initPageFlip(bookWidth, bookHeight);
             loading.style.display = 'none';
             
         } catch (error) {
@@ -93,31 +139,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function initPageFlip() {
+    function initPageFlip(pdfWidth, pdfHeight) {
         if (pageFlip) pageFlip.destroy();
 
+        // Proportional scaling
+        let finalWidth = Math.min(pdfWidth, 550);
+        let finalHeight = Math.round((finalWidth / pdfWidth) * pdfHeight);
+
         pageFlip = new St.PageFlip(bookContainer, {
-            width: 550,
-            height: 733,
+            width: finalWidth,
+            height: finalHeight,
             size: "stretch",
             minWidth: 315,
             maxWidth: 1000,
             minHeight: 420,
             maxHeight: 1350,
             showCover: true,
-            mobileScrollSupport: false
+            mobileScrollSupport: false,
+            usePortrait: window.innerWidth < 800
         });
 
-        pageFlip.loadFromHTML(document.querySelectorAll(".page"));
+        pageFlip.loadFromHTML(bookContainer.querySelectorAll(".page"));
 
         pageFlip.on('flip', (e) => {
-            pageInfo.textContent = `Page ${e.data + 1} of ${pdfDoc.numPages}`;
+            updatePageInfo(e.data, pdfDoc.numPages);
         });
 
-        prevBtn.onclick = () => pageFlip.flipPrev();
-        nextBtn.onclick = () => pageFlip.flipNext();
+        if (prevBtn) prevBtn.onclick = () => pageFlip.flipPrev();
+        if (nextBtn) nextBtn.onclick = () => pageFlip.flipNext();
         
-        pageInfo.textContent = `Page 1 of ${pdfDoc.numPages}`;
+        updatePageInfo(0, pdfDoc.numPages);
+    }
+
+    function updatePageInfo(currentPageIndex, totalPdfPages) {
+        if (!pageInfo) return;
+        let displayStr = "";
+        
+        // 0: Front Cover
+        // 1: Inside Front Cover
+        // 2 to (2 + totalPdfPages - 1): PDF contents
+        
+        if (currentPageIndex === 0) {
+            displayStr = "표지";
+        } else if (currentPageIndex >= 2 && currentPageIndex < 2 + totalPdfPages) {
+            let pdfPageNum = currentPageIndex - 1;
+            displayStr = `페이지 ${pdfPageNum} / ${totalPdfPages}`;
+        } else {
+            displayStr = "뒷표지 / 끝";
+        }
+        
+        pageInfo.textContent = displayStr;
     }
 
     initLibrary();
@@ -125,13 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle direct links from management.html
     const urlParams = new URLSearchParams(window.location.search);
     const initialPdf = urlParams.get('pdf');
+    const initialName = urlParams.get('name');
     if (initialPdf) {
-        const manual = manuals.find(m => m.pdf === initialPdf);
-        if (manual) {
-            openViewer(manual);
-        } else {
-            // Fallback for direct path
-            openViewer({ pdf: initialPdf });
-        }
+        const manual = manuals.find(m => m.pdf === initialPdf) || { pdf: initialPdf, name: initialName || '지침서' };
+        openViewer(manual);
     }
 });
