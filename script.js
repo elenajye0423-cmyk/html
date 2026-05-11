@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let pdfDoc = null;
 
     const manuals = [
-        { name: '부스터펌프', pdf: 'assets/manuals/부스터펌프 유지관리지침서.pdf', img: 'assets/booster_pump_pro.png' },
-        { name: '수중펌프', pdf: 'assets/manuals/수중펌프 유지관리지침서.pdf', img: 'assets/submersible_pump_pro.png' },
-        { name: '슬러지펌프', pdf: 'assets/manuals/슬러지펌프 유지관리지침서.pdf', img: 'assets/sludge_pump_pro.png' },
-        { name: '일축나사식 모노펌프', pdf: 'assets/manuals/일축나사식 모노펌프 유지관리지침서.pdf', img: 'assets/mono_pump_pro.png' },
-        { name: '편흡입볼류트펌프', pdf: 'assets/manuals/편흡입볼류트펌프 유지관리지침서.pdf', img: 'assets/volute_pump_pro.png' },
-        { name: '정량펌프', pdf: 'assets/manuals/정량펌프 유지관리지침서.pdf', img: 'assets/metering_pump_pro.png' }
+        { name: '부스터펌프', pdf: 'assets/manuals/부스터펌프 유지관리지침서.pdf', img: 'assets/booster_pump_new.png' },
+        { name: '수중펌프', pdf: 'assets/manuals/수중펌프 유지관리지침서.pdf', img: 'assets/submersible_pump_new.png' },
+        { name: '슬러지펌프', pdf: 'assets/manuals/슬러지펌프 유지관리지침서.pdf', img: 'assets/sludge_pump_new.png' },
+        { name: '일축나사식 모노펌프', pdf: 'assets/manuals/일축나사식 모노펌프 유지관리지침서.pdf', img: 'assets/mono_pump_new.png' },
+        { name: '편흡입볼류트펌프', pdf: 'assets/manuals/편흡입볼류트펌프 유지관리지침서.pdf', img: 'assets/volute_pump_new.png' },
+        { name: '정량펌프', pdf: 'assets/manuals/정량펌프 유지관리지침서.pdf', img: 'assets/metering_pump_new.png' }
     ];
 
     // Initialize Library Grid
