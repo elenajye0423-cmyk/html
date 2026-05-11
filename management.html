@@ -34,12 +34,26 @@
                 <div class="section-header">
                     <h3 class="section-subtitle">펌프 검색</h3>
                     <h2 class="section-title">펌프 모델을 검색해 지침서를 확인하세요</h2>
-                    <p class="section-description">검색 결과를 클릭하면 다른 페이지에서 PDF 뷰어로 열람됩니다.</p>
+                    <p class="section-description">검색 결과를 클릭하면 페이지 내에서 PDF 뷰어로 직접 열람됩니다.</p>
                 </div>
                 <div class="search-input-wrap">
                     <input id="pump-search" type="search" placeholder="펌프 모델명 또는 키워드 입력" autocomplete="off" />
                 </div>
                 <div class="search-results" id="search-results"></div>
+            </div>
+            <div class="viewer-panel glass-card">
+                <div class="viewer-header">
+                    <span id="selected-pump">펌프를 선택해 주세요.</span>
+                    <span id="page-info">페이지 0 / 0</span>
+                </div>
+                <div class="pdf-viewer" id="pdf-viewer" title="좌클릭: 이전 페이지 / 우클릭: 다음 페이지">
+                    <div class="viewer-empty">펌프를 선택하면 PDF가 여기에 표시됩니다.</div>
+                    <div class="viewer-note">좌클릭은 이전 페이지, 우클릭은 다음 페이지로 이동합니다.</div>
+                </div>
+                <div class="viewer-controls">
+                    <button id="prev-page" type="button">이전 페이지</button>
+                    <button id="next-page" type="button">다음 페이지</button>
+                </div>
             </div>
         </div>
     </section>
@@ -92,15 +106,35 @@
             navLinks.classList.toggle('active');
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.min.js"></script>
     <script>
         const searchInput = document.getElementById('pump-search');
         const searchResults = document.getElementById('search-results');
+        const viewer = document.getElementById('pdf-viewer');
+        const selectedPumpLabel = document.getElementById('selected-pump');
+        const pageInfo = document.getElementById('page-info');
+        const prevButton = document.getElementById('prev-page');
+        const nextButton = document.getElementById('next-page');
 
         const pumps = [
             { name: 'KG300 고압 펌프', pdf: 'assets/pump-kg300.pdf' },
             { name: 'XS150 수중 펌프', pdf: 'assets/pump-xs150.pdf' },
             { name: 'HW500 산업용 펌프', pdf: 'assets/pump-hw500.pdf' }
         ];
+
+        let pdfDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+        const canvas = document.createElement('canvas');
+        const canvasCtx = canvas.getContext('2d');
+        const directPdfLink = document.createElement('a');
+        directPdfLink.className = 'btn-primary';
+        directPdfLink.target = '_blank';
+        directPdfLink.rel = 'noopener noreferrer';
+        directPdfLink.style.display = 'none';
+        directPdfLink.style.marginTop = '1rem';
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.min.js';
 
         function filterPumps() {
             const query = searchInput.value.trim().toLowerCase();
@@ -115,18 +149,93 @@
                 return;
             }
             results.forEach((pump) => {
-                const url = new URL('management-viewer.html', window.location.href);
-                url.searchParams.set('pdf', pump.pdf);
-                url.searchParams.set('name', pump.name);
-
-                const item = document.createElement('a');
+                const item = document.createElement('button');
+                item.type = 'button';
                 item.className = 'search-item';
-                item.href = url.toString();
                 item.innerHTML = `<span>${pump.name}</span><strong>뷰어로 이동</strong>`;
-                item.title = `${pump.name} 지침서 보기`;
+                item.addEventListener('click', () => loadPdf(pump));
                 searchResults.appendChild(item);
             });
         }
+
+        function showViewerMessage(message) {
+            viewer.innerHTML = `<div class="viewer-empty">${message}</div>`;
+            directPdfLink.style.display = 'none';
+        }
+
+        function showViewerElements(pdfUrl) {
+            viewer.innerHTML = '';
+            viewer.appendChild(canvas);
+            const note = document.createElement('div');
+            note.className = 'viewer-note';
+            note.textContent = '좌클릭은 이전 페이지, 우클릭은 다음 페이지로 이동합니다.';
+            viewer.appendChild(note);
+            directPdfLink.href = pdfUrl;
+            directPdfLink.textContent = 'PDF 새 창에서 열기';
+            directPdfLink.style.display = 'inline-flex';
+            viewer.appendChild(directPdfLink);
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
+        }
+
+        function renderPage(pageNumber) {
+            if (!pdfDoc) return;
+            pdfDoc.getPage(pageNumber).then(page => {
+                const viewport = page.getViewport({ scale: 1.5 });
+                const outputScale = window.devicePixelRatio || 1;
+                canvas.width = Math.floor(viewport.width * outputScale);
+                canvas.height = Math.floor(viewport.height * outputScale);
+                canvas.style.width = `${viewport.width}px`;
+                canvas.style.height = `${viewport.height}px`;
+                const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+                const renderContext = { canvasContext: canvasCtx, viewport, transform };
+                page.render(renderContext);
+                pageInfo.textContent = `페이지 ${currentPage} / ${totalPages}`;
+            }).catch(() => {
+                showViewerMessage('PDF 페이지를 표시할 수 없습니다.');
+            });
+        }
+
+        function loadPdf(pump) {
+            selectedPumpLabel.textContent = `${pump.name} 지침서`;
+            pageInfo.textContent = '불러오는 중...';
+            showViewerElements(pump.pdf);
+
+            pdfjsLib.getDocument({ url: pump.pdf }).promise.then(doc => {
+                pdfDoc = doc;
+                totalPages = doc.numPages;
+                currentPage = 1;
+                renderPage(currentPage);
+            }).catch(error => {
+                showViewerMessage('PDF를 불러올 수 없습니다.');
+                pageInfo.textContent = '페이지 0 / 0';
+                directPdfLink.href = pump.pdf;
+            });
+        }
+
+        function nextPage() {
+            if (!pdfDoc || currentPage >= totalPages) return;
+            currentPage += 1;
+            renderPage(currentPage);
+        }
+
+        function prevPage() {
+            if (!pdfDoc || currentPage <= 1) return;
+            currentPage -= 1;
+            renderPage(currentPage);
+        }
+
+        viewer.addEventListener('click', event => {
+            if (event.button === 0 && pdfDoc) prevPage();
+        });
+
+        viewer.addEventListener('contextmenu', event => {
+            event.preventDefault();
+            if (pdfDoc) nextPage();
+        });
+
+        prevButton.addEventListener('click', prevPage);
+        nextButton.addEventListener('click', nextPage);
 
         searchInput.addEventListener('input', filterPumps);
         filterPumps();
