@@ -1,123 +1,183 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(주)비에이텍 - 관리</title>
-    <meta name="description" content="(주)비에이텍 관리 지침서를 모아둔 페이지입니다.">
+    <title>(二?鍮꾩뿉?댄뀓 - 愿由?/title>
+    <meta name="description" content="(二?鍮꾩뿉?댄뀓 愿由?吏移⑥꽌瑜?紐⑥븘???섏씠吏?낅땲??">
+    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <style>
-        .management-search { padding: 4rem 0; min-height: 800px; background: #f8fafc; }
-        .management-wrapper { max-width: 1200px; margin: 0 auto; }
-        .search-panel { padding: 3rem; background: white; border-radius: 30px; box-shadow: var(--shadow-lg); }
-        .search-input-wrap { margin-top: 2rem; margin-bottom: 3rem; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
-        #pump-search { width: 100%; padding: 1.2rem 2rem; border-radius: 50px; border: 2px solid #e2e8f0; font-size: 1.1rem; transition: var(--transition-normal); outline: none; box-shadow: var(--shadow-sm); }
-        #pump-search:focus { border-color: var(--primary-color); box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1); }
-        
-        .search-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
-        .pump-card { background: white; border: 1px solid #f1f5f9; border-radius: 24px; overflow: hidden; transition: var(--transition-normal); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; height: 100%; cursor: pointer; }
-        .pump-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: var(--primary-color); }
-        .pump-card-img { height: 200px; background: #f8fafc; display: flex; align-items: center; justify-content: center; padding: 1.5rem; overflow: hidden; }
-        .pump-card-img img { width: 100%; height: 100%; object-fit: contain; transition: var(--transition-normal); }
-        .pump-card:hover .pump-card-img img { transform: scale(1.05); }
-        .pump-card-info { padding: 2rem; flex-grow: 1; text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .pump-card-title { font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; }
-        .btn-view-manual { 
-            width: 100%; 
-            padding: 0.8rem; 
-            background: #f0f9ff; 
-            color: var(--primary-color); 
-            border-radius: 12px; 
-            font-weight: 700; 
-            font-size: 0.95rem; 
-            transition: var(--transition-fast); 
-            border: 1px solid transparent;
-            margin-top: auto;
+        .management-search {
+            padding: 4rem 0;
+            min-height: 800px;
+            background: #f8fafc;
         }
-        .pump-card:hover .btn-view-manual { background: var(--primary-color); color: white; }
-        
-        .search-empty { grid-column: 1 / -1; text-align: center; padding: 5rem 0; color: #94a3b8; font-size: 1.1rem; }
-        
-        @media (max-width: 768px) {
-            .search-results { grid-template-columns: 1fr; }
+
+        .management-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
     </style>
 </head>
 
 <body>
     <nav id="navbar" class="scrolled">
         <div class="nav-container">
-            <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+            <a href="index.html" class="logo"><span class="logo-icon">?뮛</span> B.A. TECH</a>
             <ul class="nav-links">
-                <li><a href="intro.html">기업소개</a></li>
-                <li><a href="product.html">주요제품</a></li>
-                <li><a href="management.html">관리</a></li>
-                <li><a href="equipment.html">장비</a></li>
-                <li><a href="sales_history.html">업력</a></li>
-                <li><a href="map.html">찾아오는 길</a></li>
-                <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
+                <li class="nav-item">
+                    <a href="intro.html">湲곗뾽?뚭컻</a>
+                    <ul class="dropdown">
+                        <li><a href="intro.html">湲곗뾽媛쒖슂</a></li>
+                        <li><a href="greetings.html">?몄궗留?/a></li>
+                        <li><a href="sales_history.html">?고쁺</a></li>
+                        <li><a href="organization.html">議곗쭅??諛??낅Т遺꾩옣</a></li>
+                        <li><a href="certifications.html">?몄쬆?꾪솴</a></li>
+                        <li><a href="rd.html">?곌뎄媛쒕컻(R&D)</a></li>
+                        <li><a href="map.html">李얠븘?ㅼ떆??湲?/a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="product.html">二쇱슂?쒗뭹</a>
+                    <ul class="dropdown">
+                        <li><a href="product_supply.html">湲됱닔 諛?媛???쒖뒪??/a></li>
+                        <li><a href="product_drainage.html">諛곗닔 諛??ㅽ룓??泥섎━</a></li>
+                        <li><a href="product_industrial.html">?곗뾽 諛??뱀닔 怨듭젙</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="notice.html">怨좉컼吏??/a>
+                    <ul class="dropdown">
+                        <li><a href="notice.html">怨듭??ы빆</a></li>
+                        <li><a href="management.html">?좎?愿由?吏移⑥꽌</a></li>
+                        <li><a href="technical.html">湲곗닠?먮즺??/a></li>
+                        <li><a href="faq.html">?먯＜ 臾삳뒗 吏덈Ц</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="video.html">?띾낫?쇳꽣</a>
+                    <ul class="dropdown">
+                        <li><a href="video.html">?띾낫?곸긽</a></li>
+                        <li><a href="ir.html">IR ?먮즺??/a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="careers.html">?몄옱梨꾩슜</a>
+                    <ul class="dropdown">
+                        <li><a href="careers.html">?몄옱??/a></li>
+                        <li><a href="careers.html#jobs">梨꾩슜怨듦퀬</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="inquiry.html" class="btn-primary-outline">臾몄쓽</a></li>
             </ul>
             <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span
                     class="bar"></span></div>
         </div>
     </nav>
+
     <header class="page-hero">
-        <h1 class="title">관리</h1>
-        <p class="description">제품별 상세 유지관리 지침서를 확인하실 수 있습니다.</p>
+        <h1 class="title">愿由?/h1>
+        <p class="description">?쒗뭹蹂??곸꽭 ?좎?愿由?吏移⑥꽌瑜??뺤씤?섏떎 ???덉뒿?덈떎.</p>
     </header>
+
     <section class="management-search">
         <div class="container management-wrapper">
-            <div class="search-panel glass-card">
-                <div class="section-header text-center">
-                    <h3 class="section-subtitle">Management Guides</h3>
-                    <h2 class="section-title">펌프 유지관리 지침서</h2>
-                    <p class="section-description">제품 모델명을 검색하거나 아래 목록에서 지침서를 선택하세요.</p>
+            <div class="section-header text-center">
+                <h3 class="section-subtitle">Management Guides</h3>
+                <h2 class="section-title">?뚰봽 ?좎?愿由?吏移⑥꽌</h2>
+                <p class="section-description">?꾨옒 ??뿉???뚰봽 紐⑤뜽???좏깮?섏뿬 ?곸꽭 ?좎?愿由?吏移⑥꽌瑜??뺤씤?섏꽭??</p>
+            </div>
+
+            <div class="cert-viewer-section fade-in-up">
+                <div class="cert-tabs" id="pump-tabs">
+                    <!-- Tabs will be generated by JS -->
                 </div>
-                <div class="search-input-wrap">
-                    <input id="pump-search" type="search" placeholder="펌프 모델명 검색..." autocomplete="off" />
+                <div class="viewer-toolbar">
+                    <a id="download-link" href="#" download class="btn-download">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        PDF ?ㅼ슫濡쒕뱶
+                    </a>
                 </div>
-                <div class="search-results" id="search-results"></div>
+                <div class="pdf-embed-container">
+                    <iframe id="pdf-viewer" src=""></iframe>
+                </div>
+            </div>
+
+            <div style="margin-top: 6rem; background: #f8fafc; padding: 4rem; border-radius: 30px; text-align: center;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">泥닿퀎?곸씤 ?좎?愿由??쒖뒪??/h3>
+                <p style="color: var(--text-muted); font-size: 1.15rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                    (二?鍮꾩뿉?댄뀓? ?쒗뭹??異쒓퀬遺???ы썑 愿由ш퉴吏 紐⑤뱺 怨쇱젙??湲곕줉?섍퀬 愿由ы빀?덈떎. 媛?紐⑤뜽蹂??뱀꽦??留욎텣 ?뺣????먭? 吏移⑥꽌瑜??듯빐 ?λ퉬???섎챸??洹밸??뷀븯怨?理쒖긽???깅뒫???좎??????덈룄濡?吏?먰빀?덈떎.
+                </p>
             </div>
         </div>
     </section>
+
     <footer>
         <div class="container footer-content">
             <div class="footer-brand">
-                <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
-                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는 워터펌프 시스템 전문 기업입니다.</p>
+                <a href="index.html" class="logo"><span class="logo-icon">?뮛</span> B.A. TECH</a>
+                <p class="company-desc">(二?鍮꾩뿉?댄뀓? 源⑤걮?섍퀬 ?덉쟾??臾??섍꼍??議곗꽦?섎뒗 ?뚰꽣?뚰봽 ?쒖뒪???꾨Ц 湲곗뾽?낅땲??</p>
             </div>
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="intro.html">기업소개</a></li>
-                    <li><a href="product.html">주요제품</a></li>
-                    <li><a href="management.html">관리</a></li>
+                    <li><a href="intro.html">湲곗뾽?뚭컻</a></li>
+                    <li><a href="sales_history.html">?고쁺</a></li>
+                    <li><a href="certifications.html">?몄쬆?꾪솴</a></li>
+                    <li><a href="careers.html">?몄옱梨꾩슜</a></li>
+                    <li><a href="map.html">?ㅼ떆??湲?/a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>PR & IR</h4>
+                <ul>
+                    <li><a href="video.html">?띾낫?곸긽</a></li>
+                    <li><a href="ir.html">IR ?먮즺??/a></li>
+                    <li><a href="rd.html">?곌뎄媛쒕컻(R&D)</a></li>
                 </ul>
             </div>
             <div class="footer-links">
                 <h4>Customer Support</h4>
                 <ul>
-                    <li><a href="equipment.html">장비</a></li>
-                    <li><a href="map.html">찾아오는 길</a></li>
-                    <li><a href="inquiry.html">온라인 문의</a></li>
+                    <li><a href="notice.html">怨듭??ы빆</a></li>
+                    <li><a href="management.html">?좎?愿由?吏移⑥꽌</a></li>
+                    <li><a href="technical.html">湲곗닠?먮즺??/a></li>
+                    <li><a href="inquiry.html">?⑤씪??臾몄쓽</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
                 <h4>Contact Us</h4>
-                <p>상호: 비에이텍 주식회사</p>
-                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
-                <p>전화: 033-264-9243</p>
+                <p>?곹샇: 鍮꾩뿉?댄뀓 二쇱떇?뚯궗</p>
+                <p>二쇱냼: 媛뺤썝?밸퀎?먯튂??異섏쿇???닿퀎怨듬떒2湲?64</p>
+                <p>?꾪솕: 033-264-9243</p>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <div class="bg-music-player">
+        <div class="music-info">BGM: Crystal Stream</div>
+        <div class="player-controls">
+            <button id="music-toggle" class="music-btn" title="?ъ깮/?쇱떆?뺤?">??/button>
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+        <audio id="bg-music" loop>
+            <source src="Crystal Stream.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <script src="music_player.js"></script>
     <script>
+        // UI Logic
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -126,65 +186,68 @@
                 navbar.classList.remove('scrolled');
             }
         });
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-        mobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-    </script>
-    <script>
-        const searchInput = document.getElementById('pump-search');
-        const searchResults = document.getElementById('search-results');
 
+
+        // Pump Manuals Data
         const pumps = [
-            { name: '부스터펌프', pdf: 'assets/manuals/부스터펌프 유지관리지침서.pdf', img: 'assets/booster_pump_pro.png' },
-            { name: '수중펌프', pdf: 'assets/manuals/수중펌프 유지관리지침서.pdf', img: 'assets/submersible_pump_pro.png' },
-            { name: '슬러지펌프', pdf: 'assets/manuals/슬러지펌프 유지관리지침서.pdf', img: 'assets/sludge_pump_pro.png' },
-            { name: '일축나사식 모노펌프', pdf: 'assets/manuals/일축나사식 모노펌프 유지관리지침서.pdf', img: 'assets/mono_pump_pro.png' },
-            { name: '편흡입볼류트펌프', pdf: 'assets/manuals/편흡입볼류트펌프 유지관리지침서.pdf', img: 'assets/volute_pump_pro.png' },
-            { name: '정량펌프', pdf: 'assets/manuals/정량펌프 유지관리지침서.pdf', img: 'assets/metering_pump_pro.png' }
+            { name: '遺?ㅽ꽣?뚰봽', pdf: 'assets/manuals/遺?ㅽ꽣?뚰봽 ?좎?愿由ъ?移⑥꽌.pdf' },
+            { name: '?섏쨷?뚰봽', pdf: 'assets/manuals/?섏쨷?뚰봽 ?좎?愿由ъ?移⑥꽌.pdf' },
+            { name: '?щ윭吏?뚰봽', pdf: 'assets/manuals/?щ윭吏?뚰봽 ?좎?愿由ъ?移⑥꽌.pdf' },
+            { name: '紐⑤끂?뚰봽', pdf: 'assets/manuals/?쇱텞?섏궗??紐⑤끂?뚰봽 ?좎?愿由ъ?移⑥꽌.pdf' },
+            { name: '蹂쇰쪟?명럩??, pdf: 'assets/manuals/?명씉?낅낵瑜섑듃?뚰봽 ?좎?愿由ъ?移⑥꽌.pdf' },
+            { name: '?뺣웾?뚰봽', pdf: 'assets/manuals/?뺣웾?뚰봽 ?좎?愿由ъ?移⑥꽌.pdf' }
         ];
 
-        function filterPumps() {
-            const query = searchInput.value.trim().toLowerCase();
-            const filtered = pumps.filter(pump => pump.name.toLowerCase().includes(query));
-            renderResults(filtered);
-        }
+        const pumpTabsContainer = document.getElementById('pump-tabs');
+        const pdfViewer = document.getElementById('pdf-viewer');
+        const downloadLink = document.getElementById('download-link');
 
-        function renderResults(results) {
-            searchResults.innerHTML = '';
-            if (!results.length) {
-                searchResults.innerHTML = '<div class="search-empty">검색 결과가 없습니다.</div>';
-                return;
+        // Ctrl+F Interceptor
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                pdfViewer.focus();
+                // We show a small toast or just trust the focus. 
+                // Browser-native PDF viewers often trigger search on focus + Ctrl+F.
+                // Since we prevented the first one, the user might need to press it again or we can't trigger it via JS.
+                // But focusing is the first step.
             }
-            results.forEach((pump) => {
-                const card = document.createElement('div');
-                card.className = 'pump-card';
-                card.innerHTML = `
-                    <div class="pump-card-img">
-                        <img src="${pump.img}" alt="${pump.name}">
-                    </div>
-                    <div class="pump-card-info">
-                        <h3 class="pump-card-title">${pump.name}</h3>
-                        <button class="btn-view-manual">지침서 보기</button>
-                    </div>
-                `;
-                card.addEventListener('click', () => {
-                    const url = new URL('E-BOOK.html', window.location.href);
-                    url.searchParams.set('pdf', pump.pdf);
-                    url.searchParams.set('name', pump.name);
-                    window.location.href = url.toString();
-                });
-                searchResults.appendChild(card);
+        });
+
+        function initPumps() {
+            pumps.forEach((pump, index) => {
+                const tab = document.createElement('div');
+                tab.className = `cert-tab ${index === 0 ? 'active' : ''}`;
+                tab.textContent = pump.name;
+                tab.onclick = () => switchManual(index);
+                pumpTabsContainer.appendChild(tab);
             });
+            
+            // Check for query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const pumpIndex = parseInt(urlParams.get('pump'));
+            
+            if (!isNaN(pumpIndex) && pumpIndex >= 0 && pumpIndex < pumps.length) {
+                switchManual(pumpIndex);
+            } else if (pumps.length > 0) {
+                switchManual(0);
+            }
         }
 
-        searchInput.addEventListener('input', filterPumps);
-        
-        // Initialize
-        filterPumps();
+        function switchManual(index) {
+            const tabs = document.querySelectorAll('.cert-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabs[index].classList.add('active');
+
+            const pump = pumps[index];
+            pdfViewer.src = pump.pdf;
+            downloadLink.href = pump.pdf;
+        }
+
+        // Initialize on load
+        window.onload = initPumps;
     </script>
 </body>
+
 
 </html>

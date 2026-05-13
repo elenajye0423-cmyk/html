@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(二?鍮꾩뿉?댄뀓 - 李얠븘?ㅼ떆??湲?/title>
+    <title>(二?鍮꾩뿉?댄뀓 - ?몄궗留?/title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-
-        .map-container { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); height: 500px; margin-top: 2rem; border: 5px solid white; }
-        .map-container iframe { width: 100%; height: 100%; border: 0; }
-        .map-info { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
-        .info-box { background: white; padding: 2rem; border-radius: 15px; box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: 1.5rem; }
-        .info-icon { font-size: 2.5rem; color: var(--primary-color); background: #f0f8ff; padding: 1rem; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; }
-        .info-text h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
-        .info-text p { color: var(--text-muted); line-height: 1.6; }
-        @media (max-width: 768px) { .map-info { grid-template-columns: 1fr; } }
+        .greetings-content { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; background: white; border-radius: 30px; box-shadow: var(--shadow-md); margin-top: -50px; position: relative; z-index: 10; }
+        .ceo-sign { margin-top: 4rem; text-align: right; }
+        .ceo-sign h4 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .ceo-sign span { color: var(--primary-color); font-weight: 800; font-size: 1.8rem; }
+        .quote { font-size: 1.5rem; color: var(--primary-color); font-weight: 700; margin-bottom: 2rem; border-left: 5px solid var(--primary-color); padding-left: 1.5rem; }
     </style>
 </head>
 <body>
@@ -74,42 +70,36 @@
     </nav>
 
     <header class="page-hero">
-        <h1 class="title">李얠븘?ㅼ떆??湲?/h1>
-        <p class="description">鍮꾩뿉?댄뀓 蹂몄궗 諛?怨듭옣 ?ㅼ떆??湲몄쓣 ?덈궡???쒕┰?덈떎.</p>
+        <h1 class="title">CEO ?몄궗留?/h1>
+        <p class="description">?딆엫?녿뒗 湲곗닠 ?곸떊?쇰줈 ?좊ː諛쏅뒗 ?섏쿂由??꾨Ц 湲곗뾽???섍쿋?듬땲??</p>
     </header>
 
     <nav class="sub-nav">
         <div class="sub-nav-container">
             <a href="intro.html" class="sub-nav-link">湲곗뾽媛쒖슂</a>
-            <a href="greetings.html" class="sub-nav-link">?몄궗留?/a>
+            <a href="greetings.html" class="sub-nav-link active">?몄궗留?/a>
             <a href="sales_history.html" class="sub-nav-link">?고쁺</a>
             <a href="organization.html" class="sub-nav-link">議곗쭅??諛??낅Т遺꾩옣</a>
             <a href="certifications.html" class="sub-nav-link">?몄쬆?꾪솴</a>
             <a href="rd.html" class="sub-nav-link">?곌뎄媛쒕컻(R&D)</a>
-            <a href="map.html" class="sub-nav-link active">李얠븘?ㅼ떆??湲?/a>
+            <a href="map.html" class="sub-nav-link">李얠븘?ㅼ떆??湲?/a>
         </div>
     </nav>
 
-    <section class="container">
-        <div class="map-container fade-in-up">
-            <!-- Google Maps iframe centered at 媛뺤썝?밸퀎?먯튂??異섏쿇???닿퀎怨듬떒2湲?64 -->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3159.2065842823653!2d127.7248!3d37.8322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3562e123456789%3A0x0!2z6rCV7JuQ7Yq567OE7J6Q7LmY64-EIOy2mOyynOyLnCDtHLOqsOqzteuLqDLL湲퇙DY0!5e0!3m2!1sko!2skr!4v1680000000000!5m2!1sko!2skr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <div class="map-info">
-            <div class="info-box fade-in-up delay-1">
-                <div class="info-icon">?뱧</div>
-                <div class="info-text">
-                    <h3>二쇱냼</h3>
-                    <p>媛뺤썝?밸퀎?먯튂??異섏쿇???닿퀎怨듬떒2湲?64<br>(二?鍮꾩뿉?댄뀓 蹂몄궗</p>
-                </div>
-            </div>
-            <div class="info-box fade-in-up delay-2">
-                <div class="info-icon">?뱸</div>
-                <div class="info-text">
-                    <h3>?곕씫泥?/h3>
-                    <p><strong>Tel:</strong> 033-264-9243<br><strong>Fax:</strong> 033-251-5747</p>
-                </div>
+    <section class="container" style="padding-bottom: 8rem;">
+        <div class="greetings-content fade-in-up">
+            <div class="quote">"湲곗닠怨??좊ː瑜?諛뷀깢?쇰줈 ???섏? 臾??섍꼍???붿옄?명빀?덈떎."</div>
+            <p style="font-size: 1.2rem; line-height: 2; color: var(--text-main);">
+                ?덈뀞?섏떗?덇퉴?<br><br>
+                ???鍮꾩뿉?댄뀓 二쇱떇?뚯궗 ?덊럹?댁?瑜?諛⑸Ц??二쇱뀛??吏꾩떖?쇰줈 媛먯궗?쒕┰?덈떎.<br><br>
+                鍮꾩뿉?댄뀓? 2010???ㅻ┰ ?댄썑, ?곗뾽???뚰꽣?뚰봽 遺꾩빞?먯꽌 理쒓퀬??湲곗닠?κ낵 ?덉쭏???쒓났?섍린 ?꾪빐 ?쒓만留뚯쓣 嫄몄뼱?붿뒿?덈떎. ?곕━??源⑤걮?섍퀬 ?덉쟾??臾쇱씠 ?몃쪟???앹〈怨??곗뾽??諛쒖쟾???쇰쭏??以묒슂?쒖? ???뚭퀬 ?덉뒿?덈떎.<br><br>
+                ?⑥닚???뚰봽瑜??쒖옉?섍퀬 ?ㅼ튂?섎뒗 寃껋쓣 ?섏뼱, 怨좉컼???섍꼍??理쒖쟻?붾맂 ?쒖뒪?쒖쓣 援ъ텞?섍퀬 ?꾨꼍???ы썑愿由щ? ?듯빐 怨좉컼??媛移섎? ?믪씠???뚰듃?덇? ?섍퀬???⑸땲?? ISO 9001 ?덉쭏寃쎌쁺?몄쬆怨?Main-Biz ?몄쬆 ?깆쓣 ?듯빐 ?낆쬆??怨듭떊?μ쓣 諛뷀깢?쇰줈, ?욎쑝濡쒕룄 吏?띿쟻???곌뎄媛쒕컻怨??곸떊??硫덉텛吏 ?딄쿋?듬땲??<br><br>
+                怨좉컼???좊ː??蹂대떟?섎뒗 鍮꾩뿉?댄뀓????寃껋쓣 ?쎌냽?쒕┰?덈떎.<br>
+                媛먯궗?⑸땲??
+            </p>
+            <div class="ceo-sign">
+                <h4>鍮꾩뿉?댄뀓 二쇱떇?뚯궗 ??쒖씠??/h4>
+                <span>議?????/span>
             </div>
         </div>
     </section>
@@ -119,7 +109,18 @@
             <div class="footer-brand">
                 <a href="index.html" class="logo"><span class="logo-icon">?뮛</span> B.A. TECH</a>
                 <p class="company-desc">(二?鍮꾩뿉?댄뀓? 源⑤걮?섍퀬 ?덉쟾??臾??섍꼍??議곗꽦?섎뒗<br>?뚰꽣?뚰봽 ?쒖뒪???꾨Ц 湲곗뾽?낅땲??</p>
+                <div class="bg-music-player">
+                    <div class="music-info">BGM: Crystal Stream</div>
+                    <div class="player-controls">
+                        <button id="music-toggle" class="music-btn" title="?ъ깮/?쇱떆?뺤?">??/button>
+                        <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="0.15">
+                    </div>
+                    <audio id="bg-music" loop>
+                        <source src="Crystal Stream.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
             </div>
+
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
@@ -156,16 +157,7 @@
         </div>
         <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
     </footer>
-    <div class="bg-music-player">
-        <div class="music-info">BGM: Crystal Stream</div>
-        <div class="player-controls">
-            <button id="music-toggle" class="music-btn" title="?ъ깮/?쇱떆?뺤?">??/button>
-            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
-        </div>
-        <audio id="bg-music" loop>
-            <source src="Crystal Stream.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+
     <script src="music_player.js"></script>
 
 </body>

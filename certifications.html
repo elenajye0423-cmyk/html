@@ -3,20 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(二?鍮꾩뿉?댄뀓 - 李얠븘?ㅼ떆??湲?/title>
+    <title>(二?鍮꾩뿉?댄뀓 - ?몄쬆?꾪솴</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-
-        .map-container { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); height: 500px; margin-top: 2rem; border: 5px solid white; }
-        .map-container iframe { width: 100%; height: 100%; border: 0; }
-        .map-info { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
-        .info-box { background: white; padding: 2rem; border-radius: 15px; box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: 1.5rem; }
-        .info-icon { font-size: 2.5rem; color: var(--primary-color); background: #f0f8ff; padding: 1rem; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; }
-        .info-text h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
-        .info-text p { color: var(--text-muted); line-height: 1.6; }
-        @media (max-width: 768px) { .map-info { grid-template-columns: 1fr; } }
-    </style>
 </head>
 <body>
     <nav id="navbar" class="scrolled">
@@ -74,8 +63,8 @@
     </nav>
 
     <header class="page-hero">
-        <h1 class="title">李얠븘?ㅼ떆??湲?/h1>
-        <p class="description">鍮꾩뿉?댄뀓 蹂몄궗 諛?怨듭옣 ?ㅼ떆??湲몄쓣 ?덈궡???쒕┰?덈떎.</p>
+        <h1 class="title">?몄쬆?꾪솴</h1>
+        <p class="description">泥좎????덉쭏 愿由ъ? 湲곗닠?μ쑝濡?怨듭떊?μ쓣 ?몄젙諛쏄퀬 ?덉뒿?덈떎.</p>
     </header>
 
     <nav class="sub-nav">
@@ -84,33 +73,41 @@
             <a href="greetings.html" class="sub-nav-link">?몄궗留?/a>
             <a href="sales_history.html" class="sub-nav-link">?고쁺</a>
             <a href="organization.html" class="sub-nav-link">議곗쭅??諛??낅Т遺꾩옣</a>
-            <a href="certifications.html" class="sub-nav-link">?몄쬆?꾪솴</a>
+            <a href="certifications.html" class="sub-nav-link active">?몄쬆?꾪솴</a>
             <a href="rd.html" class="sub-nav-link">?곌뎄媛쒕컻(R&D)</a>
-            <a href="map.html" class="sub-nav-link active">李얠븘?ㅼ떆??湲?/a>
+            <a href="map.html" class="sub-nav-link">李얠븘?ㅼ떆??湲?/a>
         </div>
     </nav>
 
     <section class="container">
-        <div class="map-container fade-in-up">
-            <!-- Google Maps iframe centered at 媛뺤썝?밸퀎?먯튂??異섏쿇???닿퀎怨듬떒2湲?64 -->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3159.2065842823653!2d127.7248!3d37.8322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3562e123456789%3A0x0!2z6rCV7JuQ7Yq567OE7J6Q7LmY64-EIOy2mOyynOyLnCDtHLOqsOqzteuLqDLL湲퇙DY0!5e0!3m2!1sko!2skr!4v1680000000000!5m2!1sko!2skr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="section-header text-center">
+            <h2 class="section-title">二쇱슂 ?몄쬆 諛?硫댄뿀</h2>
+            <p class="section-description">鍮꾩뿉?댄뀓? 理쒖긽???덉쭏怨??덉쟾??蹂댁옣?섍린 ?꾪빐 ?ㅼ뼇??援?? 怨듭씤 ?몄쬆???띾뱷?섏??듬땲??</p>
         </div>
 
-        <div class="map-info">
-            <div class="info-box fade-in-up delay-1">
-                <div class="info-icon">?뱧</div>
-                <div class="info-text">
-                    <h3>二쇱냼</h3>
-                    <p>媛뺤썝?밸퀎?먯튂??異섏쿇???닿퀎怨듬떒2湲?64<br>(二?鍮꾩뿉?댄뀓 蹂몄궗</p>
-                </div>
+
+        <div class="cert-viewer-section fade-in-up">
+            <div class="cert-tabs">
+                <div class="cert-tab active" onclick="switchCert(0, 'assets/certifications/iso9001.pdf')">ISO 9001:2015</div>
+                <div class="cert-tab" onclick="switchCert(1, 'assets/certifications/kc_cert.pdf')">KC ?쒗뭹?덉쟾?몄쬆</div>
+                <div class="cert-tab" onclick="switchCert(2, 'assets/certifications/mainbiz.pdf')">MAIN-BIZ (寃쎌쁺?곸떊)</div>
             </div>
-            <div class="info-box fade-in-up delay-2">
-                <div class="info-icon">?뱸</div>
-                <div class="info-text">
-                    <h3>?곕씫泥?/h3>
-                    <p><strong>Tel:</strong> 033-264-9243<br><strong>Fax:</strong> 033-251-5747</p>
-                </div>
+            <div class="viewer-toolbar">
+                <a id="download-link" href="assets/certifications/iso9001.pdf" download class="btn-download">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    PDF ?ㅼ슫濡쒕뱶
+                </a>
             </div>
+            <div class="pdf-embed-container">
+                <iframe id="pdf-viewer" src="assets/certifications/iso9001.pdf"></iframe>
+            </div>
+        </div>
+
+        <div style="margin-top: 6rem; background: #f8fafc; padding: 4rem; border-radius: 30px; text-align: center;">
+            <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">?덉쭏怨??덉쟾??????쎌냽</h3>
+            <p style="color: var(--text-muted); font-size: 1.15rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                ???鍮꾩뿉?댄뀓? ?뚰봽 ?섎굹?섎굹??湲곗닠?κ낵 吏꾩떖???댁뒿?덈떎. 援?? 怨듭씤 洹쒓꺽??以?섑븯???꾧꺽??怨듭젙 愿由ъ? ?몄쬆???듯븳 泥좎????덉쭏 寃利앹? 怨좉컼?먭쾶 理쒓퀬??寃곌낵臾쇱쓣 ?꾨떖?섍린 ?꾪븳 ?곕━??湲곕낯?곸씤 ?쎌냽?낅땲??
+            </p>
         </div>
     </section>
 
@@ -156,6 +153,7 @@
         </div>
         <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
     </footer>
+
     <div class="bg-music-player">
         <div class="music-info">BGM: Crystal Stream</div>
         <div class="player-controls">
@@ -167,6 +165,20 @@
         </audio>
     </div>
     <script src="music_player.js"></script>
+    <script>
+        function switchCert(index, url) {
+            // Update tabs
+            const tabs = document.querySelectorAll('.cert-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabs[index].classList.add('active');
 
+            // Update viewer
+            document.getElementById('pdf-viewer').src = url;
+
+            // Update download link
+            document.getElementById('download-link').href = url;
+        }
+
+    </script>
 </body>
 </html>

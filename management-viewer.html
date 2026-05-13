@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(주)비에이텍 - 관리 지침서 뷰어</title>
-    <meta name="description" content="관리 지침서 PDF를 열람하는 전용 페이지입니다.">
+    <title>(二?鍮꾩뿉?댄뀓 - 愿由?吏移⑥꽌 酉곗뼱</title>
+    <meta name="description" content="愿由?吏移⑥꽌 PDF瑜??대엺?섎뒗 ?꾩슜 ?섏씠吏?낅땲??">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <!-- PDF.js -->
@@ -107,23 +107,61 @@
 <body>
     <nav id="navbar" class="scrolled">
         <div class="nav-container">
-            <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+            <a href="index.html" class="logo"><span class="logo-icon">?뮛</span> B.A. TECH</a>
             <ul class="nav-links">
-                <li><a href="intro.html">기업소개</a></li>
-                <li><a href="product.html">주요제품</a></li>
-                <li><a href="management.html">관리</a></li>
-                <li><a href="equipment.html">장비</a></li>
-                <li><a href="sales_history.html">업력</a></li>
-                <li><a href="map.html">찾아오는 길</a></li>
-                <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
+                <li class="nav-item">
+                    <a href="intro.html">湲곗뾽?뚭컻</a>
+                    <ul class="dropdown">
+                        <li><a href="intro.html">湲곗뾽媛쒖슂</a></li>
+                        <li><a href="greetings.html">?몄궗留?/a></li>
+                        <li><a href="sales_history.html">?고쁺</a></li>
+                        <li><a href="organization.html">議곗쭅??諛??낅Т遺꾩옣</a></li>
+                        <li><a href="certifications.html">?몄쬆?꾪솴</a></li>
+                        <li><a href="rd.html">?곌뎄媛쒕컻(R&D)</a></li>
+                        <li><a href="map.html">李얠븘?ㅼ떆??湲?/a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="product.html">二쇱슂?쒗뭹</a>
+                    <ul class="dropdown">
+                        <li><a href="product_supply.html">湲됱닔 諛?媛???쒖뒪??/a></li>
+                        <li><a href="product_drainage.html">諛곗닔 諛??ㅽ룓??泥섎━</a></li>
+                        <li><a href="product_industrial.html">?곗뾽 諛??뱀닔 怨듭젙</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="notice.html">怨좉컼吏??/a>
+                    <ul class="dropdown">
+                        <li><a href="notice.html">怨듭??ы빆</a></li>
+                        <li><a href="management.html">?좎?愿由?吏移⑥꽌</a></li>
+                        <li><a href="technical.html">湲곗닠?먮즺??/a></li>
+                        <li><a href="faq.html">?먯＜ 臾삳뒗 吏덈Ц</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="video.html">?띾낫?쇳꽣</a>
+                    <ul class="dropdown">
+                        <li><a href="video.html">?띾낫?곸긽</a></li>
+                        <li><a href="ir.html">IR ?먮즺??/a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="careers.html">?몄옱梨꾩슜</a>
+                    <ul class="dropdown">
+                        <li><a href="careers.html">?몄옱??/a></li>
+                        <li><a href="careers.html#jobs">梨꾩슜怨듦퀬</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="inquiry.html" class="btn-primary-outline">臾몄쓽</a></li>
             </ul>
             <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
         </div>
     </nav>
 
     <header class="page-hero compact-hero">
-        <h1 class="title" id="viewer-title">지침서 뷰어</h1>
-        <p class="description" id="viewer-desc">비에이텍 제품의 안전한 관리를 위한 통합 가이드라인입니다.</p>
+        <h1 class="title" id="viewer-title">吏移⑥꽌 酉곗뼱</h1>
+        <p class="description" id="viewer-desc">鍮꾩뿉?댄뀓 ?쒗뭹???덉쟾??愿由щ? ?꾪븳 ?듯빀 媛?대뱶?쇱씤?낅땲??</p>
     </header>
 
     <section class="management-viewer-section">
@@ -136,19 +174,19 @@
                         <div class="dot green"></div>
                     </div>
                     <div class="browser-address-bar">
-                        <span>🔒</span> <span id="address-url">batech.co.kr/manuals/viewer.html</span>
+                        <span>?뵏</span> <span id="address-url">batech.co.kr/manuals/viewer.html</span>
                     </div>
                 </div>
 
                 <div class="viewer-header-info">
-                    <span id="selected-pump">지침서 불러오는 중...</span>
+                    <span id="selected-pump">吏移⑥꽌 遺덈윭?ㅻ뒗 以?..</span>
                     <span class="viewer-badge">E-Book Style</span>
                 </div>
 
                 <div class="book-content-area">
                     <div id="loading-overlay" class="loading-overlay">
                         <div class="spinner"></div>
-                        <p id="loading-text">지침서를 렌더링하고 있습니다...</p>
+                        <p id="loading-text">吏移⑥꽌瑜??뚮뜑留곹븯怨??덉뒿?덈떎...</p>
                     </div>
                     
                     <div class="book-wrapper">
@@ -161,7 +199,7 @@
                         <button id="prev-btn" class="control-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                         </button>
-                        <span id="page-info" class="page-info">로딩 중...</span>
+                        <span id="page-info" class="page-info">濡쒕뵫 以?..</span>
                         <button id="next-btn" class="control-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                         </button>
@@ -170,8 +208,7 @@
 
                 <div class="viewer-footer">
                     <a href="management.html" class="btn-back">
-                        <span>←</span> 목록으로 돌아가기
-                    </a>
+                        <span>??/span> 紐⑸줉?쇰줈 ?뚯븘媛湲?                    </a>
                 </div>
             </div>
         </div>
@@ -180,19 +217,30 @@
     <footer>
         <div class="container footer-content">
             <div class="footer-brand">
-                <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
-                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>워터펌프 시스템 전문 기업입니다.</p>
+                <a href="index.html" class="logo"><span class="logo-icon">?뮛</span> B.A. TECH</a>
+                <p class="company-desc">(二?鍮꾩뿉?댄뀓? 源⑤걮?섍퀬 ?덉쟾??臾??섍꼍??議곗꽦?섎뒗<br>?뚰꽣?뚰봽 ?쒖뒪???꾨Ц 湲곗뾽?낅땲??</p>
             </div>
             <div class="footer-contact">
                 <h4>Contact Us</h4>
-                <p>상호: 비에이텍 주식회사</p>
-                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
-                <p>전화: 033-264-9243</p>
+                <p>?곹샇: 鍮꾩뿉?댄뀓 二쇱떇?뚯궗</p>
+                <p>二쇱냼: 媛뺤썝?밸퀎?먯튂??異섏쿇???닿퀎怨듬떒2湲?64</p>
+                <p>?꾪솕: 033-264-9243</p>
             </div>
         </div>
         <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
     </footer>
 
+    <div class="bg-music-player">
+        <div class="music-info">BGM: Crystal Stream</div>
+        <div class="player-controls">
+            <button id="music-toggle" class="music-btn" title="?ъ깮/?쇱떆?뺤?">??/button>
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+        <audio id="bg-music" loop>
+            <source src="Crystal Stream.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <script src="music_player.js"></script>
     <script src="script.js"></script>
     <script>
         // Update header and address bar based on query params
@@ -202,18 +250,14 @@
 
         if (pumpName) {
             const decodedName = decodeURIComponent(pumpName);
-            document.getElementById('selected-pump').textContent = `${decodedName} 유지관리지침서`;
-            document.getElementById('viewer-title').textContent = `${decodedName} 관리 지침`;
+            document.getElementById('selected-pump').textContent = `${decodedName} ?좎?愿由ъ?移⑥꽌`;
+            document.getElementById('viewer-title').textContent = `${decodedName} 愿由?吏移?;
         }
         if (pdfUrl) {
             const decodedUrl = decodeURIComponent(pdfUrl);
             document.getElementById('address-url').textContent = `batech.co.kr/assets/manuals/${decodedUrl.split('/').pop()}`;
         }
 
-        document.getElementById('mobile-menu').addEventListener('click', function() {
-            this.classList.toggle('active');
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
     </script>
 </body>
 </html>

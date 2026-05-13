@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>주요제품 | (주)비에이텍</title>
+    <title>공지사항 | (주)비에이텍</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -25,7 +25,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="product.html" class="active">주요제품</a>
+                    <a href="product.html">주요제품</a>
                     <ul class="dropdown">
                         <li><a href="product_supply.html">급수 및 가압 시스템</a></li>
                         <li><a href="product_drainage.html">배수 및 오폐수 처리</a></li>
@@ -33,7 +33,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="notice.html">고객지원</a>
+                    <a href="notice.html" class="active">고객지원</a>
                     <ul class="dropdown">
                         <li><a href="notice.html">공지사항</a></li>
                         <li><a href="management.html">유지관리 지침서</a></li>
@@ -62,61 +62,36 @@
     </nav>
 
     <header class="page-hero">
-        <h1 class="title">주요제품</h1>
-        <p class="description">비에이텍의 혁신적인 펌프 기술로 최상의 수처리 솔루션을 제공합니다.</p>
+        <h1 class="title">공지사항</h1>
+        <p class="description">비에이텍의 새로운 소식과 안내사항을 전달해 드립니다.</p>
     </header>
 
     <nav class="sub-nav">
         <div class="sub-nav-container">
-            <a href="product_supply.html" class="sub-nav-link">급수 및 가압 시스템</a>
-            <a href="product_drainage.html" class="sub-nav-link">배수 및 오폐수 처리</a>
-            <a href="product_industrial.html" class="sub-nav-link">산업 및 특수 공정</a>
+            <a href="notice.html" class="sub-nav-link active">공지사항</a>
+            <a href="management.html" class="sub-nav-link">유지관리 지침서</a>
+            <a href="technical.html" class="sub-nav-link">기술자료실</a>
+            <a href="faq.html" class="sub-nav-link">자주 묻는 질문</a>
         </div>
     </nav>
 
     <section class="container" style="padding: 100px 0;">
-        <div class="section-header text-center">
-            <h2 class="section-title">비에이텍 제품 라인업</h2>
-            <p class="section-description">용도에 맞는 최적의 펌프 시스템을 제안합니다.</p>
-        </div>
-
-        <div class="product-categories-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 60px;">
-            <a href="product_supply.html" class="category-card" style="text-decoration: none; color: inherit;">
-                <div style="background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; transition: transform 0.3s;">
-                    <div style="height: 250px; background: linear-gradient(135deg, #eff6ff, #dbeafe); display: flex; align-items: center; justify-content: center;">
-                        <span style="font-size: 5rem;">🏠</span>
-                    </div>
-                    <div style="padding: 40px;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 15px;">급수 및 가압 시스템</h3>
-                        <p style="color: var(--text-muted); line-height: 1.6;">주거 시설 및 고층 빌딩에 안정적인 수압을 공급하는 부스터 펌프 시스템입니다.</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="product_drainage.html" class="category-card" style="text-decoration: none; color: inherit;">
-                <div style="background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; transition: transform 0.3s;">
-                    <div style="height: 250px; background: linear-gradient(135deg, #ecfdf5, #d1fae5); display: flex; align-items: center; justify-content: center;">
-                        <span style="font-size: 5rem;">🏭</span>
-                    </div>
-                    <div style="padding: 40px;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 15px;">배수 및 오폐수 처리</h3>
-                        <p style="color: var(--text-muted); line-height: 1.6;">효율적인 오폐수 배출과 수처리를 위한 내구성 높은 수중 펌프 솔루션입니다.</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="product_industrial.html" class="category-card" style="text-decoration: none; color: inherit;">
-                <div style="background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; transition: transform 0.3s;">
-                    <div style="height: 250px; background: linear-gradient(135deg, #fef2f2, #fee2e2); display: flex; align-items: center; justify-content: center;">
-                        <span style="font-size: 5rem;">⚡</span>
-                    </div>
-                    <div style="padding: 40px;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 15px;">산업 및 특수 공정</h3>
-                        <p style="color: var(--text-muted); line-height: 1.6;">가혹한 산업 현장과 특수 화학 공정에 최적화된 고성능 특수 펌프입니다.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
+        <table class="notice-table" style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+            <thead>
+                <tr style="border-bottom: 2px solid #334155; text-align: left;">
+                    <th style="padding: 20px;">번호</th>
+                    <th style="padding: 20px;">제목</th>
+                    <th style="padding: 20px;">작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 20px; color: var(--text-muted);">1</td>
+                    <td style="padding: 20px;"><a href="#" style="text-decoration: none; color: inherit; font-weight: 500;">비에이텍 공식 홈페이지 리뉴얼 안내</a></td>
+                    <td style="padding: 20px; color: var(--text-muted);">2024.03.15</td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
     <footer>
