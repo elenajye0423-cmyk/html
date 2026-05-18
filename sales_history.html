@@ -1,33 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(주)비에이텍 - 연혁</title>
+    <title>연혁 | (주)비에이텍</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .timeline { position: relative; max-width: 800px; margin: 4rem auto; padding: 2rem 0; }
-        .timeline::after { content: ''; position: absolute; width: 4px; background: #e5e7eb; top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 2px; }
-        .timeline-item { padding: 10px 40px; position: relative; width: 50%; box-sizing: border-box; }
-        .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -13px; background-color: white; border: 4px solid var(--primary-color); top: 15px; border-radius: 50%; z-index: 1; box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.2); }
-        .left { left: 0; }
-        .right { left: 50%; }
-        .right::after { left: -13px; }
-        .timeline-content { padding: 1.5rem 2rem; background-color: white; position: relative; border-radius: 15px; box-shadow: var(--shadow-md); border: 1px solid #f3f4f6; transition: var(--transition-fast); }
-        .timeline-content:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
-        .timeline-date { color: var(--primary-color); font-weight: 800; font-size: 1.3rem; margin-bottom: 0.5rem; display: block; font-family: 'Inter', sans-serif; }
-        
-        @media screen and (max-width: 768px) {
-            .timeline::after { left: 31px; }
-            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .left::after, .right::after { left: 18px; }
-            .right { left: 0%; }
-        }
-    </style>
 </head>
 <body>
-    <nav id="navbar" class="scrolled">
+                        <nav id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
             <ul class="nav-links">
@@ -63,15 +44,15 @@
                 <li class="nav-item">
                     <a href="video.html">홍보센터</a>
                     <ul class="dropdown">
-                        <li><a href="video.html">홍보</a></li>
+                        <li><a href="video.html#video">홍보</a></li>
                         <li><a href="ir.html">IR 자료실</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="careers.html">인재채용</a>
+                    <a href="careers.html">채용</a>
                     <ul class="dropdown">
                         <li><a href="careers.html">인재상</a></li>
-                        <li><a href="careers.html#jobs">채용공고</a></li>
+                        <li><a href="job_openings.html">채용공고</a></li>
                     </ul>
                 </li>
                 <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
@@ -81,8 +62,8 @@
     </nav>
 
     <header class="page-hero">
-        <h1 class="title">기업 연혁</h1>
-        <p class="description">비에이텍이 걸어온 발자취를 소개합니다.</p>
+        <h1 class="title">연혁</h1>
+        <p class="description">비에이텍이 걸어온 도전과 혁신의 기록입니다.</p>
     </header>
 
     <nav class="sub-nav">
@@ -97,42 +78,30 @@
         </div>
     </nav>
 
-    <section class="container">
-        <div class="timeline">
-            <div class="timeline-item left fade-in-up">
+    <section class="container" style="padding-top: 100px; padding-bottom: 100px;">
+        <div class="timeline fade-in-up">
+            <div class="timeline-item right">
                 <div class="timeline-content">
-                    <span class="timeline-date">2010. 11. 01</span>
-                    <p>한강유체 설립</p>
+                    <span class="timeline-date">2024</span>
+                    <p>홈페이지 리뉴얼 및 통합 관리 시스템 구축</p>
                 </div>
             </div>
-            <div class="timeline-item right fade-in-up delay-1">
+            <div class="timeline-item left delay-1">
                 <div class="timeline-content">
-                    <span class="timeline-date">2012. 12. 10</span>
-                    <p>벤처기업인증 (중소기업청)</p>
+                    <span class="timeline-date">2020</span>
+                    <p>중소벤처기업부 Main-Biz 인증 획득</p>
                 </div>
             </div>
-            <div class="timeline-item left fade-in-up delay-2">
+            <div class="timeline-item right delay-2">
                 <div class="timeline-content">
-                    <span class="timeline-date">2013. 02. 19</span>
-                    <p>비에이텍(주)으로 상호 및 대표자 변경</p>
-                </div>
-            </div>
-            <div class="timeline-item right fade-in-up">
-                <div class="timeline-content">
-                    <span class="timeline-date">2017. 12. 29</span>
-                    <p>강원도지사 표창 수상</p>
-                </div>
-            </div>
-            <div class="timeline-item left fade-in-up delay-1">
-                <div class="timeline-content">
-                    <span class="timeline-date">2024. 08. 23</span>
+                    <span class="timeline-date">2015</span>
                     <p>ISO 9001 품질경영시스템 인증 획득</p>
                 </div>
             </div>
-            <div class="timeline-item right fade-in-up delay-2">
+            <div class="timeline-item left delay-3">
                 <div class="timeline-content">
-                    <span class="timeline-date">2024. 09. 14</span>
-                    <p>경영혁신형 중소기업(Main-Biz) 확인</p>
+                    <span class="timeline-date">2010</span>
+                    <p>비에이텍 주식회사 설립 (11월 1일)</p>
                 </div>
             </div>
         </div>
@@ -146,7 +115,7 @@
                 <div class="bg-music-player">
                     <div class="music-info">BGM: Crystal Stream</div>
                     <div class="player-controls">
-                        <button id="music-toggle" class="music-btn" title="재생/일시정지">▶</button>
+                        <button id="music-toggle" class="music-btn" title="?ъ깮/?쇱떆?뺤?">??/button>
                         <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="0.15">
                     </div>
                     <audio id="bg-music" loop>
@@ -160,7 +129,7 @@
                     <li><a href="intro.html">기업소개</a></li>
                     <li><a href="sales_history.html">연혁</a></li>
                     <li><a href="certifications.html">인증현황</a></li>
-                    <li><a href="careers.html">인재채용</a></li>
+                    <li><a href="careers.html">채용</a></li>
                     <li><a href="map.html">오시는 길</a></li>
                 </ul>
             </div>
@@ -193,3 +162,4 @@
     <script src="music_player.js"></script>
 </body>
 </html>
+

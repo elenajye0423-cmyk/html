@@ -3,261 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(二?鍮꾩뿉?댄뀓 - 愿由?吏移⑥꽌 酉곗뼱</title>
-    <meta name="description" content="愿由?吏移⑥꽌 PDF瑜??대엺?섎뒗 ?꾩슜 ?섏씠吏?낅땲??">
+    <title>吏移⑥꽌 酉곗뼱 | (二?鍮꾩뿉?댄뀓</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <!-- PageFlip -->
-    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
-    <style>
-        .management-viewer-section { padding: 2rem 0 6rem; background: #f1f5f9; min-height: 100vh; }
-        .compact-hero { padding: 120px 2rem 60px !important; min-height: 250px !important; background: linear-gradient(135deg, #1e293b, #334155) !important; }
-        
-        /* Mini Webpage Design */
-        .viewer-window { 
-            background: white; 
-            border-radius: 20px; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); 
-            overflow: hidden; 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            border: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            min-height: 800px;
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Browser Header */
-        .browser-header {
-            background: #f8fafc;
-            padding: 0.8rem 1.5rem;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        .window-controls { display: flex; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27c93f; }
-        
-        .browser-address-bar {
-            flex-grow: 1;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0.4rem 1rem;
-            font-size: 0.85rem;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .viewer-header-info {
-            padding: 1.5rem 2rem;
-            background: white;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #selected-pump { font-size: 1.25rem; font-weight: 800; color: #1e293b; }
-        .viewer-badge { font-size: 0.75rem; font-weight: 700; color: #3b82f6; background: #eff6ff; padding: 0.3rem 0.8rem; border-radius: 50px; text-transform: uppercase; }
-        
-        /* E-Book Specific Styles */
-        .book-content-area { flex-grow: 1; background: #e2e8f0; position: relative; padding: 2rem; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
-        .book-wrapper { width: 100%; max-width: 900px; height: 600px; margin: 0 auto; }
-        #book { width: 100%; height: 100%; }
-        .page { background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        
-        .book-controls { margin-top: 2rem; display: flex; align-items: center; gap: 2rem; background: white; padding: 0.8rem 2rem; border-radius: 50px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .control-btn { background: none; border: none; cursor: pointer; color: #64748b; transition: color 0.2s; display: flex; align-items: center; }
-        .control-btn:hover { color: #3b82f6; }
-        .page-info { font-weight: 600; color: #1e293b; min-width: 120px; text-align: center; }
-
-        .loading-overlay { position: absolute; inset: 0; background: white; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .viewer-footer { padding: 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: center; }
-        .btn-back { padding: 0.8rem 2.5rem; border-radius: 50px; background: white; border: 1px solid #cbd5e1; font-weight: 600; color: #475569; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; }
-        .btn-back:hover { background: #1e293b; color: white; border-color: #1e293b; transform: translateY(-2px); }
-        
-        @media (max-width: 768px) {
-            .viewer-window { height: auto; margin: 0 1rem; }
-            .browser-address-bar { display: none; }
-            .book-wrapper { height: 400px; }
-            .book-controls { gap: 1rem; padding: 0.5rem 1rem; }
-        }
-    </style>
 </head>
-<body>
-    <nav id="navbar" class="scrolled">
-        <div class="nav-container">
-            <a href="index.html" class="logo"><span class="logo-icon">?뮛</span> B.A. TECH</a>
-            <ul class="nav-links">
-                <li class="nav-item">
-                    <a href="intro.html">湲곗뾽?뚭컻</a>
-                    <ul class="dropdown">
-                        <li><a href="intro.html">湲곗뾽媛쒖슂</a></li>
-                        <li><a href="greetings.html">?몄궗留?/a></li>
-                        <li><a href="sales_history.html">?고쁺</a></li>
-                        <li><a href="organization.html">議곗쭅??諛??낅Т遺꾩옣</a></li>
-                        <li><a href="certifications.html">?몄쬆?꾪솴</a></li>
-                        <li><a href="rd.html">?곌뎄媛쒕컻(R&D)</a></li>
-                        <li><a href="map.html">李얠븘?ㅼ떆??湲?/a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="product.html">二쇱슂?쒗뭹</a>
-                    <ul class="dropdown">
-                        <li><a href="product_supply.html">湲됱닔 諛?媛???쒖뒪??/a></li>
-                        <li><a href="product_drainage.html">諛곗닔 諛??ㅽ룓??泥섎━</a></li>
-                        <li><a href="product_industrial.html">?곗뾽 諛??뱀닔 怨듭젙</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="notice.html">怨좉컼吏??/a>
-                    <ul class="dropdown">
-                        <li><a href="notice.html">怨듭??ы빆</a></li>
-                        <li><a href="management.html">?좎?愿由?吏移⑥꽌</a></li>
-                        <li><a href="technical.html">湲곗닠?먮즺??/a></li>
-                        <li><a href="faq.html">?먯＜ 臾삳뒗 吏덈Ц</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="video.html">?띾낫?쇳꽣</a>
-                    <ul class="dropdown">
-                        <li><a href="video.html">?띾낫?곸긽</a></li>
-                        <li><a href="ir.html">IR ?먮즺??/a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="careers.html">?몄옱梨꾩슜</a>
-                    <ul class="dropdown">
-                        <li><a href="careers.html">?몄옱??/a></li>
-                        <li><a href="careers.html#jobs">梨꾩슜怨듦퀬</a></li>
-                    </ul>
-                </li>
-
-                <li><a href="inquiry.html" class="btn-primary-outline">臾몄쓽</a></li>
-            </ul>
-            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+<body style="background: #1e293b;">
+    <div style="height: 100vh; display: flex; flex-direction: column;">
+        <header style="padding: 15px 30px; background: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+            <a href="management.html" style="text-decoration: none; color: var(--primary-color); font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                ??紐⑸줉?쇰줈 ?뚯븘媛湲?            </a>
+            <h1 id="manual-title" style="font-size: 1.1rem; margin: 0;">吏移⑥꽌 酉곗뼱</h1>
+            <div style="width: 120px;"></div>
+        </header>
+        <div style="flex: 1; position: relative;">
+            <iframe id="pdf-frame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
-    </nav>
-
-    <header class="page-hero compact-hero">
-        <h1 class="title" id="viewer-title">吏移⑥꽌 酉곗뼱</h1>
-        <p class="description" id="viewer-desc">鍮꾩뿉?댄뀓 ?쒗뭹???덉쟾??愿由щ? ?꾪븳 ?듯빀 媛?대뱶?쇱씤?낅땲??</p>
-    </header>
-
-    <section class="management-viewer-section">
-        <div class="container">
-            <div class="viewer-window">
-                <div class="browser-header">
-                    <div class="window-controls">
-                        <div class="dot red"></div>
-                        <div class="dot yellow"></div>
-                        <div class="dot green"></div>
-                    </div>
-                    <div class="browser-address-bar">
-                        <span>?뵏</span> <span id="address-url">batech.co.kr/manuals/viewer.html</span>
-                    </div>
-                </div>
-
-                <div class="viewer-header-info">
-                    <span id="selected-pump">吏移⑥꽌 遺덈윭?ㅻ뒗 以?..</span>
-                    <span class="viewer-badge">E-Book Style</span>
-                </div>
-
-                <div class="book-content-area">
-                    <div id="loading-overlay" class="loading-overlay">
-                        <div class="spinner"></div>
-                        <p id="loading-text">吏移⑥꽌瑜??뚮뜑留곹븯怨??덉뒿?덈떎...</p>
-                    </div>
-                    
-                    <div class="book-wrapper">
-                        <div id="book">
-                            <!-- Pages will be injected here -->
-                        </div>
-                    </div>
-
-                    <div class="book-controls">
-                        <button id="prev-btn" class="control-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                        </button>
-                        <span id="page-info" class="page-info">濡쒕뵫 以?..</span>
-                        <button id="next-btn" class="control-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="viewer-footer">
-                    <a href="management.html" class="btn-back">
-                        <span>??/span> 紐⑸줉?쇰줈 ?뚯븘媛湲?                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-brand">
-                <a href="index.html" class="logo"><span class="logo-icon">?뮛</span> B.A. TECH</a>
-                <p class="company-desc">(二?鍮꾩뿉?댄뀓? 源⑤걮?섍퀬 ?덉쟾??臾??섍꼍??議곗꽦?섎뒗<br>?뚰꽣?뚰봽 ?쒖뒪???꾨Ц 湲곗뾽?낅땲??</p>
-            </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <p>?곹샇: 鍮꾩뿉?댄뀓 二쇱떇?뚯궗</p>
-                <p>二쇱냼: 媛뺤썝?밸퀎?먯튂??異섏쿇???닿퀎怨듬떒2湲?64</p>
-                <p>?꾪솕: 033-264-9243</p>
-            </div>
-        </div>
-        <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
-    </footer>
-
-    <div class="bg-music-player">
-        <div class="music-info">BGM: Crystal Stream</div>
-        <div class="player-controls">
-            <button id="music-toggle" class="music-btn" title="?ъ깮/?쇱떆?뺤?">??/button>
-            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
-        </div>
-        <audio id="bg-music" loop>
-            <source src="Crystal Stream.mp3" type="audio/mpeg">
-        </audio>
     </div>
-    <script src="music_player.js"></script>
-    <script src="script.js"></script>
     <script>
-        // Update header and address bar based on query params
         const urlParams = new URLSearchParams(window.location.search);
-        const pumpName = urlParams.get('name');
-        const pdfUrl = urlParams.get('pdf');
-
-        if (pumpName) {
-            const decodedName = decodeURIComponent(pumpName);
-            document.getElementById('selected-pump').textContent = `${decodedName} ?좎?愿由ъ?移⑥꽌`;
-            document.getElementById('viewer-title').textContent = `${decodedName} 愿由?吏移?;
+        const file = urlParams.get('file');
+        const title = urlParams.get('title');
+        
+        if (file) {
+            document.getElementById('pdf-frame').src = file;
         }
-        if (pdfUrl) {
-            const decodedUrl = decodeURIComponent(pdfUrl);
-            document.getElementById('address-url').textContent = `batech.co.kr/assets/manuals/${decodedUrl.split('/').pop()}`;
+        if (title) {
+            document.getElementById('manual-title').textContent = title;
+            document.title = title + ' | (二?鍮꾩뿉?댄뀓';
         }
-
     </script>
+    <script src="music_player.js"></script>
 </body>
 </html>
+

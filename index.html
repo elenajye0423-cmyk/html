@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -9,12 +9,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav id="navbar">
+                        <nav id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">💧</span> B.A. TECH
-            </a>
+            <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
             <ul class="nav-links">
                 <li class="nav-item">
                     <a href="intro.html">기업소개</a>
@@ -48,29 +45,23 @@
                 <li class="nav-item">
                     <a href="video.html">홍보센터</a>
                     <ul class="dropdown">
-                        <li><a href="video.html">홍보</a></li>
+                        <li><a href="video.html#video">홍보</a></li>
                         <li><a href="ir.html">IR 자료실</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="careers.html">인재채용</a>
+                    <a href="careers.html">채용</a>
                     <ul class="dropdown">
                         <li><a href="careers.html">인재상</a></li>
-                        <li><a href="careers.html#jobs">채용공고</a></li>
+                        <li><a href="job_openings.html">채용공고</a></li>
                     </ul>
                 </li>
-
                 <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
             </ul>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header class="hero" id="home">
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -87,7 +78,6 @@
         </div>
     </header>
 
-    <!-- Expertise Section -->
     <section class="expertise" id="expertise">
         <div class="container">
             <div class="section-header text-center">
@@ -98,17 +88,15 @@
             
             <div class="cards-grid">
                 <div class="card glass-card">
-                    <div class="card-icon" style="font-size: 2rem;">🏗️</div>
+                    <div class="card-icon" style="font-size: 2rem;">🛠️</div>
                     <h4 class="card-title">제작 (Manufacturing)</h4>
                     <p class="card-text">최첨단 설비와 엄격한 품질 관리를 통해 뛰어난 내구성과 효율을 자랑하는 워터펌프를 자체 제작합니다.</p>
                 </div>
-
                 <div class="card glass-card">
                     <div class="card-icon" style="font-size: 2rem;">⚙️</div>
                     <h4 class="card-title">설치 (Installation)</h4>
                     <p class="card-text">현장 상황을 면밀히 분석하여 가장 안정적이고 효율적인 펌프 시스템 설치 솔루션을 제공합니다.</p>
                 </div>
-
                 <div class="card glass-card">
                     <div class="card-icon" style="font-size: 2rem;">🔧</div>
                     <h4 class="card-title">수리 (Repair & Maintenance)</h4>
@@ -117,58 +105,7 @@
             </div>
         </div>
     </section>
-    
-    <!-- Video Section -->
-    <section class="video-section" style="background: #0f172a; padding: 10rem 0; color: white;">
-        <div class="container">
-            <div class="section-header text-center">
-                <h3 class="section-subtitle" style="color: var(--secondary-color);">Promotional Video</h3>
-                <h2 class="section-title" style="color: white;">비에이텍 홍보 영상</h2>
-                <p class="section-description" style="color: #94a3b8;">기술로 세상을 물을 움직이는 비에이텍의 가치를 영상으로 확인하세요.</p>
-            </div>
-            <div class="video-container" style="max-width: 1000px; margin: 0 auto; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background: #1e293b; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative;">
-                <div class="video-placeholder" style="text-align: center;">
-                    <div style="font-size: 5rem; margin-bottom: 1.5rem; opacity: 0.5;">🎬</div>
-                    <p style="font-size: 1.2rem; color: #94a3b8;">홍보 영상 준비 중입니다</p>
-                </div>
-                <!-- Once video is ready, use: <iframe width="100%" height="100%" src="YOUR_VIDEO_URL" frameborder="0" allowfullscreen></iframe> -->
-            </div>
-        </div>
-    </section>
 
-    <!-- Info Section with Data -->
-    <section class="company-info">
-        <div class="container flex-container">
-            <div class="info-content">
-                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">신뢰할 수 있는 수처리 파트너</h2>
-                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
-                    (주)비에이텍은 깨끗한 물을 안정적으로 공급하기 위해 지속적인 연구 개발과 혁신을 거듭하고 있습니다. ISO9001 인증, KC 인증 등 다수의 공신력 있는 인증을 바탕으로 업계 최고의 기술력을 인정받고 있습니다.
-                </p>
-                <div class="stats-row" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                    <div class="stat-item" style="flex: 1; text-align: center; background: #f9fafb; padding: 1.5rem; border-radius: 12px; border: 1px solid #e5e7eb;">
-                        <span class="stat-number" style="display: block; font-size: 1.8rem; font-weight: 800; color: var(--primary-color);">ISO</span>
-                        <span class="stat-label" style="font-size: 0.9rem; color: var(--text-muted);">9001 인증기업</span>
-                    </div>
-                    <div class="stat-item" style="flex: 1; text-align: center; background: #f9fafb; padding: 1.5rem; border-radius: 12px; border: 1px solid #e5e7eb;">
-                        <span class="stat-number" style="display: block; font-size: 1.8rem; font-weight: 800; color: var(--primary-color);">KC</span>
-                        <span class="stat-label" style="font-size: 0.9rem; color: var(--text-muted);">안전인증 획득</span>
-                    </div>
-                    <div class="stat-item" style="flex: 1; text-align: center; background: #f9fafb; padding: 1.5rem; border-radius: 12px; border: 1px solid #e5e7eb;">
-                        <span class="stat-number" style="display: block; font-size: 1.8rem; font-weight: 800; color: var(--primary-color);">MAIN</span>
-                        <span class="stat-label" style="font-size: 0.9rem; color: var(--text-muted);">비즈 확인기업</span>
-                    </div>
-                </div>
-                <a href="intro.html" class="btn-primary mt-4">회사소개 자세히 보기</a>
-            </div>
-            <div class="info-image glass-panel" style="flex: 1; height: 400px; border-radius: 20px; background: linear-gradient(135deg, #e0f2fe, #bae6fd); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-                <div class="info-overlay-text" style="position: relative; z-index: 2; font-size: 1.8rem; font-weight: bold; color: var(--primary-dark); text-align: center; padding: 2rem; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-radius: 20px;">
-                    <h3>Pumping the future of clean water</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container footer-content">
             <div class="footer-brand">
@@ -179,11 +116,10 @@
                     (주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>
                     워터펌프 시스템 전문 기업입니다.
                 </p>
-                <!-- Background Music Player Integrated -->
                 <div class="bg-music-player">
                     <div class="music-info">BGM: Crystal Stream</div>
                     <div class="player-controls">
-                        <button id="music-toggle" class="music-btn" title="재생/일시정지">▶</button>
+                        <button id="music-toggle" class="music-btn" title="재생/일시정지">⏸</button>
                         <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="0.15">
                     </div>
                     <audio id="bg-music" loop>
@@ -191,14 +127,13 @@
                     </audio>
                 </div>
             </div>
-
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="intro.html">기업소개</a></li>
                     <li><a href="sales_history.html">연혁</a></li>
                     <li><a href="certifications.html">인증현황</a></li>
-                    <li><a href="careers.html">인재채용</a></li>
+                    <li><a href="careers.html">채용</a></li>
                     <li><a href="map.html">오시는 길</a></li>
                 </ul>
             </div>
@@ -230,40 +165,13 @@
             <p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p>
         </div>
     </footer>
-    
     <script src="music_player.js"></script>
-    <!-- JavaScript for Interactions -->
     <script>
-        // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
+            else { navbar.classList.remove('scrolled'); }
         });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card, .info-content, .info-image').forEach(el => {
-            el.classList.add('fade-in-up-scroll');
-            observer.observe(el);
-        });
-
     </script>
 </body>
 </html>
