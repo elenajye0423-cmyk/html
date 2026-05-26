@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吏移⑥꽌 酉곗뼱 | (二?鍮꾩뿉?댄뀓</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background: #1e293b;">
+    <div style="height: 100vh; display: flex; flex-direction: column;">
+        <header style="padding: 15px 30px; background: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+            <a href="management.html" style="text-decoration: none; color: var(--primary-color); font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                ??紐⑸줉?쇰줈 ?뚯븘媛湲?            </a>
+            <h1 id="manual-title" style="font-size: 1.1rem; margin: 0;">吏移⑥꽌 酉곗뼱</h1>
+            <div style="width: 120px;"></div>
+        </header>
+        <div style="flex: 1; position: relative;">
+            <iframe id="pdf-frame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const file = urlParams.get('file');
+        const title = urlParams.get('title');
+        
+        if (file) {
+            document.getElementById('pdf-frame').src = file;
+        }
+        if (title) {
+            document.getElementById('manual-title').textContent = title;
+            document.title = title + ' | (二?鍮꾩뿉?댄뀓';
+        }
+    </script>
+    <script src="music_player.js"></script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        // Clear old listeners if any by replacing the node
+        const newMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+        newMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            newMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    const navItems = document.querySelectorAll('.nav-links > li > a');
+    navItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        newItem.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1080) {
+                const dropdown = newItem.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    e.preventDefault();
+                    newItem.parentElement.classList.toggle('active');
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
+

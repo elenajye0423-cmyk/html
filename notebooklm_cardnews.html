@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotebookLM 활용 가이드 카드뉴스</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f1f5f9;
+            font-family: 'Noto Sans KR', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .cardnews-viewport {
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 1 / 1;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            margin: auto;
+            max-height: 90vh;
+        }
+
+        .cardnews-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide-container {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 30px 80px 30px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .brand-badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: #2563eb;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .slide-title {
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: 900;
+            color: #1e293b;
+            line-height: 1.35;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            margin-bottom: 25px;
+            margin-top: 0;
+        }
+
+        .slide-title span {
+            color: #2563eb;
+            position: relative;
+            display: inline-block;
+        }
+
+        .slide-title span::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: #bfdbfe;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .slide-text {
+            font-size: clamp(15px, 3.5vw, 17px);
+            color: #475569;
+            line-height: 1.6;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            margin-bottom: 20px;
+        }
+
+        .slide-text strong {
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+
+        .icon-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .icon-box i {
+            font-size: 48px;
+            color: #3b82f6;
+            margin-bottom: 15px;
+        }
+
+        .icon-box h3 {
+            font-size: clamp(17px, 4vw, 20px);
+            color: #0f172a;
+            margin: 0 0 10px 0;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+
+        .icon-box p {
+            font-size: clamp(14px, 3.5vw, 15px);
+            color: #64748b;
+            margin: 0;
+            line-height: 1.5;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 15px;
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: auto;
+            font-weight: 600;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .slider-dot.active {
+            background: #2563eb;
+            transform: scale(1.3);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            color: #334155;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .nav-prev { left: 10px; }
+        .nav-next { right: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="cardnews-viewport">
+        <div class="cardnews-track" id="track">
+            
+            <!-- Slide 1: 타이틀 -->
+            <div class="slide-container" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white;">
+                <div class="content-layer" style="justify-content: center; align-items: center; text-align: center;">
+                    <i class="fa-solid fa-robot" style="font-size: 64px; color: #93c5fd; margin-bottom: 30px;"></i>
+                    <h1 style="font-size: clamp(28px, 6vw, 38px); font-weight: 900; line-height: 1.3; margin: 0 0 20px 0; word-break: keep-all; overflow-wrap: break-word;">NotebookLM<br>활용 가이드</h1>
+                    <p style="font-size: clamp(15px, 4vw, 18px); color: #bfdbfe; font-weight: 400; line-height: 1.5; margin: 0; word-break: keep-all; overflow-wrap: break-word;">기술문서 챗봇 활용법<br>비에이텍 임직원용</p>
+                    <div style="margin-top: 40px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px;">#문서관리</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px;">#AI질의응답</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px;">#지식공유</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: 소개 -->
+            <div class="slide-container">
+                <div class="content-layer">
+                    <div class="brand-badge">INTRO</div>
+                    <h2 class="slide-title">NotebookLM이<br><span>무엇인가요?</span></h2>
+                    <div class="slide-text">
+                        일반 AI와 달리 <strong>우리 회사가 업로드한 문서만을 기반</strong>으로 답변을 생성하는 구글의 맞춤형 AI 도구입니다.
+                    </div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h3>강력한 보안과 신뢰성</h3>
+                        <p>외부 인터넷 정보가 아닌 사내 기술문서에서만 답을 찾아 정확하며, 업로드 문서가 다른 AI 학습에 쓰이지 않습니다.</p>
+                    </div>
+                    <div class="slide-footer">
+                        <span>AI 기반 문서 분석</span>
+                        <span>01 / 05</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: 업로드 -->
+            <div class="slide-container">
+                <div class="content-layer">
+                    <div class="brand-badge">STEP 1</div>
+                    <h2 class="slide-title">기술문서<br><span>업로드하기</span></h2>
+                    <div class="slide-text">
+                        PDF, 텍스트, 구글 문서 등을 소스로 추가하세요. 처음 한 번만 세팅해 두면 이후 검색이 매우 편리해집니다.
+                    </div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <h3>권장 파일 형식: PDF</h3>
+                        <p>매뉴얼이나 규격서 PDF를 올리면 최적입니다. <strong>여러 관련 문서를 한 노트북에 함께 올리면</strong> 통합 검색이 가능합니다!</p>
+                    </div>
+                    <div class="slide-footer">
+                        <span>소스 문서 추가</span>
+                        <span>02 / 05</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: 질문과 출처 -->
+            <div class="slide-container">
+                <div class="content-layer">
+                    <div class="brand-badge">STEP 2 & 3</div>
+                    <h2 class="slide-title">질문하고<br><span>출처 확인하기</span></h2>
+                    <div class="slide-text">
+                        "이 제품의 정격 전압은?", "알람코드 E-03 조치 방법은?" 처럼 <strong>구체적으로 질문</strong>해 보세요.
+                    </div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-quote-right"></i>
+                        <h3>가장 강력한 기능: 출처 [1]</h3>
+                        <p>답변 끝에 달린 인용 번호를 누르면, <strong>AI가 참고한 원문 위치를 정확히 하이라이트</strong>하여 보여줍니다. 원문을 직접 교차 검증하세요.</p>
+                    </div>
+                    <div class="slide-footer">
+                        <span>정확도와 신뢰성 검증</span>
+                        <span>03 / 05</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: 공유 -->
+            <div class="slide-container">
+                <div class="content-layer">
+                    <div class="brand-badge">STEP 4</div>
+                    <h2 class="slide-title">팀원들과<br><span>지식 공유하기</span></h2>
+                    <div class="slide-text">
+                        AI가 생성한 요약 노트나 구축된 노트북 자체를 팀원과 공유하여 <strong>사내 지식 베이스</strong>로 활용하세요.
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                        <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; font-size: 15px; display: flex; align-items: center; gap: 15px;">
+                            <i class="fa-solid fa-user-group" style="color: #3b82f6; font-size: 24px;"></i>
+                            <div><strong>신입사원 온보딩</strong><br><span style="color: #64748b; font-size: 13px;">주요 매뉴얼을 스스로 질문하며 학습</span></div>
+                        </div>
+                        <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; font-size: 15px; display: flex; align-items: center; gap: 15px;">
+                            <i class="fa-solid fa-headset" style="color: #3b82f6; font-size: 24px;"></i>
+                            <div><strong>고객 지원 / 영업팀</strong><br><span style="color: #64748b; font-size: 13px;">현장에서 즉각적인 기술 질문 대응</span></div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>효율적인 협업</span>
+                        <span>04 / 05</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: 마무리 -->
+            <div class="slide-container">
+                <div class="content-layer" style="justify-content: center; text-align: center;">
+                    <div style="background: #fef3c7; width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px auto;">
+                        <i class="fa-solid fa-lightbulb" style="font-size: 40px; color: #d97706;"></i>
+                    </div>
+                    <h2 class="slide-title" style="margin-bottom: 20px;">지금 바로<br>시작해 보세요!</h2>
+                    <p class="slide-text" style="margin-bottom: 30px;">복잡한 기술 문서 검색,<br>이제 AI 챗봇에게 맡기고<br>핵심 업무에 집중하세요.</p>
+                    <a href="https://notebooklm.google.com" target="_blank" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 15px 30px; border-radius: 30px; font-weight: 700; font-size: 18px; box-shadow: 0 4px 15px rgba(37,99,235,0.3);">NotebookLM 이동하기</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Controls -->
+        <button class="nav-btn nav-prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="nav-btn nav-next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        
+        <div class="slider-controls" id="dots">
+            <button class="slider-dot active" onclick="goToSlide(0)"></button>
+            <button class="slider-dot" onclick="goToSlide(1)"></button>
+            <button class="slider-dot" onclick="goToSlide(2)"></button>
+            <button class="slider-dot" onclick="goToSlide(3)"></button>
+            <button class="slider-dot" onclick="goToSlide(4)"></button>
+            <button class="slider-dot" onclick="goToSlide(5)"></button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 6;
+        const track = document.getElementById('track');
+        const dots = document.getElementById('dots').children;
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            for(let i=0; i<dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+            dots[currentSlide].classList.add('active');
+        }
+
+        function moveSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+    </script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        // Clear old listeners if any by replacing the node
+        const newMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+        newMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            newMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    const navItems = document.querySelectorAll('.nav-links > li > a');
+    navItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        newItem.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1080) {
+                const dropdown = newItem.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    e.preventDefault();
+                    newItem.parentElement.classList.toggle('active');
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

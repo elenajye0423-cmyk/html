@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인증현황 | (주)비에이텍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .cert-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow-md); transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; padding: 20px; text-align: center; cursor: pointer; border: 1px solid #e2e8f0; }
+        .cert-card:hover { transform: translateY(-10px); border-color: var(--primary-color); box-shadow: var(--shadow-lg), 0 0 20px rgba(0, 102, 204, 0.15); }
+        .cert-card .btn-primary-outline { transition: background-color 0.2s, color 0.2s, border-color 0.2s; border-color: var(--primary-color); color: var(--primary-color) !important; display: block; width: 100%; border-radius: 10px; }
+        .cert-card:hover .btn-primary-outline { background: var(--primary-color); color: white !important; }
+        .cert-img-placeholder { background: #f8fafc; aspect-ratio: 1/1.4; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 10px; color: #cbd5e1; font-size: 3rem; }
+    </style>
+</head>
+<body>
+                                    <nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="intro.html">기업소개</a>
+                <ul class="dropdown">
+                    <li><a href="intro.html">기업개요</a></li>
+                    <li><a href="greetings.html">인사말</a></li>
+                    <li><a href="sales_history.html">연혁</a></li>
+                    <li><a href="organization.html">조직도 및 업무분장</a></li>
+                    <li><a href="portfolio.html">주요 실적</a></li>
+                    <li><a href="map.html">찾아오시는 길</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="rd.html">기술 및 인프라</a>
+                <ul class="dropdown">
+                    <li><a href="rd.html">연구개발(R&D)</a></li>
+                    <li><a href="certifications.html">인증현황</a></li>
+                    <li><a href="facilities.html">주요시설</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="product.html">주요제품</a>
+                <ul class="dropdown">
+                    <li><a href="product.html">전체보기</a></li>
+                    <li><a href="product_supply.html">급수 및 가압 시스템</a></li>
+                    <li><a href="product_drainage.html">배수 및 오폐수 처리</a></li>
+                    <li><a href="product_industrial.html">산업 및 특수 공정</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="notice.html">고객지원</a>
+                <ul class="dropdown">
+                    <li><a href="notice.html">공지사항</a></li>
+                    <li><a href="management.html">유지관리 지침서</a></li>
+<li><a href="faq.html">자주 묻는 질문</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="video.html">홍보센터</a>
+                <ul class="dropdown">
+                    <li><a href="video.html#video">홍보</a></li>
+                    <li><a href="ir.html">IR 자료실</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="careers.html">채용</a>
+                <ul class="dropdown">
+                    <li><a href="careers.html">인재상</a></li>
+                    <li><a href="job_openings.html">채용공고</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="portal_notice.html">사내 포털</a>
+                <ul class="dropdown">
+                    <li><a href="portal_notice.html">사내 공지사항</a></li>
+                    <li><a href="portal_forms.html">서식 (템플릿 및 자료실)</a></li>
+                </ul>
+            </li>
+            <li><a href="inquiry.html" class="btn-primary-outline">문의</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+
+    <header class="page-hero">
+        <h1 class="title">인증현황</h1>
+        <p class="description">철저한 품질 관리와 기술력을 입증하는 비에이텍의 인증 기록입니다.</p>
+    </header>
+
+          <nav class="sub-nav">
+          <div class="sub-nav-container">
+              <a href="rd.html" class="sub-nav-link">연구개발(R&D)</a>
+              <a href="certifications.html" class="sub-nav-link active">인증현황</a>
+              <a href="facilities.html" class="sub-nav-link">주요시설</a>
+          </div>
+      </nav>
+
+    <section class="container" style="padding-top: 100px; padding-bottom: 100px;">
+        <div class="section-header text-center">
+            <h2 class="section-title">Certifications & Licenses</h2>
+            <p class="section-description">비에이텍은 공신력 있는 기관으로부터 기술력과 품질을 인정받고 있습니다.</p>
+        </div>
+
+        <div class="cert-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+            <!-- ISO 9001 -->
+            <div class="cert-card fade-in-up" data-pdf="ISO9001인증서.pdf" data-title="ISO 9001 인증서">
+                <div class="cert-badge">📜</div>
+                <h4 class="cert-title">ISO 9001 인증서</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem;">품질경영시스템 국제 표준 인증</p>
+                <a href="ISO9001인증서.pdf" target="_blank" class="btn-primary-outline" style="display: block; width: 100%; border-radius: 10px;">PDF 보기</a>
+            </div>
+            <!-- KC 인증 -->
+            <div class="cert-card fade-in-up delay-1" data-pdf="KC인증서.pdf" data-title="KC 인증서">
+                <div class="cert-badge">🛡️</div>
+                <h4 class="cert-title">KC 인증서</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem;">국가통합인증마크 안전 기준 적합</p>
+                <a href="KC인증서.pdf" target="_blank" class="btn-primary-outline" style="display: block; width: 100%; border-radius: 10px;">PDF 보기</a>
+            </div>
+            <!-- Main-Biz -->
+            <div class="cert-card fade-in-up delay-2" data-pdf="메인비즈_확인서.pdf" data-title="Main-Biz 확인서">
+                <div class="cert-badge">🏢</div>
+                <h4 class="cert-title">Main-Biz 확인서</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem;">경영혁신형 중소기업 인증</p>
+                <a href="메인비즈_확인서.pdf" target="_blank" class="btn-primary-outline" style="display: block; width: 100%; border-radius: 10px;">PDF 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+                <p class="company-desc">(주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>워터펌프 시스템 전문 기업입니다.</p>
+                <div class="bg-music-player">
+                    <div class="music-info">BGM: Crystal Stream</div>
+                    <div class="player-controls">
+                        <button id="music-toggle" class="music-btn" title="?ъ깮/?쇱떆?뺤?">??/button>
+                        <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="0.15">
+                    </div>
+                    <audio id="bg-music" loop>
+                        <source src="Crystal Stream.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="sales_history.html">연혁</a></li>
+                    <li><a href="certifications.html">인증현황</a></li>
+                    <li><a href="careers.html">채용</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>PR & IR</h4>
+                <ul>
+                    <li><a href="video.html">홍보</a></li>
+                    <li><a href="ir.html">IR 자료실</a></li>
+                    <li><a href="rd.html">연구개발(R&D)</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="notice.html">공지사항</a></li>
+                    <li><a href="management.html">유지관리 지침서</a></li>
+<li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p></div>
+    </footer>
+    
+    <!-- PDF Viewer Modal -->
+    <div class="modal-overlay" id="pdfModal">
+        <div class="modal-container" style="max-width: 900px; height: 85%; background: white;">
+            <button class="modal-close" id="closePdfModal" aria-label="Close modal">&times;</button>
+            <div class="modal-header" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 1.2rem 2.5rem; display: flex; justify-content: space-between; align-items: center;">
+                <span class="modal-title" id="pdfModalTitle" style="font-weight: 800; font-size: 1.2rem; color: var(--text-main);">인증서 보기</span>
+                <a id="pdfDownloadLink" href="#" download class="btn-download" style="margin-right: 40px; text-decoration: none; display: flex; align-items: center; gap: 6px; padding: 6px 14px; background: white; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 600; font-size: 0.85rem; color: #475569; transition: 0.2s;">
+                    📥 다운로드
+                </a>
+            </div>
+            <div class="viewer-content" style="padding: 0; flex-grow: 1; position: relative; background: #cbd5e1;">
+                <iframe id="pdfViewerFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const certCards = document.querySelectorAll('.cert-card');
+            const pdfModal = document.getElementById('pdfModal');
+            const pdfViewerFrame = document.getElementById('pdfViewerFrame');
+            const pdfModalTitle = document.getElementById('pdfModalTitle');
+            const pdfDownloadLink = document.getElementById('pdfDownloadLink');
+            const closePdfModal = document.getElementById('closePdfModal');
+
+            if (!pdfModal) return;
+
+            certCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Prevent navigation if the link button is directly clicked
+                    const link = card.querySelector('a');
+                    if (e.target === link || link.contains(e.target)) {
+                        e.preventDefault();
+                    }
+                    
+                    const pdfUrl = card.getAttribute('data-pdf');
+                    const title = card.getAttribute('data-title');
+                    
+                    if (pdfUrl) {
+                        pdfModalTitle.textContent = title || '인증서 보기';
+                        pdfDownloadLink.href = pdfUrl;
+                        pdfDownloadLink.setAttribute('download', pdfUrl);
+                        
+                        // Set iframe src
+                        pdfViewerFrame.src = pdfUrl;
+                        
+                        // Show modal
+                        pdfModal.style.display = 'flex';
+                        setTimeout(() => {
+                            pdfModal.classList.add('active');
+                        }, 50);
+                        
+                        // Disable background scroll
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            function closeModal() {
+                pdfModal.classList.remove('active');
+                setTimeout(() => {
+                    pdfModal.style.display = 'none';
+                    pdfViewerFrame.src = '';
+                }, 300);
+                document.body.style.overflow = '';
+            }
+
+            closePdfModal.addEventListener('click', closeModal);
+            pdfModal.addEventListener('click', (e) => {
+                if (e.target === pdfModal) {
+                    closeModal();
+                }
+            });
+            
+            // ESC key close
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && pdfModal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+    <script src="music_player.js"></script>
+    <!-- B.A. Tech Intranet AI Chatbot Widget -->
+    <link rel="stylesheet" href="chatbot_widget.css">
+    <script src="chatbot_widget.js"></script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        // Clear old listeners if any by replacing the node
+        const newMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+        newMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            newMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    const navItems = document.querySelectorAll('.nav-links > li > a');
+    navItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        newItem.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1080) {
+                const dropdown = newItem.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    e.preventDefault();
+                    newItem.parentElement.classList.toggle('active');
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
+
