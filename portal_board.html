@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 깨끗하고 안전한 물의 시작</title>
+    <meta name="description" content="(주)비에이텍은 깨끗하고 안전한 물을 위한 워터펌프 제작, 설치, 수리 전문기업입니다.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav id="navbar" style="background: #0f172a;"><div class="nav-container"><a href="portal.html" class="logo" style="color: white;"><span class="logo-icon">💧</span> B.A. TECH 포털</a><ul class="nav-links"><li class="nav-item"><a href="portal.html" style="color: #cbd5e1;">대시보드</a></li><li class="nav-item"><a href="portal_notices.html" style="color: #cbd5e1;">공지사항</a></li><li class="nav-item"><a href="portal_calendar.html" style="color: #cbd5e1;">일정 관리</a></li><li class="nav-item"><a href="portal_board.html" style="color: #cbd5e1;">게시판</a></li><li class="nav-item"><a href="portal_archive.html" style="color: #cbd5e1;">자료실</a></li><li><a href="index.html" style="border: 1px solid #cbd5e1; padding: 5px 15px; border-radius: 20px; color: #cbd5e1; margin-left: 15px;">홈페이지로</a></li></ul><div class="menu-toggle" id="mobile-menu"><span class="bar" style="background: white;"></span><span class="bar" style="background: white;"></span><span class="bar" style="background: white;"></span></div></div></nav><style>#navbar.scrolled { background: #0f172a !important; box-shadow: 0 4px 6px rgba(0,0,0,0.3); } .nav-links li a:hover { color: white !important; }</style>
+    <style>
+        .page-header { background: #0f172a; padding: 60px 0; text-align: center; color: white; }
+        .page-header h1 { font-size: 2.5rem; font-weight: 800; }
+        .board-container { max-width: 800px; margin: 40px auto; min-height: 50vh; }
+        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .btn-primary { background: var(--primary-color); color: #fff; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-sm { padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; border: none; background: #e2e8f0; color: #475569; font-weight: 600; }
+        .btn-sm.primary { background: var(--primary-color); color: #fff; }
+        .board-list { list-style: none; padding: 0; margin: 0; }
+        .board-list li { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid var(--secondary-color); cursor: pointer; transition: 0.2s; }
+        .board-list li:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .board-list .title { font-size: 1.1rem; font-weight: 600; color: #1e293b; margin-bottom: 5px; }
+        .board-list .meta { font-size: 0.85rem; color: #64748b; display: flex; justify-content: space-between; }
+        
+        dialog::backdrop { background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); }
+        .modal { border: none; border-radius: 12px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-width: 600px; width: 100%; margin: 0; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 85vh; overflow-y: auto; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 5px; color: #1e293b; }
+        .input-box { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: inherit; }
+        
+        .comments-section { margin-top: 2rem; border-top: 1px solid #e2e8f0; padding-top: 1.5rem; }
+        .comment-item { background: #f8fafc; padding: 10px 15px; border-radius: 8px; margin-bottom: 10px; }
+        .comment-item .c-author { font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px; }
+        .comment-item .c-text { color: #475569; font-size: 0.95rem; line-height: 1.4; }
+        .comment-input-area { display: flex; gap: 10px; margin-top: 15px; }
+    </style>
+    <div class="page-header">
+        <h1>사내 익명 라운지</h1>
+        <p>어떤 이야기든 편하게 나눠보세요. 모든 글과 댓글은 철저히 익명으로 보호됩니다.</p>
+    </div>
+    <div class="container board-container">
+        <div class="toolbar">
+            <a href="portal.html" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">&larr; 대시보드로 돌아가기</a>
+            <button class="btn-primary" onclick="document.getElementById('write-modal').showModal()">+ 새 게시글 작성</button>
+        </div>
+
+        <ul class="board-list" id="posts-container"></ul>
+    </div>
+
+        <!-- Write Post Modal -->
+    <dialog id="write-modal" class="modal">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <h3 style="margin-top: 0; margin-bottom: 1.5rem; color: #1e293b;">익명 게시글 작성</h3>
+        <div class="form-group">
+            <label class="form-label">제목</label>
+            <input type="text" id="post-title" class="input-box" placeholder="글 제목을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label class="form-label">게시글 암호</label>
+            <input type="password" id="post-pwd" class="input-box" placeholder="수정/삭제 시 사용할 암호 4자리 이상">
+        </div>
+        <div class="form-group">
+            <label class="form-label">내용</label>
+            <textarea id="post-content" class="input-box" style="height: 150px; resize: none;" placeholder="자유롭게 의견을 작성해 주세요..."></textarea>
+        </div>
+        <div style="text-align: right; display: flex; justify-content: flex-end; gap: 10px;">
+            <button class="btn-sm" onclick="document.getElementById('write-modal').close()">취소</button>
+            <button class="btn-sm primary" onclick="submitPost()">게시물 등록</button>
+        </div>
+    </dialog>
+
+        <!-- Read Post & Comments Modal -->
+    <dialog id="read-modal" class="modal">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <input type="hidden" id="read-post-id">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+            <h2 id="read-title" style="margin-top: 0; margin-bottom: 0; color: #1e293b; font-size: 1.4rem;"></h2>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-sm" style="background: #fff; border: 1px solid #cbd5e1; color: #64748b;" onclick="promptBoardPwd('edit')">수정</button>
+                <button class="btn-sm" style="background: #fee2e2; border: 1px solid #fecaca; color: #991b1b;" onclick="promptBoardPwd('delete')">삭제</button>
+            </div>
+        </div>
+        <div style="font-size: 0.85rem; color: #64748b; margin-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem;">
+            작성자: <span id="read-author"></span> &nbsp;|&nbsp; <span id="read-date"></span>
+        </div>
+        <div id="read-content" style="color: #334155; line-height: 1.6; min-height: 100px; white-space: pre-wrap;"></div>
+        
+        <div class="comments-section">
+            <h4 style="margin-top: 0; color: #1e293b;">댓글 (<span id="comment-count">0</span>)</h4>
+            <div id="comments-list"></div>
+            
+            <div class="comment-input-area">
+                <input type="text" id="new-comment" class="input-box" placeholder="따뜻한 익명 댓글을 남겨보세요..." onkeypress="if(event.key === 'Enter') addComment()">
+                <button class="btn-sm primary" style="white-space: nowrap;" onclick="addComment()">댓글 등록</button>
+            </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 20px;">
+            <button class="btn-sm" style="background: #e2e8f0; color: #475569;" onclick="document.getElementById('read-modal').close()">닫기</button>
+        </div>
+    </dialog>
+
+    <!-- Password Modal for Board -->
+    <dialog id="board-pwd-modal" class="modal" style="max-width: 350px;">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <h3 style="margin-top: 0; margin-bottom: 1rem; color: #1e293b;">게시글 암호 확인</h3>
+        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.5rem;" id="board-pwd-desc">본인 확인을 위해 암호를 입력해주세요.</p>
+        <input type="password" id="board-action-pwd" class="input-box" placeholder="게시글 암호 입력" style="margin-bottom: 1rem;" onkeypress="if(event.key === 'Enter') submitBoardPwd()">
+        <div style="text-align: right; display: flex; justify-content: flex-end; gap: 10px;">
+            <button class="btn-sm" onclick="document.getElementById('board-pwd-modal').close()">취소</button>
+            <button class="btn-sm primary" onclick="submitBoardPwd()">확인</button>
+        </div>
+    </dialog>
+
+    <!-- Edit Post Modal -->
+    <dialog id="edit-modal" class="modal">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <h3 style="margin-top: 0; margin-bottom: 1.5rem; color: #1e293b;">게시글 수정</h3>
+        <input type="hidden" id="edit-post-id">
+        <div class="form-group">
+            <label class="form-label">제목</label>
+            <input type="text" id="edit-title" class="input-box">
+        </div>
+        <div class="form-group">
+            <label class="form-label">내용</label>
+            <textarea id="edit-content" class="input-box" style="height: 150px; resize: none;"></textarea>
+        </div>
+        <div style="text-align: right; display: flex; justify-content: flex-end; gap: 10px;">
+            <button class="btn-sm" onclick="document.getElementById('edit-modal').close()">취소</button>
+            <button class="btn-sm primary" onclick="saveEditPost()">저장 완료</button>
+        </div>
+    </dialog>
+
+        <script>
+                function initBoard() {
+            if(!localStorage.getItem("batech_board_init_v4")) {
+                let defaultPosts = [
+                    { id: "b2", title: "휴게실 안마의자 진짜 너무 좋습니다 ㅠㅠ", content: "최근에 들어온 안마의자 써보신 분 계신가요?\n점심시간에 15분 누워있었는데 피로가 싹 풀리네요.\n총무부 감사합니다!!", author: "익명", date: "2026.06.08", password: "1234", comments: [{id: "c1", author: "익명", text: "저도 내일 점심에 써봐야겠네요 ㅎㅎ", replies: []}, {id: "c2", author: "익명", text: "경쟁이 치열합니다 일찍 가셔야 해요", replies: [{author: "익명", text: "맞아요 점심시간 땡치면 바로 뛰어가야함 ㅋㅋ"}]}] },
+                    { id: "b1", title: "이번 주 금요일 회식 장소 투표 좀 해주세요", content: "이번 주 팀 회식인데 메뉴를 못 정하고 있습니다.\n1. 삼겹살\n2. 회\n3. 곱창\n\n댓글로 의견 좀 남겨주세요!", author: "익명", date: "2026.06.07", password: "1234", comments: [{id: "c3", author: "익명", text: "무조건 1번 삼겹살이죠", replies: []}, {id: "c4", author: "익명", text: "저는 2번 회 추천합니다!", replies: []}] }
+                ];
+                
+                let oldPosts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+                let v4Posts = [];
+                if(oldPosts.length > 0) {
+                    oldPosts.forEach(p => {
+                        if(!p.password) p.password = "1234"; // default password for old posts
+                        v4Posts.push(p);
+                    });
+                } else {
+                    v4Posts = defaultPosts;
+                }
+                
+                localStorage.setItem("batech_board_v4", JSON.stringify(v4Posts));
+                localStorage.setItem("batech_board_init_v4", "true");
+            }
+        }
+
+        function renderPosts() {
+            const container = document.getElementById("posts-container");
+            container.innerHTML = "";
+            let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+            
+            posts.forEach(p => {
+                let count = p.comments ? p.comments.length : 0;
+                if(p.comments) {
+                    p.comments.forEach(c => { count += (c.replies ? c.replies.length : 0); });
+                }
+                
+                container.innerHTML += `
+                    <li onclick="openPost(\`${p.id}\`)">
+                        <div class="title">${p.title} <span style="color:#ef4444; font-size:0.9rem;">[${count}]</span></div>
+                        <div class="meta">
+                            <span>${p.author}</span>
+                            <span>${p.date}</span>
+                        </div>
+                    </li>`;
+            });
+        }
+
+        function submitPost() {
+            const title = document.getElementById("post-title").value;
+            const content = document.getElementById("post-content").value;
+            const pwd = document.getElementById("post-pwd").value;
+            
+            if(!title || !content || !pwd) return alert("제목, 내용, 암호를 모두 입력해주세요.");
+            if(pwd.length < 4) return alert("암호는 4자리 이상 설정해주세요.");
+            
+            const today = new Date();
+            const dateStr = today.getFullYear() + "." + String(today.getMonth()+1).padStart(2, "0") + "." + String(today.getDate()).padStart(2, "0");
+            
+            let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+            posts.unshift({
+                id: "b_" + new Date().getTime(),
+                title: title,
+                content: content,
+                author: "익명",
+                date: dateStr,
+                password: pwd,
+                comments: []
+            });
+            localStorage.setItem("batech_board_v4", JSON.stringify(posts));
+            
+            document.getElementById("post-title").value = "";
+            document.getElementById("post-content").value = "";
+            document.getElementById("post-pwd").value = "";
+            document.getElementById("write-modal").close();
+            
+            renderPosts();
+            alert("게시글이 성공적으로 등록되었습니다.");
+        }
+
+        function openPost(id) {
+            let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+            let p = posts.find(x => x.id === id);
+            if(!p) return;
+            
+            document.getElementById("read-post-id").value = id;
+            document.getElementById("read-title").innerText = p.title;
+            document.getElementById("read-author").innerText = p.author;
+            document.getElementById("read-date").innerText = p.date;
+            document.getElementById("read-content").innerText = p.content;
+            
+            renderComments(p.comments || []);
+            document.getElementById("read-modal").showModal();
+        }
+
+        let pendingBoardAction = null;
+        let activePostId = null;
+
+        function promptBoardPwd(actionType) {
+            pendingBoardAction = actionType;
+            activePostId = document.getElementById("read-post-id").value;
+            
+            let desc = actionType === 'edit' ? "게시글을 수정하려면 암호가 필요합니다." : "게시글을 삭제하려면 암호가 필요합니다.";
+            document.getElementById("board-pwd-desc").innerText = desc;
+            document.getElementById("board-action-pwd").value = "";
+            document.getElementById("board-pwd-modal").showModal();
+        }
+
+        function submitBoardPwd() {
+            let pwd = document.getElementById("board-action-pwd").value;
+            let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+            let p = posts.find(x => x.id === activePostId);
+            
+            if(!p) return;
+            
+            if(p.password !== pwd) {
+                alert("게시글 암호가 일치하지 않습니다!");
+                return;
+            }
+            
+            document.getElementById("board-pwd-modal").close();
+            
+            if(pendingBoardAction === 'delete') {
+                if(confirm("정말 이 게시글을 삭제하시겠습니까?")) {
+                    posts = posts.filter(x => x.id !== activePostId);
+                    localStorage.setItem("batech_board_v4", JSON.stringify(posts));
+                    document.getElementById("read-modal").close();
+                    renderPosts();
+                    alert("게시글이 삭제되었습니다.");
+                }
+            } else if(pendingBoardAction === 'edit') {
+                document.getElementById("read-modal").close();
+                document.getElementById("edit-post-id").value = p.id;
+                document.getElementById("edit-title").value = p.title;
+                document.getElementById("edit-content").value = p.content;
+                document.getElementById("edit-modal").showModal();
+            }
+        }
+
+        function saveEditPost() {
+            const title = document.getElementById("edit-title").value;
+            const content = document.getElementById("edit-content").value;
+            const id = document.getElementById("edit-post-id").value;
+            
+            if(!title || !content) return alert("제목과 내용을 모두 입력해주세요.");
+            
+            let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+            let idx = posts.findIndex(x => x.id === id);
+            if(idx !== -1) {
+                posts[idx].title = title;
+                posts[idx].content = content;
+                localStorage.setItem("batech_board_v4", JSON.stringify(posts));
+            }
+            
+            document.getElementById("edit-modal").close();
+            renderPosts();
+            openPost(id); // Re-open updated post
+            alert("수정이 완료되었습니다.");
+        }
+
+                function toggleReplyInput(commentId) {
+            const box = document.getElementById(`reply-box-${commentId}`);
+            if(box.style.display === "none") {
+                box.style.display = "flex";
+                document.getElementById(`reply-input-${commentId}`).focus();
+            } else {
+                box.style.display = "none";
+            }
+        }
+
+        function renderComments(comments) {
+            let totalCount = comments.length;
+            comments.forEach(c => { totalCount += (c.replies ? c.replies.length : 0); });
+            document.getElementById("comment-count").innerText = totalCount;
+            
+            const list = document.getElementById("comments-list");
+            list.innerHTML = "";
+            if(comments.length === 0) {
+                list.innerHTML = `<div style="color: #94a3b8; font-size: 0.9rem; padding: 10px 0;">첫 댓글을 남겨보세요!</div>`;
+                return;
+            }
+            
+            comments.forEach(c => {
+                if(!c.id) c.id = "c_" + Math.random().toString(36).substr(2, 9);
+                if(!c.replies) c.replies = [];
+                
+                let repliesHtml = "";
+                if(c.replies.length > 0) {
+                    c.replies.forEach(r => {
+                        repliesHtml += `
+                            <div class="comment-item" style="margin-left: 20px; border-left: 3px solid #cbd5e1; background: #f1f5f9; margin-top: 8px;">
+                                <div class="c-author">↳ ${r.author}</div>
+                                <div class="c-text">${r.text}</div>
+                            </div>
+                        `;
+                    });
+                }
+                
+                list.innerHTML += `
+                    <div class="comment-item" style="position: relative;">
+                        <div class="c-author">${c.author}</div>
+                        <div class="c-text">${c.text}</div>
+                        <button style="background:none; border:none; color:#3b82f6; font-size:0.8rem; cursor:pointer; position:absolute; top:10px; right:10px; font-weight:600;" onclick="toggleReplyInput('${c.id}')">답글 달기</button>
+                        
+                        <div id="reply-box-${c.id}" style="display:none; margin-top: 10px; gap: 8px;">
+                            <input type="text" id="reply-input-${c.id}" class="input-box" style="padding: 6px; font-size: 0.85rem;" placeholder="대댓글을 남겨보세요..." onkeypress="if(event.key === 'Enter') addReply('${c.id}')">
+                            <button class="btn-sm primary" onclick="addReply('${c.id}')" style="white-space:nowrap;">등록</button>
+                        </div>
+                        
+                        ${repliesHtml}
+                    </div>
+                `;
+            });
+        }
+
+        function addComment() {
+            const input = document.getElementById("new-comment");
+            const text = input.value.trim();
+            if(!text) return;
+            
+            const id = document.getElementById("read-post-id").value;
+            let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+            let pIndex = posts.findIndex(x => x.id === id);
+            
+            if(pIndex !== -1) {
+                if(!posts[pIndex].comments) posts[pIndex].comments = [];
+                posts[pIndex].comments.push({ id: "c_" + Date.now(), author: "익명", text: text, replies: [] });
+                localStorage.setItem("batech_board_v4", JSON.stringify(posts));
+                
+                input.value = "";
+                renderComments(posts[pIndex].comments);
+                renderPosts();
+            }
+        }
+
+        function addReply(commentId) {
+            const input = document.getElementById(`reply-input-${commentId}`);
+            const text = input.value.trim();
+            if(!text) return;
+            
+            const postId = document.getElementById("read-post-id").value;
+            let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+            let pIndex = posts.findIndex(x => x.id === postId);
+            
+            if(pIndex !== -1) {
+                let cIndex = posts[pIndex].comments.findIndex(c => c.id === commentId);
+                if(cIndex !== -1) {
+                    if(!posts[pIndex].comments[cIndex].replies) posts[pIndex].comments[cIndex].replies = [];
+                    posts[pIndex].comments[cIndex].replies.push({ author: "익명", text: text });
+                    localStorage.setItem("batech_board_v4", JSON.stringify(posts));
+                    
+                    renderComments(posts[pIndex].comments);
+                    renderPosts();
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initBoard();
+            renderPosts();
+        });
+    </script>
+<footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">💧</span> B.A. TECH
+                </a>
+                <p class="company-desc">
+                    (주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>
+                    워터펌프 시스템 전문 기업입니다.
+                </p>
+                </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="sales_history.html">연혁</a></li>
+                    <li><a href="certifications.html">인증현황</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                    <li><a href="portal.html" style="color: var(--primary-light);">🔒 사내 포털</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>PR & IR</h4>
+                <ul>
+                    <li><a href="video.html">홍보 영상</a></li>
+                    <li><a href="brochure.html">기업 브로슈어</a></li>
+                    <li><a href="cardnews.html">카드뉴스</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="notice.html">공지사항</a></li>
+<li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+                <p>이메일: contact@batech.co.kr</p>
+                <p>이메일: contact@batech.co.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
+            else { navbar.classList.remove('scrolled'); }
+        });
+
+        // Number Counter Animation
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 100;
+            
+            const animateCounters = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = +counter.getAttribute('data-target');
+                        
+                        const updateCount = () => {
+                            const count = +counter.innerText;
+                            const inc = target / speed;
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count + inc);
+                                setTimeout(updateCount, 20);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            };
+            const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+            counters.forEach(counter => observer.observe(counter));
+        });
+    </script>
+    
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        // Clear old listeners if any by replacing the node
+        const newMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+        newMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            newMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    const navItems = document.querySelectorAll('.nav-links > li > a');
+    navItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        newItem.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1080) {
+                const dropdown = newItem.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    e.preventDefault();
+                    newItem.parentElement.classList.toggle('active');
+                }
+            }
+        });
+    });
+});
+</script>
+<script>
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks && navLinks.classList.contains('active')) {
+        if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+            navLinks.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+    }
+});
+</script>
+</body>
+</html>
+
+

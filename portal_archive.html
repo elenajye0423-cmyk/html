@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 깨끗하고 안전한 물의 시작</title>
+    <meta name="description" content="(주)비에이텍은 깨끗하고 안전한 물을 위한 워터펌프 제작, 설치, 수리 전문기업입니다.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    
+<nav id="navbar" style="background: #0f172a;">
+    <div class="nav-container">
+        <a href="portal.html" class="logo" style="color: white;"><span class="logo-icon">💧</span> B.A. TECH 포털</a>
+        <ul class="nav-links">
+            <li class="nav-item"><a href="portal.html" style="color: #cbd5e1;">대시보드</a></li>
+            <li class="nav-item"><a href="portal_notices.html" style="color: #cbd5e1;">공지사항</a></li>
+            <li class="nav-item"><a href="portal_calendar.html" style="color: #cbd5e1;">일정 관리</a></li>
+            <li class="nav-item"><a href="portal_board.html" style="color: #cbd5e1;">게시판</a></li>
+            <li class="nav-item"><a href="portal_archive.html" style="color: #cbd5e1;">자료실</a></li>
+            <li><a href="index.html" style="border: 1px solid #cbd5e1; padding: 5px 15px; border-radius: 20px; color: #cbd5e1; margin-left: 15px;">홈페이지로</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu"><span class="bar" style="background: white;"></span><span class="bar" style="background: white;"></span><span class="bar" style="background: white;"></span></div>
+    </div>
+</nav>
+<style>
+#navbar.scrolled { background: #0f172a !important; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+.nav-links li a:hover { color: white !important; }
+</style>
+
+
+    <style>
+        .page-header { background: #0f172a; padding: 60px 0; text-align: center; color: white; }
+        .page-header h1 { font-size: 2.5rem; font-weight: 800; }
+        .archive-container { max-width: 900px; margin: 40px auto; min-height: 50vh; }
+        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .btn-primary { background: var(--primary-color); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .archive-list { width: 100%; border-collapse: collapse; }
+        .archive-list th, .archive-list td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .archive-list th { background: #f8fafc; font-weight: 700; color: #475569; }
+        .archive-list tr:hover td { background: #f1f5f9; cursor: pointer; }
+        .file-icon { font-size: 1.2rem; margin-right: 10px; }
+        .nb-highlight { background: #eff6ff; border-left: 4px solid #3b82f6; }
+        dialog::backdrop { background: rgba(0,0,0,0.7); backdrop-filter: blur(3px); }
+        .btn-sm { padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; border: none; background: #e2e8f0; color: #475569; font-weight: 600; transition: 0.2s; }
+        .btn-sm.primary { background: var(--primary-color); color: #fff; }
+    </style>
+    <div class="page-header">
+        <h1>사내 자료실</h1>
+        <p>각종 서식, 매뉴얼, 교육 자료를 다운로드 할 수 있습니다.</p>
+    </div>
+    <div class="container archive-container">
+        <div class="toolbar">
+            <a href="portal.html" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">&larr; 대시보드로 돌아가기</a>
+            <button class="btn-primary" onclick="tryUpload()">+ 자료 업로드</button>
+        </div>
+
+                <table class="archive-list">
+            <thead>
+                <tr>
+                    <th>파일명</th>
+                    <th>등록일</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+            <!-- Password Prompt Modal -->
+    <dialog id="archive-pwd-modal" style="border: none; border-radius: 12px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-width: 400px; width: 100%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0;">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <h3 style="margin-top: 0; margin-bottom: 1rem; color: #1e293b;">보안 암호 확인</h3>
+        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.5rem;" id="pwd-modal-desc">해당 작업을 수행하려면 관리자 암호가 필요합니다.</p>
+        <input type="password" id="action-pwd" class="input-box" placeholder="관리자 암호 입력" style="margin-bottom: 1rem; padding: 10px; width: 100%; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 6px;" onkeypress="if(event.key === 'Enter') submitPwd()">
+        <div style="text-align: right; display: flex; justify-content: flex-end; gap: 10px;">
+            <button class="btn-sm" onclick="document.getElementById(`archive-pwd-modal`).close()">취소</button>
+            <button class="btn-sm primary" onclick="submitPwd()">확인</button>
+        </div>
+    </dialog>
+
+    <!-- Upload/Edit Modal -->
+    <dialog id="archive-upload-modal" style="border: none; border-radius: 12px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 600px; width: 100%; margin: 0; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 85vh; overflow-y: auto;">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <h2 id="upload-modal-title" style="margin-top: 0; margin-bottom: 1.5rem; color: #1e293b;">자료 업로드</h2>
+        <input type="hidden" id="edit-archive-id">
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 5px;">제목 <span style="color:#dc2626;">*</span></label>
+            <input type="text" id="up-title" class="input-box" placeholder="자료 제목 입력" style="width:100%; box-sizing:border-box; padding:10px; border:1px solid #cbd5e1; border-radius:6px;" required>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 5px;">첨부 파일 <span style="color:#dc2626;">*</span></label>
+            <input type="file" id="up-file" class="input-box" style="width:100%; box-sizing:border-box; padding:10px; border:1px solid #cbd5e1; border-radius:6px;" multiple>
+            <small style="color:#64748b; display:block; margin-top:5px;" id="up-file-hint">* 기존 파일을 유지하려면 비워두세요 (수정 시)</small>
+        </div>
+        
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 5px;">상세 내용</label>
+            <textarea id="up-content" class="input-box" style="width:100%; box-sizing:border-box; padding:10px; border:1px solid #cbd5e1; border-radius:6px; height: 120px; resize: none;"></textarea>
+        </div>
+        
+        <div style="text-align: right; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+            <button id="btn-delete-archive" class="btn-sm" style="background: #fee2e2; color: #991b1b; display: none;" onclick="promptPwd('delete')">자료 삭제</button>
+            <div style="display: flex; gap: 10px; margin-left: auto;">
+                <button class="btn-sm" style="background: #e2e8f0; color: #475569;" onclick="document.getElementById(`archive-upload-modal`).close()">취소</button>
+                <button class="btn-sm primary" onclick="saveArchive()">저장</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Archive Detail Modal (Design updated to match reference) -->
+    <dialog id="archive-detail-modal" style="border: none; border-radius: 12px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 800px; width: 100%; margin: 0; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 85vh; overflow-y: auto;">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <h2 id="arch-title" style="margin-top: 0; margin-bottom: 15px; font-size: 1.8rem; color: #111;"></h2>
+        <input type="hidden" id="read-arch-id">
+        
+        <div style="color: #666; font-size: 1rem; margin-bottom: 25px;">
+            등록일 : <span id="arch-date"></span> &nbsp;<span style="color:#ddd; margin: 0 5px;">|</span>&nbsp; 조회수 : <span id="arch-views"></span>
+        </div>
+        
+        <div style="border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; padding: 20px 0; margin-bottom: 30px;">
+            <div id="arch-files" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        </div>
+        
+        <div id="arch-content" style="min-height: 150px; font-size: 1.05rem; color: #222; line-height: 1.7;"></div>
+        
+        <div style="text-align: right; margin-top: 30px; display: flex; justify-content: space-between; align-items: center;">
+            <button class="btn-sm" style="background: #fff; border: 1px solid #cbd5e1; color: #64748b;" onclick="promptPwd('edit')">수정 및 삭제하기</button>
+            <button class="btn-sm" style="background: #e2e8f0; color: #475569;" onclick="document.getElementById('archive-detail-modal').close()">닫기</button>
+        </div>
+    </dialog>
+
+            <script>
+                function initArchive() {
+            if(!localStorage.getItem("batech_archive_v6")) {
+                localStorage.removeItem("batech_archive_v6"); // Nuke old data
+                let defaults = [
+                    { id: "a_nb", title: "[추천] NotebookLM 업무 활용법 카드뉴스", date: "2026.06.09", views: 0, files: [{name: "NotebookLM_업무활용법.pdf", url: "dummy_download.bin"}], content: "<div style='text-align: center;'><h3 style='margin-bottom: 20px; color: #1e293b;'>[카드뉴스] NotebookLM 업무 활용법</h3><iframe src='notebooklm_cardnews.html' style='width: 100%; height: 650px; border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; max-width: 600px;'></iframe><p style='color: #475569; font-size: 1.1rem; line-height: 1.6;'>사내 기술문서 기반 AI 챗봇의 강력한 활용법을 위 카드뉴스에서 직접 스와이프하며 확인하세요.</p></div>", isSpecial: true },
+                    { id: "a_vac", title: "연차/반차 휴가 신청서 양식 (2026 갱신)", date: "2026.01.10", views: 0, files: [{name: "연차_반차_휴가_신청서_양식.doc", url: "연차_반차_휴가_신청서_양식.doc"}], content: "<h3 style='margin-bottom: 15px;'>2026년도 연차/반차 신청 안내</h3><p style='margin-bottom: 10px;'>새롭게 갱신된 2026년도 휴가 신청서 양식입니다.</p><p style='margin-bottom: 10px;'><strong>1. 신청기간:</strong> 사용 예정일 최소 3일 전까지 결재 완료 (기간 준수)</p><p style='margin-bottom: 10px;'><strong>2. 제출처:</strong> 소속 부서장 결재 후 총무부 서면 제출</p><br><p>상단의 첨부파일을 클릭하여 다운로드 받으신 후 작성 바랍니다.</p>" },
+                    { id: "a_logo", title: "회사 공식 로고 원본 파일 (AI, PNG, JPG)", date: "2026.01.05", views: 0, files: [{name: "BATECH_Logo_AI.zip", url: "dummy_download.bin"}, {name: "BATECH_Logo_PNG_JPG.zip", url: "dummy_download.bin"}], content: "<p style='margin-bottom: 10px;'>비에이텍 공식 기업 로고 파일입니다.</p><p>대외 홍보물 및 공식 문서 작성 시 해당 로고를 사용해주시기 바랍니다.</p>" },
+                    { id: "a_card", title: "법인카드 지출 결의서 양식 및 매뉴얼", date: "2025.12.20", views: 0, files: [{name: "지출결의서_양식_2026.xlsx", url: "dummy_download.bin"}, {name: "법인카드_사용_매뉴얼.pdf", url: "dummy_download.bin"}], content: "<p style='margin-bottom: 10px;'>법인카드 사용 후 제출해야 하는 지출 결의서 양식과 작성 매뉴얼입니다.</p><p>매월 5일까지 전월 사용분을 총무부로 제출해 주시기 바랍니다.</p>" }
+                ];
+                localStorage.setItem("batech_archive_v6", JSON.stringify(defaults));
+            }
+        }
+
+        function renderArchiveList() {
+            let archives = JSON.parse(localStorage.getItem("batech_archive_v6") || "[]");
+            let tbody = document.querySelector(".archive-list tbody");
+            tbody.innerHTML = "";
+            
+            archives.forEach(a => {
+                let icon = "📄";
+                if(a.title.includes("로고") || a.title.includes("이미지")) icon = "🖼️";
+                if(a.isSpecial) icon = "📙";
+                
+                let trClass = a.isSpecial ? "class='nb-highlight'" : "";
+                let titleHtml = a.isSpecial ? `<strong>${a.title}</strong>` : a.title;
+                
+                tbody.innerHTML += `
+                    <tr ${trClass} onclick="openArchive('${a.id}')">
+                        <td><span class="file-icon">${icon}</span>${titleHtml}</td>
+                        <td>${a.date}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        let pendingAction = null;
+
+        function promptPwd(actionType) {
+            pendingAction = actionType;
+            let desc = "";
+            if(actionType === "add") desc = "자료를 업로드하려면 관리자 암호가 필요합니다.";
+            if(actionType === "edit") desc = "자료를 수정/삭제하려면 관리자 암호가 필요합니다.";
+            if(actionType === "delete") desc = "자료를 완전히 삭제하려면 관리자 암호가 필요합니다.";
+            
+            document.getElementById("pwd-modal-desc").innerText = desc;
+            document.getElementById("action-pwd").value = "";
+            document.getElementById("archive-pwd-modal").showModal();
+        }
+
+        function submitPwd() {
+            let pwd = document.getElementById("action-pwd").value;
+            if(pwd !== "1234") {
+                alert("보안 암호가 올바르지 않습니다.");
+                return;
+            }
+            
+            document.getElementById("archive-pwd-modal").close();
+            
+            if(pendingAction === "add") {
+                openUploadModal();
+            } else if(pendingAction === "edit") {
+                openEditModal();
+            } else if(pendingAction === "delete") {
+                executeDelete();
+            }
+        }
+
+        function tryUpload() {
+            promptPwd("add");
+        }
+
+        function openUploadModal() {
+            document.getElementById("upload-modal-title").innerText = "새 자료 업로드";
+            document.getElementById("edit-archive-id").value = "";
+            document.getElementById("up-title").value = "";
+            document.getElementById("up-file").value = "";
+            document.getElementById("up-content").value = "";
+            document.getElementById("btn-delete-archive").style.display = "none";
+            document.getElementById("archive-upload-modal").showModal();
+        }
+
+        function openEditModal() {
+            document.getElementById("archive-detail-modal").close();
+            
+            let id = document.getElementById("read-arch-id").value;
+            let archives = JSON.parse(localStorage.getItem("batech_archive_v6") || "[]");
+            let data = archives.find(x => x.id === id);
+            if(!data) return;
+            
+            document.getElementById("upload-modal-title").innerText = "자료 수정";
+            document.getElementById("edit-archive-id").value = id;
+            document.getElementById("up-title").value = data.title;
+            document.getElementById("up-file").value = "";
+            document.getElementById("up-content").value = data.content.replace(/<br>/g, "\n").replace(/<\/?[^>]+(>|$)/g, ""); // basic strip for edit
+            document.getElementById("btn-delete-archive").style.display = "inline-block";
+            document.getElementById("archive-upload-modal").showModal();
+        }
+
+        function saveArchive() {
+            const title = document.getElementById("up-title").value;
+            const content = document.getElementById("up-content").value.replace(/\n/g, "<br>");
+            const fileInput = document.getElementById("up-file");
+            const id = document.getElementById("edit-archive-id").value;
+            
+            if(!title) return alert("제목을 입력해주세요.");
+            
+            let archives = JSON.parse(localStorage.getItem("batech_archive_v6") || "[]");
+            let files = [];
+            
+            if(fileInput.files.length > 0) {
+                for(let i=0; i<fileInput.files.length; i++) {
+                    files.push({ name: fileInput.files[i].name, url: "dummy_file.txt" });
+                }
+            }
+            
+            if(id) {
+                // Edit
+                let idx = archives.findIndex(x => x.id === id);
+                if(idx !== -1) {
+                    archives[idx].title = title;
+                    archives[idx].content = content;
+                    if(files.length > 0) {
+                        archives[idx].files = files; // Replace files if new ones uploaded
+                    }
+                }
+            } else {
+                // Add
+                if(files.length === 0) return alert("최소 1개의 파일을 첨부해주세요.");
+                let today = new Date();
+                let dStr = today.getFullYear() + "." + String(today.getMonth()+1).padStart(2,"0") + "." + String(today.getDate()).padStart(2,"0");
+                archives.unshift({
+                    id: "a_" + Date.now(),
+                    title: title,
+                    date: dStr,
+                    views: 0,
+                    files: files,
+                    content: content
+                });
+            }
+            
+            localStorage.setItem("batech_archive_v6", JSON.stringify(archives));
+            document.getElementById("archive-upload-modal").close();
+            renderArchiveList();
+            alert("자료가 성공적으로 저장되었습니다.");
+        }
+
+        function executeDelete() {
+            let id = document.getElementById("edit-archive-id").value;
+            let archives = JSON.parse(localStorage.getItem("batech_archive_v6") || "[]");
+            archives = archives.filter(x => x.id !== id);
+            localStorage.setItem("batech_archive_v6", JSON.stringify(archives));
+            
+            document.getElementById("archive-upload-modal").close();
+            renderArchiveList();
+            alert("자료가 삭제되었습니다.");
+        }
+
+                function openArchive(key) {
+            let archives = JSON.parse(localStorage.getItem("batech_archive_v6") || "[]");
+            const data = archives.find(x => x.id === key);
+            if(!data) return;
+            
+            document.getElementById("read-arch-id").value = key;
+            document.getElementById('arch-title').innerText = data.title;
+            document.getElementById('arch-date').innerText = data.date;
+            document.getElementById('arch-views').innerText = data.views;
+            
+            let filesHtml = "";
+            const paperclipSvg = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>`;
+            if(data.files) {
+                data.files.forEach(f => {
+                    filesHtml += `
+                        <a href="${f.url}" download="${f.name}" style="color: #333; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 1.1rem; padding: 2px 0; transition: color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#333'">
+                            ${paperclipSvg} <span>${f.name}</span>
+                        </a>
+                    `;
+                });
+            }
+            document.getElementById('arch-files').innerHTML = filesHtml;
+            document.getElementById('arch-content').innerHTML = data.content;
+            
+            document.getElementById('archive-detail-modal').showModal();
+            
+            // Increment views
+            let idx = archives.findIndex(x => x.id === key);
+            archives[idx].views += 1;
+            localStorage.setItem("batech_archive_v6", JSON.stringify(archives));
+            renderArchiveList();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initArchive();
+            
+            renderArchiveList();
+        });
+    </script>
+
+<footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">💧</span> B.A. TECH
+                </a>
+                <p class="company-desc">
+                    (주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>
+                    워터펌프 시스템 전문 기업입니다.
+                </p>
+                </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="sales_history.html">연혁</a></li>
+                    <li><a href="certifications.html">인증현황</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                    <li><a href="portal.html" style="color: var(--primary-light);">🔒 사내 포털</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>PR & IR</h4>
+                <ul>
+                    <li><a href="video.html">홍보 영상</a></li>
+                    <li><a href="brochure.html">기업 브로슈어</a></li>
+                    <li><a href="cardnews.html">카드뉴스</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="notice.html">공지사항</a></li>
+<li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+                <p>이메일: contact@batech.co.kr</p>
+                <p>이메일: contact@batech.co.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
+            else { navbar.classList.remove('scrolled'); }
+        });
+
+        // Number Counter Animation
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 100;
+            
+            const animateCounters = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = +counter.getAttribute('data-target');
+                        
+                        const updateCount = () => {
+                            const count = +counter.innerText;
+                            const inc = target / speed;
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count + inc);
+                                setTimeout(updateCount, 20);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            };
+            const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+            counters.forEach(counter => observer.observe(counter));
+        });
+    </script>
+    
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        // Clear old listeners if any by replacing the node
+        const newMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+        newMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            newMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    const navItems = document.querySelectorAll('.nav-links > li > a');
+    navItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        newItem.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1080) {
+                const dropdown = newItem.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    e.preventDefault();
+                    newItem.parentElement.classList.toggle('active');
+                }
+            }
+        });
+    });
+});
+</script>
+<script>
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks && navLinks.classList.contains('active')) {
+        if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+            navLinks.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+    }
+});
+</script>
+</body>
+</html>
+
+

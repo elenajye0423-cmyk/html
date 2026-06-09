@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>연차/반차 휴가 신청서</title>
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 40px; }
+        .form-paper { background: white; width: 210mm; min-height: 297mm; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; font-size: 24px; text-decoration: underline; margin-bottom: 40px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: left; }
+        th { background: #f8f9fa; width: 120px; text-align: center; }
+        .sign-area { display: flex; justify-content: flex-end; margin-bottom: 30px; }
+        .sign-box { border: 1px solid #333; width: 200px; text-align: center; }
+        .sign-box-title { border-bottom: 1px solid #333; background: #f8f9fa; padding: 5px; }
+        .sign-box-content { height: 80px; }
+        .footer { text-align: center; margin-top: 50px; font-size: 14px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="form-paper">
+        <h1>연차 / 반차 휴가 신청서</h1>
+        
+        <div class="sign-area">
+            <div class="sign-box">
+                <div class="sign-box-title">부서장 결재</div>
+                <div class="sign-box-content"></div>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>소 속</th>
+                <td></td>
+                <th>직 급</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>성 명</th>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <th>휴가 구분</th>
+                <td colspan="3">
+                    <label><input type="radio" name="type"> 연차</label> &nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="type"> 반차 (오전/오후)</label> &nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="type"> 기타 (</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+                </td>
+            </tr>
+            <tr>
+                <th>기 간</th>
+                <td colspan="3">2026년 &nbsp;&nbsp;월 &nbsp;&nbsp;일 &nbsp;~&nbsp; 2026년 &nbsp;&nbsp;월 &nbsp;&nbsp;일 (총 &nbsp;&nbsp; 일)</td>
+            </tr>
+            <tr>
+                <th>사 유</th>
+                <td colspan="3" style="height: 100px; vertical-align: top;"></td>
+            </tr>
+            <tr>
+                <th>비상연락망</th>
+                <td colspan="3"></td>
+            </tr>
+        </table>
+        
+        <p>위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</p>
+        
+        <div style="text-align: right; margin-top: 40px;">
+            <p>신청일 : 2026년 &nbsp;&nbsp;월 &nbsp;&nbsp;일</p>
+            <p>신청자 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)</p>
+        </div>
+
+        <div class="footer">
+            (주)비에이텍 인사총무팀 귀중
+        </div>
+    </div>
+<script>
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks && navLinks.classList.contains('active')) {
+        if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+            navLinks.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+    }
+});
+</script>
+</body>
+</html>

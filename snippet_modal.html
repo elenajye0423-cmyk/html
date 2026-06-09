@@ -1,0 +1,15 @@
+<!-- Inquiry Check Modal -->
+    <dialog id="check-inquiry-modal" style="background: #ffffff; color: #1e293b; border: none; border-radius: 16px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.2); max-width: 600px; width: 100%; margin: 0; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 85vh; overflow-y: auto;">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <h2 style="margin-top: 0; color: #1e293b; margin-bottom: 20px;">나의 문의내역 조회</h2>
+        
+        <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+            <input type="email" id="search-email" placeholder="문의 시 등록한 이메일 주소 입력" style="background: #ffffff; flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; color: #1e293b;">
+            <button onclick="checkMyInquiry()" style="background: #2563eb; color: #ffffff; border: none; border-radius: 8px; padding: 12px 20px; font-weight: bold; cursor: pointer;">조회</button>
+        </div>
+        
+        <div id="inquiry-results" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="text-align: center; color: #94a3b8; padding: 30px;">이메일 주소를 입력하고 조회해주세요.</div>
+        </div>
+    </dialog>
+</body>

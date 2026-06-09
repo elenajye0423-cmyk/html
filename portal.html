@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 깨끗하고 안전한 물의 시작</title>
+    <meta name="description" content="(주)비에이텍은 깨끗하고 안전한 물을 위한 워터펌프 제작, 설치, 수리 전문기업입니다.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("aeEdyX2nzOuE7TPMn");
+       })();
+    </script>
+</head>
+<body>
+    <!-- Portal Authentication Overlay -->
+    <div id="portal-auth-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #ffffff; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Inter', 'Noto Sans KR', sans-serif; transition: opacity 0.3s ease;">
+        <div style="background: #f8fafc; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
+            <h2 style="margin: 0 0 10px 0; color: #0f172a;">B.A. TECH 사내 포털</h2>
+            <p style="color: #64748b; margin-bottom: 25px; font-size: 0.95rem;">직원 전용 대시보드입니다.<br>접근 비밀번호를 입력해주세요.</p>
+            
+            <input type="password" id="portal-password" placeholder="비밀번호 입력" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; text-align: center; letter-spacing: 5px; box-sizing: border-box;" onkeypress="if(event.key === 'Enter') checkPortalAuth()">
+            <button onclick="checkPortalAuth()" style="width: 100%; background: #2563eb; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer;">접속하기</button>
+            <p id="auth-error" style="color: #ef4444; margin-top: 15px; font-size: 0.9rem; display: none;">비밀번호가 일치하지 않습니다.</p>
+        </div>
+    </div>
+    <script>
+        // Check session storage immediately
+        if(sessionStorage.getItem('portal_auth') === 'true') {
+            document.getElementById('portal-auth-overlay').style.display = 'none';
+        }
+        
+        function checkPortalAuth() {
+            const pwd = document.getElementById('portal-password').value;
+            const errorP = document.getElementById('auth-error');
+            if(pwd === '1234') {
+                sessionStorage.setItem('portal_auth', 'true');
+                document.getElementById('portal-auth-overlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('portal-auth-overlay').style.display = 'none';
+                }, 300);
+            } else {
+                errorP.style.display = 'block';
+                document.getElementById('portal-password').value = '';
+                document.getElementById('portal-password').focus();
+            }
+        }
+    </script>
+
+    
+<nav id="navbar" style="background: #0f172a;">
+    <div class="nav-container">
+        <a href="portal.html" class="logo" style="color: white;"><span class="logo-icon">💧</span> B.A. TECH 포털</a>
+        <ul class="nav-links">
+            <li class="nav-item"><a href="portal.html" style="color: #cbd5e1;">대시보드</a></li>
+            <li class="nav-item"><a href="portal_notices.html" style="color: #cbd5e1;">공지사항</a></li>
+            <li class="nav-item"><a href="portal_calendar.html" style="color: #cbd5e1;">일정 관리</a></li>
+            <li class="nav-item"><a href="portal_board.html" style="color: #cbd5e1;">게시판</a></li>
+            <li class="nav-item"><a href="portal_archive.html" style="color: #cbd5e1;">자료실</a></li>
+            <li><a href="index.html" style="border: 1px solid #cbd5e1; padding: 5px 15px; border-radius: 20px; color: #cbd5e1; margin-left: 15px;">홈페이지로</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu"><span class="bar" style="background: white;"></span><span class="bar" style="background: white;"></span><span class="bar" style="background: white;"></span></div>
+    </div>
+</nav>
+<style>
+#navbar.scrolled { background: #0f172a !important; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+.nav-links li a:hover { color: white !important; }
+</style>
+
+
+    <style>
+        .portal-layout { padding: 80px 0; background-color: #f8fafc; min-height: 100vh; }
+        .portal-header { text-align: center; margin-bottom: 3rem; }
+        .portal-header h1 { font-size: 2.5rem; color: #0f172a; margin-bottom: 0.5rem; font-weight: 800; }
+        .portal-header p { color: #64748b; }
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .dashboard-grid.bottom { grid-template-columns: 1fr 1fr; margin-top: 2rem; }
+        .dashboard-grid.full { grid-template-columns: 1fr; margin-top: 2rem; }
+        .panel { background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 1.5rem; border-top: 4px solid var(--primary-color); display: flex; flex-direction: column; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
+        .panel-title { font-size: 1.25rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 0.5rem; }
+        .btn-sm { padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; border: none; background: #e2e8f0; color: #475569; font-weight: 600; transition: 0.2s; text-decoration: none; display: inline-block; }
+        .btn-sm.primary { background: var(--primary-color); color: #fff; }
+        .btn-sm:hover { filter: brightness(0.95); }
+        .data-list { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        .data-list li { padding: 0.8rem 0; border-bottom: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .data-list li:last-child { border-bottom: none; }
+        .data-list a { color: #334155; font-weight: 500; transition: 0.2s; text-decoration: none; cursor: pointer; }
+        .data-list a:hover { color: var(--primary-color); }
+        .data-list .meta { font-size: 0.85rem; color: #94a3b8; }
+        .data-list .badge { background: #fef08a; color: #854d0e; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; margin-right: 5px;}
+        .badge.new { background: #fecaca; color: #991b1b; }
+        
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .data-table th, .data-table td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .data-table th { background: #f8fafc; font-weight: 600; color: #475569; }
+        .status-wait { color: #ea580c; font-weight: 600; background: #ffedd5; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }
+        .status-done { color: #16a34a; font-weight: 600; background: #dcfce7; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }
+        @media (max-width: 900px) { .dashboard-grid, .dashboard-grid.bottom { grid-template-columns: 1fr; } }
+        dialog::backdrop { background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); }
+    </style>
+    
+    <div class="portal-layout">
+        <div class="portal-header fade-in-up">
+            <h1>사내 포털 대시보드</h1>
+            <p>비에이텍 임직원 전용 업무 공간입니다. (보안 레벨: 내부용)</p>
+        </div>
+
+        <div class="dashboard-grid fade-in-up delay-1">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">📢 사내 공지사항</div>
+                    <a href="portal_notices.html" class="btn-sm">전체보기</a>
+                </div>
+                <ul class="data-list" id="dash-notice-list"></ul>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">📅 사내 일정 요약 (6월)</div>
+                    <a href="portal_calendar.html" class="btn-sm primary">일정 관리</a>
+                </div>
+                <ul class="data-list" id="dash-sched-list" style="padding-top: 10px;"></ul>
+            </div>
+        </div>
+
+        <div class="dashboard-grid bottom fade-in-up delay-2">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">☕ 사내 익명 라운지</div>
+                    <a href="portal_board.html" class="btn-sm primary">전체보기 및 글쓰기</a>
+                </div>
+                <ul class="data-list" id="dash-board-list">
+                    <li><a href="portal_board.html">게시판에서 확인하세요.</a></li>
+                </ul>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">📂 사내 자료실</div>
+                    <a href="portal_archive.html" class="btn-sm primary">자료실 입장</a>
+                </div>
+                <ul class="data-list">
+                    <li><a href="portal_archive.html">📙 NotebookLM 업무 활용법 카드뉴스</a> <span class="meta">전략기획팀</span></li>
+                    <li><a href="portal_archive.html">📄 연차/반차 휴가 신청서 양식</a> <span class="meta">인사팀</span></li>
+                    <li><a href="portal_archive.html">📄 법인카드 지출 결의서 양식</a> <span class="meta">재무팀</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="dashboard-grid full fade-in-up delay-3">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">✉️ 고객 문의 관리 (CS Dashboard)</div>
+                    <button class="btn-sm" onclick="downloadExcel()">엑셀 다운로드</button>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>상태</th>
+                                <th>접수일</th>
+                                <th>고객명/회사명</th>
+                                <th>문의 유형</th>
+                                <th>제목</th>
+                                <th>작업</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cs-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reply Modal for CS Dashboard -->
+    <dialog id="reply-modal" style="border: none; border-radius: 12px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-width: 500px; width: 100%; margin: 0; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <button onclick="this.closest('dialog').close()" style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; padding: 5px; transition: 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&#10005;</button>
+        <h3 style="margin-top: 0; margin-bottom: 1rem; color: #1e293b;">답글 작성 및 자동 메일 발송</h3>
+        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.5rem;">작성 완료 시 고객의 이메일로 메일 발송 창이 열리며, 문의 상태가 완료 처리됩니다.</p>
+        <div style="margin-bottom: 1rem; background: #f8fafc; padding: 1rem; border-radius: 8px;">
+            <strong id="modal-customer" style="color: var(--primary-color);"></strong> 님의 문의:<br>
+            <em id="modal-subject" style="color: #475569;"></em>
+        </div>
+        <textarea id="reply-content" style="width: 100%; height: 150px; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; resize: none; margin-bottom: 1rem;" placeholder="답변 내용을 입력하세요..."></textarea>
+        <div style="text-align: right; gap: 10px; display: flex; justify-content: flex-end;">
+            <button class="btn-sm" onclick="document.getElementById(`reply-modal`).close()">취소</button>
+            <button class="btn-sm primary" onclick="submitReply()">발송하기</button>
+        </div>
+    </dialog>
+
+    <script>
+// CS Dashboard Logic
+let currentReplyId = null;
+
+function loadInquiries() {
+    const tbody = document.getElementById("cs-table-body");
+    tbody.innerHTML = "";
+    
+    // Auto-init dummy inquiries if none exist
+    if(!localStorage.getItem("batech_inquiries_init")) {
+        let dummy = [
+            { id: "inq_dummy1", status: "wait", date: "2026-06-08 14:20", name: "김*민", contact: "한국건설", type: "제품 문의", subject: "부스터 펌프 대용량 모델 견적 요청드립니다.", email: "test@example.com" },
+            { id: "inq_dummy2", status: "done", date: "2026-06-07 16:40", name: "이*훈", contact: "개인", type: "기타 문의", subject: "펌프 소음 관련 매뉴얼 문의", email: "test2@example.com", reply: "해당 모델의 방음 커버 장착 매뉴얼을 메일로 송부드렸습니다." }
+        ];
+        let existing = JSON.parse(localStorage.getItem("batech_inquiries") || "[]");
+        let combined = existing.concat(dummy);
+        localStorage.setItem("batech_inquiries", JSON.stringify(combined));
+        localStorage.setItem("batech_inquiries_init", "true");
+    }
+
+    let inquiries = JSON.parse(localStorage.getItem("batech_inquiries") || "[]");
+    
+    if(inquiries.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px;">등록된 고객 문의가 없습니다.</td></tr>`;
+        return;
+    }
+    
+    inquiries.forEach(inq => {
+        const tr = document.createElement("tr");
+        const statClass = inq.status === "wait" ? "status-wait" : "status-done";
+        const statText = inq.status === "wait" ? "답변 대기" : "처리 완료";
+        const btn = inq.status === "wait" 
+            ? `<button class="btn-sm primary" onclick="openReply('${inq.id}')">답글 작성</button>`
+            : `<button class="btn-sm" onclick="alert('완료된 문의 내용을 조회합니다.')">내역 보기</button>`;
+        
+        tr.innerHTML = `<td><span class="${statClass}">${statText}</span></td><td>${inq.date}</td><td>${inq.name} (${inq.contact || '개인'})</td><td>${inq.type}</td><td>${inq.subject}</td><td>${btn}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+
+function openReply(id) {
+    currentReplyId = id;
+    let inquiries = JSON.parse(localStorage.getItem("batech_inquiries") || "[]");
+    let inq = inquiries.find(i => i.id === id);
+    if(inq) {
+        document.getElementById("modal-customer").innerText = inq.name;
+        document.getElementById("modal-subject").innerText = inq.subject;
+        document.getElementById("reply-content").value = "";
+        document.getElementById("reply-modal").showModal();
+    }
+}
+
+function downloadExcel() {
+    let inquiries = JSON.parse(localStorage.getItem("batech_inquiries") || "[]");
+    if(inquiries.length === 0) return alert("다운로드할 데이터가 없습니다.");
+    
+    // Simulate real download
+    const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + 
+        "상태,등록일시,고객명,분류,제목\n" +
+        inquiries.map(e => `${e.status},${e.date},${e.name},${e.type},${e.subject}`).join("\n");
+        
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "고객문의내역.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function submitReply() {
+    const content = document.getElementById("reply-content").value;
+    if(!content) { alert("답변 내용을 입력해주세요."); return; }
+    
+    let inquiries = JSON.parse(localStorage.getItem("batech_inquiries") || "[]");
+    let inq = inquiries.find(i => i.id === currentReplyId);
+    if(inq) {
+        inq.status = "done";
+        inq.reply = content;
+        localStorage.setItem("batech_inquiries", JSON.stringify(inquiries));
+        
+        const btn = document.querySelector("#reply-modal .btn-sm.primary");
+        const oldText = btn.innerText;
+        btn.innerText = "발송 중...";
+        btn.disabled = true;
+        
+        const templateParams = {
+            to_email: inq.email,
+            email: inq.email,
+            user_email: inq.email,
+            reply_to: inq.email,
+            recipient: inq.email,
+            subject: "Re: " + inq.subject,
+            message: content
+        };
+        
+        emailjs.send('service_zsr87xp', 'template_bfq3jqh', templateParams)
+            .then(function(response) {
+                alert("고객에게 성공적으로 이메일이 자동 전송되었습니다!");
+                document.getElementById("reply-modal").close();
+                btn.innerText = oldText;
+                btn.disabled = false;
+                loadInquiries();
+            }, function(error) {
+                alert("메일 전송에 실패했습니다. 설정을 확인해주세요: " + JSON.stringify(error));
+                inq.status = "wait";
+                localStorage.setItem("batech_inquiries", JSON.stringify(inquiries));
+                btn.innerText = oldText;
+                btn.disabled = false;
+                loadInquiries();
+            });
+    }
+}
+
+function loadBoardPreview() {
+    const ul = document.getElementById("dash-board-list");
+    let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+    if(posts.length === 0) {
+        posts = [
+            { id: 1, title: "[필독] 사내 보안 규정 가이드라인", author: "보안팀", date: "2026.06.01", views: 142 },
+            { id: 2, title: "상반기 우수사원 포상 안내", author: "인사팀", date: "2026.06.03", views: 89 },
+            { id: 3, title: "구내식당 식단표 (6월 2주차)", author: "총무팀", date: "2026.06.05", views: 256 },
+            { id: 4, title: "주차장 바닥 공사로 인한 주차 통제 안내", author: "총무팀", date: "2026.06.08", views: 112 }
+        ];
+        localStorage.setItem("batech_board_v4", JSON.stringify(posts));
+        localStorage.setItem("batech_board_init_v4", "true");
+    }
+    
+    ul.innerHTML = "";
+    posts.slice(0, 4).forEach(p => {
+        ul.innerHTML += `<li><a href="portal_board.html">${p.title}</a> <span class="meta">${p.author}</span></li>`;
+    });
+}
+
+function loadDashNotices() {
+    const ul = document.getElementById("dash-notice-list");
+    let notices = JSON.parse(localStorage.getItem("batech_notices_db") || "[]");
+    if(notices.length === 0) {
+        notices = [
+            { id: 1, title: "[긴급] 전사 시스템 점검 안내 (6/12 00:00~04:00)", author: "IT팀", date: "2026.06.08", views: 45 },
+            { id: 2, title: "2026년 하계 휴가 일정 등록의 건", author: "인사팀", date: "2026.06.05", views: 128 },
+            { id: 3, title: "신규 입사자 OJT 교육 일정 (6/10~6/14)", author: "교육팀", date: "2026.06.02", views: 67 }
+        ];
+        localStorage.setItem("batech_notices_db", JSON.stringify(notices));
+        localStorage.setItem("batech_notices_init", "true");
+    }
+
+    notices.sort((a,b) => new Date(b.date.replace(/\./g, "-")) - new Date(a.date.replace(/\./g, "-")));
+    ul.innerHTML = "";
+    notices.slice(0, 3).forEach(n => {
+        let isNew = new Date().getTime() - new Date(n.date.replace(/\./g, "-")).getTime() < 86400000 * 7;
+        let badge = isNew ? `<span class="badge new" style="margin-right:5px;">N</span>` : ``;
+        ul.innerHTML += `<li><a href="portal_notices.html?view_id=${n.id}">${badge}${n.title}</a> <span class="meta">${n.date}</span></li>`;
+    });
+}
+
+function loadDashScheds() {
+    const ul = document.getElementById("dash-sched-list");
+    let scheds = JSON.parse(localStorage.getItem("batech_scheds_v5") || "{}");
+    if(Object.keys(scheds).length === 0) {
+        scheds = {
+            "2026-06-12": [{ title: "시스템 점검" }],
+            "2026-06-15": [{ title: "경영전략회의" }],
+            "2026-06-20": [{ title: "임직원 워크샵" }]
+        };
+        localStorage.setItem("batech_scheds_v5", JSON.stringify(scheds));
+    }
+    
+    let holidays = {
+        "2026-06-03": "지방선거", "2026-06-06": "현충일", "2026-08-15": "광복절", "2026-09-24": "추석", 
+        "2026-09-25": "추석", "2026-09-26": "추석", "2026-10-03": "개천절", 
+        "2026-10-09": "한글날", "2026-12-25": "성탄절"
+    };
+
+    let allEvents = [];
+    for(let dateStr in scheds) {
+        let d = new Date(dateStr);
+        scheds[dateStr].forEach(e => {
+            allEvents.push({ date: d, dateStr: dateStr, title: e.title });
+        });
+    }
+    for(let dateStr in holidays) {
+        let d = new Date(dateStr);
+        allEvents.push({ date: d, dateStr: dateStr, title: "🇰🇷 " + holidays[dateStr] });
+    }
+    
+    let today = new Date();
+    today.setHours(0,0,0,0);
+    
+    let upcoming = allEvents.filter(e => e.date >= today).sort((a,b) => a.date - b.date);
+    if(upcoming.length === 0) upcoming = allEvents.sort((a,b) => a.date - b.date).slice(-4);
+    
+    ul.innerHTML = "";
+    upcoming.slice(0, 4).forEach(e => {
+        let dMonth = e.date.getMonth() + 1;
+        let dDate = e.date.getDate();
+        let isToday = (e.date.getTime() === today.getTime());
+        let badge = isToday ? `<span class="badge new">오늘</span>` : `<span class="badge" style="background:#e0f2fe;color:#0284c7;">${dMonth}월 ${dDate}일</span>`;
+        ul.innerHTML += `<li><a href="portal_calendar.html">${badge} ${e.title}</a></li>`;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadInquiries();
+    loadBoardPreview();
+    loadDashScheds();
+    loadDashNotices();
+});
+
+    </script>
+
+<footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">💧</span> B.A. TECH
+                </a>
+                <p class="company-desc">
+                    (주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>
+                    워터펌프 시스템 전문 기업입니다.
+                </p>
+                </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html">기업소개</a></li>
+                    <li><a href="sales_history.html">연혁</a></li>
+                    <li><a href="certifications.html">인증현황</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                    <li><a href="portal.html" style="color: var(--primary-light);">🔒 사내 포털</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>PR & IR</h4>
+                <ul>
+                    <li><a href="video.html">홍보 영상</a></li>
+                    <li><a href="brochure.html">기업 브로슈어</a></li>
+                    <li><a href="cardnews.html">카드뉴스</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="notice.html">공지사항</a></li>
+<li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>상호: 비에이텍 주식회사</p>
+                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p>전화: 033-264-9243</p>
+                <p>이메일: contact@batech.co.kr</p>
+                <p>이메일: contact@batech.co.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
+            else { navbar.classList.remove('scrolled'); }
+        });
+
+        // Number Counter Animation
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 100;
+            
+            const animateCounters = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = +counter.getAttribute('data-target');
+                        
+                        const updateCount = () => {
+                            const count = +counter.innerText;
+                            const inc = target / speed;
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count + inc);
+                                setTimeout(updateCount, 20);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            };
+            const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+            counters.forEach(counter => observer.observe(counter));
+        });
+    </script>
+    
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        // Clear old listeners if any by replacing the node
+        const newMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+        newMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            newMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    const navItems = document.querySelectorAll('.nav-links > li > a');
+    navItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        newItem.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1080) {
+                const dropdown = newItem.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    e.preventDefault();
+                    newItem.parentElement.classList.toggle('active');
+                }
+            }
+        });
+    });
+});
+</script>
+<script>
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks && navLinks.classList.contains('active')) {
+        if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+            navLinks.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+    }
+});
+</script>
+</body>
+</html>
+
+
