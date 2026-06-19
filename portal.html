@@ -338,18 +338,12 @@ function submitReply() {
 function loadBoardPreview() {
     const ul = document.getElementById("dash-board-list");
     let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
-    if(posts.length === 0) {
-        posts = [
-            { id: 1, title: "[필독] 사내 보안 규정 가이드라인", author: "보안팀", date: "2026.06.01", views: 142 },
-            { id: 2, title: "상반기 우수사원 포상 안내", author: "인사팀", date: "2026.06.03", views: 89 },
-            { id: 3, title: "구내식당 식단표 (6월 2주차)", author: "총무팀", date: "2026.06.05", views: 256 },
-            { id: 4, title: "주차장 바닥 공사로 인한 주차 통제 안내", author: "총무팀", date: "2026.06.08", views: 112 }
-        ];
-        localStorage.setItem("batech_board_v4", JSON.stringify(posts));
-        localStorage.setItem("batech_board_init_v4", "true");
-    }
-    
     ul.innerHTML = "";
+    if(!posts || posts.length === 0) {
+        ul.innerHTML = `<li><a href="portal_board.html">게시판에서 확인하세요.</a></li>`;
+        return;
+    }
+
     posts.slice(0, 4).forEach(p => {
         ul.innerHTML += `<li><a href="portal_board.html">${p.title}</a></li>`;
     });
