@@ -60,7 +60,7 @@
             <li class="nav-item"><a href="portal.html" style="color: #cbd5e1;">대시보드</a></li>
             <li class="nav-item"><a href="portal_notices.html" style="color: #cbd5e1;">공지사항</a></li>
             <li class="nav-item"><a href="portal_calendar.html" style="color: #cbd5e1;">일정 관리</a></li>
-            <li class="nav-item" style="display:none;"><a href="portal_board.html" style="color: #cbd5e1;">게시판</a></li>
+            <li class="nav-item"><a href="portal_board.html" style="color: #cbd5e1;">게시판</a></li>
             <li class="nav-item"><a href="portal_archive.html" style="color: #cbd5e1;">자료실</a></li>
             <li><a href="index.html" style="border: 1px solid #cbd5e1; padding: 5px 15px; border-radius: 20px; color: #cbd5e1; margin-left: 15px;">홈페이지로</a></li>
         </ul>
@@ -129,8 +129,8 @@
             </div>
         </div>
 
-        <div class="dashboard-grid bottom fade-in-up delay-2" style="grid-template-columns: 1fr;">
-            <div class="panel" style="display:none;">
+        <div class="dashboard-grid bottom fade-in-up delay-2">
+            <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">☕ 사내 익명 게시판</div>
                     <a href="portal_board.html" class="btn-sm primary">전체보기 및 글쓰기</a>
@@ -338,13 +338,16 @@ function submitReply() {
 function loadBoardPreview() {
     const ul = document.getElementById("dash-board-list");
     let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
-        
-        ul.innerHTML = "";
-        if(posts.length === 0) {
-            ul.innerHTML = `<li>익명 게시판이 현재 비활성화되어 있습니다.</li>`;
-            return;
-        }
-        
+    
+    ul.innerHTML = "";
+    if(posts.length === 0) {
+        ul.innerHTML = `<li>현재 등록된 게시물이 없습니다.</li>`;
+        return;
+    }
+    
+    posts.slice(0, 4).forEach(p => {
+        ul.innerHTML += `<li><a href="portal_board.html">${p.title}</a> <span class="meta">${p.author}</span></li>`;
+    });
 }
 
 
