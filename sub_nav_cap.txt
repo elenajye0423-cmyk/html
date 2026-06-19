@@ -1,7 +1,0 @@
-<nav class="sub-nav">
-    <div class="sub-nav-container">
-        <a href="portfolio.html" class="sub-nav-link{active_port}">주요 실적</a>
-        <a href="certifications.html" class="sub-nav-link{active_cert}">인증현황</a>
-        <a href="facilities.html" class="sub-nav-link{active_fac}">주요시설</a>
-    </div>
-</nav>
