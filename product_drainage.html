@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - 배수 및 오폐수 처리</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><span class="logo-icon">💧</span> B.A. TECH</a>
+        <ul class="nav-links">
+                                    <li class="nav-item">
+                <a href="intro.html" data-i18n="nav_intro">기업소개</a>
+                <ul class="dropdown">
+                    <li><a href="intro.html" data-i18n="subnav_overview">기업개요</a></li>
+                    <li><a href="sales_history.html" data-i18n="subnav_history">연혁</a></li>
+                    <li><a href="organization.html" data-i18n="subnav_org">조직도 및 업무분장</a></li>
+                    <li><a href="map.html" data-i18n="subnav_map">찾아오시는 길</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="portfolio.html" data-i18n="nav_portfolio">실적 및 역량</a>
+                <ul class="dropdown">
+                    <li><a href="portfolio.html" data-i18n="subnav_perf">주요 실적</a></li>
+                    <li><a href="certifications.html" data-i18n="subnav_cert">인증현황</a></li>
+                    <li><a href="facilities.html" data-i18n="subnav_facil">주요시설</a></li>
+                </ul>
+            </li>
+
+
+            <li class="nav-item">
+                <a href="product.html" data-i18n="nav_product">주요제품</a>
+                <ul class="dropdown">
+                    <li><a href="product.html" data-i18n="subnav_allprod">전체보기</a></li>
+                    <li><a href="product_supply.html" data-i18n="subnav_supply">급수 및 가압 시스템</a></li>
+                    <li><a href="product_drainage.html" data-i18n="subnav_drain">배수 및 오폐수 처리</a></li>
+                    <li><a href="product_industrial.html" data-i18n="subnav_indus">산업 및 특수 공정</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="notice.html" data-i18n="nav_support">고객지원</a>
+                <ul class="dropdown">
+                    <li><a href="notice.html" data-i18n="subnav_notice">공지사항</a></li>
+<li><a href="faq.html" data-i18n="subnav_faq">자주 묻는 질문</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="video.html" data-i18n="nav_media">홍보센터</a>
+                <ul class="dropdown">
+                    <li><a href="video.html" data-i18n="subnav_video">홍보 영상</a></li>
+                    <li><a href="brochure.html" data-i18n="subnav_brochure">기업 브로슈어</a></li>
+                    <li><a href="cardnews.html" data-i18n="subnav_cardnews">카드뉴스</a></li>
+                </ul>
+            </li>
+            <li><a href="inquiry.html" class="btn-primary-outline" data-i18n="nav_inquiry">문의</a></li>
+            <li class="nav-tools" style="display: flex; align-items: center; gap: 15px; margin-left: 15px;">
+                
+                <select id="lang-select" style="background: transparent; border: 1px solid currentColor; color: inherit; font-size: 0.85rem; font-weight: 700; padding: 4px 8px; border-radius: 12px; cursor: pointer; outline: none;">
+                    <option value="ko" style="color: var(--text-main);">한국어</option>
+                    <option value="en" style="color: var(--text-main);">English</option>
+                </select>
+            </li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+    </div>
+</nav>
+
+<header class="page-hero">
+    <h1 class="title" data-i18n="pg_product_drainage_t">배수 및 오폐수 처리</h1>
+    <p class="description" data-i18n="pg_product_drainage_d">가혹한 환경에서도 멈추지 않는 강력한 배수 및 슬러지 이송 솔루션.</p>
+</header>
+
+<nav class="sub-nav">
+    <div class="sub-nav-container">
+        <a href="product.html" class="sub-nav-link">전체보기</a>
+        <a href="product_supply.html" class="sub-nav-link">급수 및 가압</a>
+        <a href="product_drainage.html" class="sub-nav-link active">배수 및 오폐수</a>
+        <a href="product_industrial.html" class="sub-nav-link">산업 및 특수</a>
+    </div>
+</nav>
+
+<section class="container">
+    <div class="product-grid" style="margin-top: 40px;">
+        
+        <div class="product-card fade-in-up">
+            <div class="product-img">
+                <img src="assets/submersible_pump.png" alt="수중펌프" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;">
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">수중펌프</h3>
+                <div class="info-item">
+                    <span class="label">적용 분야</span>
+                    <span class="role-text">지하 배수, 건설 현장, 침수 방지 시설, 공장 집수정</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">기술적 강점</span>
+                    <span class="role-text">완벽한 방수 구조와 내마모성이 강한 소재를 사용하여 가혹한 수중 환경에서도 장시간 운전이 가능합니다. 이물질 통과 능력이 우수한 임펠러 설계가 특징입니다.</span>
+                </div>
+                <div class="facility-features" style="margin-top: 1.5rem;">
+                    <div class="feature-item"><span class="feature-dot"></span>강력한 이물질 배출 능력 (Non-clog)</div>
+                    <div class="feature-item"><span class="feature-dot"></span>이중 메카니컬 씰 적용으로 누수 완벽 차단</div>
+                    <div class="feature-item"><span class="feature-dot"></span>자동 착탈 장치를 이용한 간편한 유지보수</div>
+                </div>
+                <div class="product-action" style="margin-top: 2rem;">
+                    <button class="view-manual-btn" onclick="toggleManual(this, 'assets/manuals/수중펌프 유지관리지침서.pdf')" style="width: 100%; padding: 12px; font-weight: bold; border-radius: 8px; cursor: pointer; border: 2px solid var(--primary-color); background: transparent; color: var(--primary-color); transition: all 0.3s;">
+                        📄 유지관리지침서 열람하기
+                    </button>
+                </div>
+                <div class="manual-viewer-container" style="display: none; margin-top: 1.5rem; height: 600px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: all 0.3s ease;">
+                    <iframe src="" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card fade-in-up delay-1">
+            <div class="product-img">
+                <img src="assets/sludge_pump.png" alt="슬러지펌프" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;">
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">슬러지펌프</h3>
+                <div class="info-item">
+                    <span class="label">적용 분야</span>
+                    <span class="role-text">하수 처리장, 분뇨 처리 시설, 산업 폐수 처리</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">기술적 강점</span>
+                    <span class="role-text">점도가 높고 입자가 포함된 슬러지를 효율적으로 이송하기 위해 설계되었습니다. 특수 합금 임펠러를 채택하여 마모에 강하며 일정한 토출량을 유지합니다.</span>
+                </div>
+                <div class="facility-features" style="margin-top: 1.5rem;">
+                    <div class="feature-item"><span class="feature-dot"></span>고농도 슬러지 이송에 최적화된 내부 구조</div>
+                    <div class="feature-item"><span class="feature-dot"></span>강력한 흡입력과 막힘 방지 기능</div>
+                    <div class="feature-item"><span class="feature-dot"></span>에너지 효율을 고려한 유체 역학적 설계</div>
+                </div>
+                <div class="product-action" style="margin-top: 2rem;">
+                    <button class="view-manual-btn" onclick="toggleManual(this, 'assets/manuals/슬러지펌프 유지관리지침서.pdf')" style="width: 100%; padding: 12px; font-weight: bold; border-radius: 8px; cursor: pointer; border: 2px solid var(--primary-color); background: transparent; color: var(--primary-color); transition: all 0.3s;">
+                        📄 유지관리지침서 열람하기
+                    </button>
+                </div>
+                <div class="manual-viewer-container" style="display: none; margin-top: 1.5rem; height: 600px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: all 0.3s ease;">
+                    <iframe src="" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">💧</span> B.A. TECH
+                </a>
+                <p class="company-desc">
+                    (주)비에이텍은 깨끗하고 안전한 물 환경을 조성하는<br>
+                    워터펌프 시스템 전문 기업입니다.
+                </p>
+                </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="intro.html" data-i18n="nav_intro">기업소개</a></li>
+                    <li><a href="sales_history.html" data-i18n="subnav_history">연혁</a></li>
+                    <li><a href="certifications.html" data-i18n="subnav_cert">인증현황</a></li>
+                    <li><a href="map.html">오시는 길</a></li>
+                    <li><a href="portal.html" style="color: var(--primary-light);">🔒 사내 포털</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>PR</h4>
+                <ul>
+                    <li><a href="video.html" data-i18n="subnav_video">홍보 영상</a></li>
+                    <li><a href="brochure.html" data-i18n="subnav_brochure">기업 브로슈어</a></li>
+                    <li><a href="cardnews.html" data-i18n="subnav_cardnews">카드뉴스</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="notice.html" data-i18n="subnav_notice">공지사항</a></li>
+<li><a href="inquiry.html">온라인 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p data-i18n="footer_company">상호: 비에이텍 주식회사</p>
+                <p data-i18n="footer_address">주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p data-i18n="footer_tel">전화: 033-264-9243</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 B.A. TECH Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+<script>
+function toggleManual(btn, pdfPath) {
+    const container = btn.parentElement.nextElementSibling;
+    const iframe = container.querySelector('iframe');
+    
+    if (container.style.display === 'none') {
+        iframe.src = pdfPath;
+        container.style.display = 'block';
+        btn.innerHTML = '닫기 ❌';
+        btn.style.background = 'var(--primary-color)';
+        btn.style.color = 'white';
+    } else {
+        container.style.display = 'none';
+        iframe.src = '';
+        btn.innerHTML = '📄 유지관리지침서 열람하기';
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--primary-color)';
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        const newMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+        newMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            newMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    const navItems = document.querySelectorAll('.nav-links > li > a');
+    navItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        newItem.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1080) {
+                const dropdown = newItem.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    e.preventDefault();
+                    newItem.parentElement.classList.toggle('active');
+                }
+            }
+        });
+    });
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Scroll listener for navbar
+    window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        if (navbar) {
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        }
+    });
+});
+</script>
+<script>
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks && navLinks.classList.contains('active')) {
+        if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+            navLinks.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+    }
+});
+</script>
+<script src="lang.js"></script>
+</body>
+</html>

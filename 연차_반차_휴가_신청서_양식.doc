@@ -1,0 +1,66 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>연차/반차 휴가 신청서</title>
+<style>
+    body { font-family: "Malgun Gothic", sans-serif; font-size: 11pt; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+    th, td { border: 1px solid black; padding: 10px; }
+    th { background-color: #f2f2f2; text-align: center; font-weight: bold; }
+    h1 { text-align: center; text-decoration: underline; margin-bottom: 40px; }
+    .sign-box { border: 1px solid black; width: 150px; text-align: center; float: right; margin-bottom: 20px; }
+    .sign-box-title { border-bottom: 1px solid black; background-color: #f2f2f2; padding: 5px; }
+    .sign-box-content { height: 60px; }
+</style>
+</head>
+<body>
+    <h1>연차 / 반차 휴가 신청서</h1>
+    
+    <div class="sign-box">
+        <div class="sign-box-title">부서장 결재</div>
+        <div class="sign-box-content"></div>
+    </div>
+    
+    <div style="clear: both;"></div>
+
+    <table>
+        <tr>
+            <th width="15%">소 속</th>
+            <td width="35%"></td>
+            <th width="15%">직 급</th>
+            <td width="35%"></td>
+        </tr>
+        <tr>
+            <th>성 명</th>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <th>휴가 구분</th>
+            <td colspan="3">
+                [ ] 연차 &nbsp;&nbsp;&nbsp; [ ] 반차 (오전/오후) &nbsp;&nbsp;&nbsp; [ ] 기타 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+            </td>
+        </tr>
+        <tr>
+            <th>기 간</th>
+            <td colspan="3">2026년 &nbsp;&nbsp;월 &nbsp;&nbsp;일 &nbsp;~&nbsp; 2026년 &nbsp;&nbsp;월 &nbsp;&nbsp;일 (총 &nbsp;&nbsp;&nbsp; 일)</td>
+        </tr>
+        <tr>
+            <th>사 유</th>
+            <td colspan="3" style="height: 100px;"></td>
+        </tr>
+        <tr>
+            <th>비상연락망</th>
+            <td colspan="3"></td>
+        </tr>
+    </table>
+    
+    <p style="text-align: center; margin-top: 30px;">위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</p>
+    
+    <p style="text-align: right; margin-top: 50px;">신청일 : 2026년 &nbsp;&nbsp;월 &nbsp;&nbsp;일</p>
+    <p style="text-align: right; margin-top: 10px;">신청자 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)</p>
+    
+    <h3 style="text-align: center; margin-top: 50px;">(주)비에이텍 총무부 귀중</h3>
+</body>
+</html>
