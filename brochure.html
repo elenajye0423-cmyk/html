@@ -486,6 +486,19 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenu && navLinks) {
+        const newMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+        newMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            newMenu.classList.toggle('active');
+        });
+    }
+
     // Scroll listener for navbar
     window.addEventListener("scroll", () => {
         const navbar = document.getElementById("navbar");
