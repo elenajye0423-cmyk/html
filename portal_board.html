@@ -150,28 +150,15 @@
 
         <script>
                 function initBoard() {
-            // 초기 더미 게시물(제가 작성했던 b1, b2)을 강제로 삭제합니다. 사용자님이 테스트한 게시물은 유지됩니다.
-            let currentPosts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
-            let filteredPosts = currentPosts.filter(p => p.id !== "b1" && p.id !== "b2");
-            if (currentPosts.length !== filteredPosts.length) {
-                localStorage.setItem("batech_board_v4", JSON.stringify(filteredPosts));
+            // 익명 게시판 기존 게시물을 초기화합니다.
+            if (!localStorage.getItem("batech_board_reset_done")) {
+                localStorage.setItem("batech_board_v4", JSON.stringify([]));
+                localStorage.setItem("batech_board_reset_done", "true");
             }
 
             if(!localStorage.getItem("batech_board_init_v4")) {
                 let defaultPosts = [];
-                
-                let oldPosts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
-                let v4Posts = [];
-                if(oldPosts.length > 0) {
-                    oldPosts.forEach(p => {
-                        if(!p.password) p.password = "1234"; // default password for old posts
-                        v4Posts.push(p);
-                    });
-                } else {
-                    v4Posts = defaultPosts;
-                }
-                
-                localStorage.setItem("batech_board_v4", JSON.stringify(v4Posts));
+                localStorage.setItem("batech_board_v4", JSON.stringify(defaultPosts));
                 localStorage.setItem("batech_board_init_v4", "true");
             }
         }
