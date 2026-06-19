@@ -184,9 +184,7 @@
                 if(!p.createdAt) {
                     p.createdAt = p.date ? new Date(p.date.replace(/\./g, "-")).toISOString() : new Date().toISOString();
                 }
-                if(!p.author) {
-                    p.author = "익명";
-                }
+                p.author = "익명";
             });
             posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             localStorage.setItem("batech_board_v4", JSON.stringify(posts));
@@ -226,6 +224,7 @@
                 content: content,
                 author: "익명",
                 date: dateStr,
+                createdAt: new Date().toISOString(),
                 password: pwd,
                 comments: []
             });
@@ -244,6 +243,8 @@
             let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
             let p = posts.find(x => x.id === id);
             if(!p) return;
+            p.author = "익명";
+            localStorage.setItem("batech_board_v4", JSON.stringify(posts));
             
             document.getElementById("read-post-id").value = id;
             document.getElementById("read-title").innerText = p.title;
