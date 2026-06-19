@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -42,22 +42,14 @@
         .btn-cancel { background: #e2e8f0; color: #475569; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem; margin-top: 10px; }
     </style>
     <div class="page-header">
-        <h1 id="page-title">공지사항 등록</h1>
-        <p>전사 임직원에게 전달할 주요 안내사항을 작성합니다.</p>
+        <h1>공지사항 등록</h1>
+        <p>전사 임직원에게 전달할 새로운 공지사항을 등록합니다.</p>
     </div>
     <div class="container" style="min-height: 50vh;">
         <div class="write-container">
-            <input type="hidden" id="edit-id" value="">
             <div class="form-group">
                 <label class="form-label">공지 제목</label>
                 <input type="text" id="nw-title" class="form-control" placeholder="예: 2026년 추석 연휴 휴무 안내">
-            </div>
-            <div class="form-group">
-                <label class="form-label">공지 대상</label>
-                <div style="display: flex; gap: 20px; align-items: center; padding: 10px 0;">
-                    <label style="cursor: pointer;"><input type="radio" name="nw-type" value="internal" checked> 🔒 사내 전용 (임직원용)</label>
-                    <label style="cursor: pointer;"><input type="radio" name="nw-type" value="public"> 🌐 고객 공개용 (홈페이지 노출)</label>
-                </div>
             </div>
             <div class="form-group">
                 <label class="form-label">작성 부서</label>
@@ -65,79 +57,38 @@
             </div>
             <div class="form-group">
                 <label class="form-label">공지 내용</label>
-                <textarea id="nw-content" class="form-control" style="height: 300px; resize: none;" placeholder="본문 내용을 상세히 입력하세요... HTML 태그(<p>, <br> 등)를 사용할 수 있습니다."></textarea>
+                <textarea id="nw-content" class="form-control" style="height: 300px; resize: none;" placeholder="본문 내용을 상세히 입력하세요..."></textarea>
             </div>
-            <button class="btn-primary" id="btn-submit" onclick="submitNotice()">공지사항 등록하기</button>
+            <button class="btn-primary" onclick="submitNotice()">공지사항 등록하기</button>
             <button class="btn-cancel" onclick="window.location.href=`portal_notices.html`">취소</button>
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if(sessionStorage.getItem("batech_admin") !== "true") {
-                alert("비정상적인 접근입니다. 관리자 권한이 없습니다.");
-                window.location.href = "portal_notices.html";
-                return;
-            }
-
-            const params = new URLSearchParams(window.location.search);
-            const editId = params.get("edit_id");
-            if(editId) {
-                document.getElementById("page-title").innerText = "공지사항 수정";
-                document.getElementById("btn-submit").innerText = "수정 내용 저장하기";
-                document.getElementById("edit-id").value = editId;
-                
-                let notices = JSON.parse(localStorage.getItem("batech_notices_db") || "[]");
-                let n = notices.find(x => x.id === editId);
-                if(n) {
-                    document.getElementById("nw-title").value = n.title;
-                    let textContent = n.content.replace(/<p>/g, "").replace(/<\/p>/g, "\n\n").replace(/<br\s*[\/]?>/g, "\n").trim();
-                    document.getElementById("nw-content").value = textContent;
-                    if(n.isPublic) { document.querySelector('input[name="nw-type"][value="public"]').checked = true; }
-                    else { document.querySelector('input[name="nw-type"][value="internal"]').checked = true; }
-                }
-            }
-        });
-
         function submitNotice() {
             const title = document.getElementById("nw-title").value;
-            let content = document.getElementById("nw-content").value;
-            let isPublic = document.querySelector('input[name="nw-type"]:checked').value === "public";
+            const content = document.getElementById("nw-content").value;
             
             if(!title || !content) {
                 alert("제목과 내용을 모두 입력해주세요.");
                 return;
             }
 
-            let formattedContent = "<p>" + content.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>") + "</p>";
+            // Get current date
+            const today = new Date();
+            const dateStr = today.getFullYear() + "." + String(today.getMonth()+1).padStart(2, `0`) + "." + String(today.getDate()).padStart(2, `0`);
+            const uniqueId = "cn_" + new Date().getTime();
 
-            let notices = JSON.parse(localStorage.getItem("batech_notices_db") || "[]");
-            const editId = document.getElementById("edit-id").value;
+            let customNotices = JSON.parse(localStorage.getItem("batech_custom_notices") || "[]");
+            customNotices.unshift({
+                id: uniqueId,
+                title: title,
+                date: dateStr,
+                content: content
+            });
+            localStorage.setItem("batech_custom_notices", JSON.stringify(customNotices));
 
-            if(editId) {
-                let idx = notices.findIndex(x => x.id === editId);
-                if(idx !== -1) {
-                    notices[idx].title = title;
-                    notices[idx].content = formattedContent;
-                    notices[idx].isPublic = isPublic;
-                }
-                alert("공지사항이 성공적으로 수정되었습니다.");
-            } else {
-                const today = new Date();
-                const dateStr = today.getFullYear() + "." + String(today.getMonth()+1).padStart(2, `0`) + "." + String(today.getDate()).padStart(2, `0`);
-                const uniqueId = "cn_" + new Date().getTime();
-                
-                notices.unshift({
-                    id: uniqueId,
-                    title: title,
-                    date: dateStr,
-                    content: formattedContent,
-                    isPublic: isPublic
-                });
-                alert("공지사항이 성공적으로 등록되었습니다.");
-            }
-            
-            localStorage.setItem("batech_notices_db", JSON.stringify(notices));
+            alert("공지사항이 성공적으로 등록되었습니다.");
             window.location.href = "portal_notices.html";
         }
     </script>
@@ -156,9 +107,9 @@
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="intro.html">기업소개</a></li>
-                    <li><a href="sales_history.html">연혁</a></li>
-                    <li><a href="certifications.html">인증현황</a></li>
+                    <li><a href="intro.html" data-i18n="nav_intro">기업소개</a></li>
+                    <li><a href="sales_history.html" data-i18n="subnav_history">연혁</a></li>
+                    <li><a href="certifications.html" data-i18n="subnav_cert">인증현황</a></li>
                     <li><a href="map.html">오시는 길</a></li>
                     <li><a href="portal.html" style="color: var(--primary-light);">🔒 사내 포털</a></li>
                 </ul>
@@ -166,24 +117,24 @@
             <div class="footer-links">
                 <h4>PR</h4>
                 <ul>
-                    <li><a href="video.html">홍보 영상</a></li>
-                    <li><a href="brochure.html">기업 브로슈어</a></li>
-                    <li><a href="cardnews.html">카드뉴스</a></li>
+                    <li><a href="video.html" data-i18n="subnav_video">홍보 영상</a></li>
+                    <li><a href="brochure.html" data-i18n="subnav_brochure">기업 브로슈어</a></li>
+                    <li><a href="cardnews.html" data-i18n="subnav_cardnews">카드뉴스</a></li>
                     
                 </ul>
             </div>
             <div class="footer-links">
                 <h4>Customer Support</h4>
                 <ul>
-                    <li><a href="notice.html">공지사항</a></li>
+                    <li><a href="notice.html" data-i18n="subnav_notice">공지사항</a></li>
 <li><a href="inquiry.html">온라인 문의</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
                 <h4>Contact Us</h4>
-                <p>상호: 비에이텍 주식회사</p>
-                <p>주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
-                <p>전화: 033-264-9243</p>
+                <p data-i18n="footer_company">상호: 비에이텍 주식회사</p>
+                <p data-i18n="footer_address">주소: 강원특별자치도 춘천시 퇴계공단2길 64</p>
+                <p data-i18n="footer_tel">전화: 033-264-9243</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -274,6 +225,15 @@ document.addEventListener('click', function(e) {
     }
 });
 </script>
+<div id="fab-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
+    <a href="inquiry.html" id="fab-btn" style="background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 30px; display: flex; align-items: center; justify-content: center; gap: 10px; color: white; font-size: 1.05rem; font-weight: 700; padding: 14px 28px; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4); text-decoration: none; transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 30px rgba(2, 132, 199, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px rgba(2, 132, 199, 0.4)';">
+        <i class="fas fa-file-invoice-dollar"></i> 빠른 견적 문의
+    </a>
+</div>
+
+
+<script src="scroll.js"></script>
+<script src="lang.js"></script>
 </body>
 </html>
 

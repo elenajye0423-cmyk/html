@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -358,29 +358,19 @@ function loadBoardPreview() {
     });
 }
 
-function loadDashNotices() {
-    const ul = document.getElementById("dash-notice-list");
-    let notices = JSON.parse(localStorage.getItem("batech_notices_db") || "[]");
-    if(notices.length === 0) {
-        notices = [
-            { id: 1, title: "[긴급] 전사 시스템 점검 안내 (6/12 00:00~04:00)", author: "IT팀", date: "2026.06.08", views: 45 },
-            { id: 2, title: "2026년 하계 휴가 일정 등록의 건", author: "인사팀", date: "2026.06.05", views: 128 },
-            { id: 3, title: "신규 입사자 OJT 교육 일정 (6/10~6/14)", author: "교육팀", date: "2026.06.02", views: 67 }
-        ];
-        localStorage.setItem("batech_notices_db", JSON.stringify(notices));
-        localStorage.setItem("batech_notices_init", "true");
-    }
 
-    notices.sort((a,b) => new Date(b.date.replace(/\./g, "-")) - new Date(a.date.replace(/\./g, "-")));
-    ul.innerHTML = "";
-    notices.slice(0, 3).forEach(n => {
-        let isNew = new Date().getTime() - new Date(n.date.replace(/\./g, "-")).getTime() < 86400000 * 7;
-        let badge = isNew ? `<span class="badge new" style="margin-right:5px;">N</span>` : ``;
-        ul.innerHTML += `<li><a href="portal_notices.html?view_id=${n.id}">${badge}${n.title}</a> <span class="meta">${n.date}</span></li>`;
-    });
-}
-
-function loadDashScheds() {
+        function loadDashNotices() {
+            const ul = document.getElementById("dash-notice-list");
+            let notices = JSON.parse(localStorage.getItem("batech_notices_db") || "[]");
+            notices.sort((a,b) => new Date(b.date.replace(/\./g, "-")) - new Date(a.date.replace(/\./g, "-")));
+            ul.innerHTML = "";
+            notices.slice(0, 3).forEach(n => {
+                let isNew = new Date().getTime() - new Date(n.date.replace(/\./g, "-")).getTime() < 86400000 * 7;
+                let badge = isNew ? `<span class="badge new" style="margin-right:5px;">N</span>` : ``;
+                ul.innerHTML += `<li><a href="portal_notices.html">${badge}${n.title}</a> <span class="meta">${n.date}</span></li>`;
+            });
+        }
+        function loadDashScheds() {
     const ul = document.getElementById("dash-sched-list");
     let scheds = JSON.parse(localStorage.getItem("batech_scheds_v5") || "{}");
     if(Object.keys(scheds).length === 0) {
