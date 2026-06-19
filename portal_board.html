@@ -152,8 +152,8 @@
                 function initBoard() {
             if(!localStorage.getItem("batech_board_init_v4")) {
                 let defaultPosts = [
-                    { id: "b2", title: "휴게실 안마의자 진짜 너무 좋습니다 ㅠㅠ", content: "최근에 들어온 안마의자 써보신 분 계신가요?\n점심시간에 15분 누워있었는데 피로가 싹 풀리네요.\n총무부 감사합니다!!", author: "익명", date: "2026.06.08", password: "1234", comments: [{id: "c1", author: "익명", text: "저도 내일 점심에 써봐야겠네요 ㅎㅎ", replies: []}, {id: "c2", author: "익명", text: "경쟁이 치열합니다 일찍 가셔야 해요", replies: [{author: "익명", text: "맞아요 점심시간 땡치면 바로 뛰어가야함 ㅋㅋ"}]}] },
-                    { id: "b1", title: "이번 주 금요일 회식 장소 투표 좀 해주세요", content: "이번 주 팀 회식인데 메뉴를 못 정하고 있습니다.\n1. 삼겹살\n2. 회\n3. 곱창\n\n댓글로 의견 좀 남겨주세요!", author: "익명", date: "2026.06.07", password: "1234", comments: [{id: "c3", author: "익명", text: "무조건 1번 삼겹살이죠", replies: []}, {id: "c4", author: "익명", text: "저는 2번 회 추천합니다!", replies: []}] }
+                    { id: "b2", title: "휴게실 안마의자 진짜 너무 좋습니다 ㅠㅠ", content: "최근에 들어온 안마의자 써보신 분 계신가요?\n점심시간에 15분 누워있었는데 피로가 싹 풀리네요.\n총무부 감사합니다!!", author: "익명", date: "2026.06.08", createdAt: "2026-06-08T00:00:00.000Z", password: "1234", comments: [{id: "c1", author: "익명", text: "저도 내일 점심에 써봐야겠네요 ㅎㅎ", replies: []}, {id: "c2", author: "익명", text: "경쟁이 치열합니다 일찍 가셔야 해요", replies: [{author: "익명", text: "맞아요 점심시간 땡치면 바로 뛰어가야함 ㅋㅋ"}]}] },
+                    { id: "b1", title: "이번 주 금요일 회식 장소 투표 좀 해주세요", content: "이번 주 팀 회식인데 메뉴를 못 정하고 있습니다.\n1. 삼겹살\n2. 회\n3. 곱창\n\n댓글로 의견 좀 남겨주세요!", author: "익명", date: "2026.06.07", createdAt: "2026-06-07T00:00:00.000Z", password: "1234", comments: [{id: "c3", author: "익명", text: "무조건 1번 삼겹살이죠", replies: []}, {id: "c4", author: "익명", text: "저는 2번 회 추천합니다!", replies: []}] }
                 ];
                 
                 let oldPosts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
@@ -161,6 +161,10 @@
                 if(oldPosts.length > 0) {
                     oldPosts.forEach(p => {
                         if(!p.password) p.password = "1234"; // default password for old posts
+                        if(!p.createdAt) {
+                            p.createdAt = p.date ? new Date(p.date.replace(/\./g, "-")).toISOString() : new Date().toISOString();
+                        }
+                        p.author = "익명";
                         v4Posts.push(p);
                     });
                 } else {
@@ -176,6 +180,16 @@
             const container = document.getElementById("posts-container");
             container.innerHTML = "";
             let posts = JSON.parse(localStorage.getItem("batech_board_v4") || "[]");
+            posts.forEach(p => {
+                if(!p.createdAt) {
+                    p.createdAt = p.date ? new Date(p.date.replace(/\./g, "-")).toISOString() : new Date().toISOString();
+                }
+                if(!p.author) {
+                    p.author = "익명";
+                }
+            });
+            posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            localStorage.setItem("batech_board_v4", JSON.stringify(posts));
             
             posts.forEach(p => {
                 let count = p.comments ? p.comments.length : 0;
