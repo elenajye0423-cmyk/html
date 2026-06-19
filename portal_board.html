@@ -196,7 +196,7 @@
                 }
                 
                 container.innerHTML += `
-                    <li onclick="openPost(\`${p.id}\`)">
+                    <li onclick="openPost('${p.id}')">
                         <div class="title">${p.title} <span style="color:#ef4444; font-size:0.9rem;">[${count}]</span></div>
                         <div class="meta">
                             <span>${p.author}</span>
@@ -253,7 +253,13 @@
             document.getElementById("read-content").innerText = p.content;
             
             renderComments(p.comments || []);
-            document.getElementById("read-modal").showModal();
+            const dialog = document.getElementById("read-modal");
+            if (dialog.showModal) {
+                dialog.showModal();
+            } else {
+                dialog.style.display = "block";
+                dialog.setAttribute("open", "");
+            }
         }
 
         let pendingBoardAction = null;
