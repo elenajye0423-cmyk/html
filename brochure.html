@@ -186,12 +186,7 @@
 
         
 
-                <div class="brochure-controls text-center fade-in-up" style="margin-bottom: 30px;">
-            <button id="btn-old-brochure" class="btn active" onclick="switchBrochure('old', true)" style="padding: 10px 24px; border-radius: 30px; background: #0284c7; color: white; border: none; margin: 0 5px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">기존 브로슈어</button>
-            <button id="btn-new-brochure" class="btn" onclick="switchBrochure('new', true)" style="padding: 10px 24px; border-radius: 30px; background: #e2e8f0; color: #475569; border: none; margin: 0 5px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">신규 브로슈어</button>
-        </div>
-
-        <!-- 기존 브로슈어 래퍼 -->
+                <!-- 기존 브로슈어 래퍼 -->
         <div class="brochure-slider-window" style="overflow: hidden; width: 100%; max-width: 1100px; margin: 0 auto; transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1);">
     <div class="brochure-slider-track" id="brochure-track" style="display: flex; width: 200%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); transform: translateX(0%); align-items: flex-start;">
         <!-- 기존 브로슈어 래퍼 -->
@@ -345,49 +340,20 @@
             <p style="color: rgba(255,255,255,0.8); font-size: 0.85rem; margin-top: 30px; text-align: center;">※ 텍스트를 자유롭게 복사하여 사용할 수 있는 웹 전용 브로슈어입니다.</p>
         </div>
             </div>
-        <!-- 신규 브로슈어 래퍼 -->
-        <div id="view-new-brochure" style="width: 50%; flex-shrink: 0; text-align: center; padding: 0 20px;">
-            <img src="new_brochure_edited.jpg" alt="신규 브로슈어" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 45px -10px rgba(0,0,0,0.25); display: block;">
-        </div>
-
-                        <script>
-            let currentView = 'old';
-
-            function adjustWindowHeight(view) {
+        <script>
+            function adjustWindowHeight() {
                 const windowEl = document.querySelector('.brochure-slider-window');
-                const targetId = view === 'old' ? 'view-old-brochure' : 'view-new-brochure';
-                const targetEl = document.getElementById(targetId);
-                if (windowEl && targetEl) {
-                    windowEl.style.height = targetEl.offsetHeight + 'px';
+                if (windowEl) {
+                    windowEl.style.height = windowEl.scrollHeight + 'px';
                 }
-            }
-
-            function switchBrochure(view, manual = false) {
-                currentView = view;
-                const track = document.getElementById('brochure-track');
-                if(view === 'old') {
-                    track.style.transform = 'translateX(0%)';
-                    document.getElementById('btn-old-brochure').style.background = '#0284c7';
-                    document.getElementById('btn-old-brochure').style.color = 'white';
-                    document.getElementById('btn-new-brochure').style.background = '#e2e8f0';
-                    document.getElementById('btn-new-brochure').style.color = '#475569';
-                } else {
-                    track.style.transform = 'translateX(-50%)';
-                    document.getElementById('btn-new-brochure').style.background = '#0284c7';
-                    document.getElementById('btn-new-brochure').style.color = 'white';
-                    document.getElementById('btn-old-brochure').style.background = '#e2e8f0';
-                    document.getElementById('btn-old-brochure').style.color = '#475569';
-                }
-                adjustWindowHeight(view);
             }
 
             window.addEventListener('load', () => {
-                setTimeout(() => adjustWindowHeight(currentView), 100);
+                setTimeout(adjustWindowHeight, 100);
             });
-            window.addEventListener('resize', () => {
-                adjustWindowHeight(currentView);
-            });
-        </script></section>
+            window.addEventListener('resize', adjustWindowHeight);
+        </script>
+    </section>
 
 <footer>
         <div class="container footer-content">
@@ -438,49 +404,6 @@
         </div>
     </footer>
 
-    
-    
-    
-                <script>
-            let currentView = 'old';
-
-            function adjustWindowHeight(view) {
-                const windowEl = document.querySelector('.brochure-slider-window');
-                const targetId = view === 'old' ? 'view-old-brochure' : 'view-new-brochure';
-                const targetEl = document.getElementById(targetId);
-                if (windowEl && targetEl) {
-                    windowEl.style.height = targetEl.offsetHeight + 'px';
-                }
-            }
-
-            function switchBrochure(view, manual = false) {
-                currentView = view;
-                const track = document.getElementById('brochure-track');
-                if(view === 'old') {
-                    track.style.transform = 'translateX(0%)';
-                    document.getElementById('btn-old-brochure').style.background = '#0284c7';
-                    document.getElementById('btn-old-brochure').style.color = 'white';
-                    document.getElementById('btn-new-brochure').style.background = '#e2e8f0';
-                    document.getElementById('btn-new-brochure').style.color = '#475569';
-                } else {
-                    track.style.transform = 'translateX(-50%)';
-                    document.getElementById('btn-new-brochure').style.background = '#0284c7';
-                    document.getElementById('btn-new-brochure').style.color = 'white';
-                    document.getElementById('btn-old-brochure').style.background = '#e2e8f0';
-                    document.getElementById('btn-old-brochure').style.color = '#475569';
-                }
-                
-                adjustWindowHeight(view);
-            }
-
-            window.addEventListener('load', () => {
-                adjustWindowHeight(currentView);
-                setTimeout(() => adjustWindowHeight(currentView), 500);
-            });
-            window.addEventListener('resize', () => {
-                adjustWindowHeight(currentView);
-            });
-        </script>
     </div> <!-- end brochure-slider-track -->
 </div> <!-- end brochure-slider-window -->
 
